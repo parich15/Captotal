@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .boton-primario {
+        @apply flex w-full items-center justify-center rounded-md border border-transparent bg-orange-500 px-8 py-3 text-base font-medium text-white hover:bg-orange-600 md:py-4 md:px-10 md:text-lg;
+    }
+
+    .boton-secundario{
+        @apply flex w-full items-center justify-center rounded-md border border-transparent bg-orange-100 px-8 py-3 text-base font-medium text-orange-600 hover:bg-orange-200 md:py-4 md:px-10 md:text-lg;
+    }
+
+    .boton-outline {
+        @apply inline-flex items-center rounded border transition border-orange-500 bg-orange-500 px-8 py-3 text-white hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-orange-500;
+    }
+}
+/* Custom CSS */
+.texto-gradiente,
+.texto-gradiente > * {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.enlacesMovil > li {
+    background: -webkit-linear-gradient(bottom right, #f97316, #ca8a04);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.enlacesMovil > li > a{
+    padding: 0.5em;
+}
+.router-link-active {
+    color: #f97316;
+    background-color: rgb(255 255 255 / 0.05);
+}
+.enlacesMovil .router-link-active {
+    border-radius: 25px;
+    background-color: rgb(255 255 255 / 0.05);
+}
