@@ -8,7 +8,7 @@
                 height="575"
                 width="400"
                 alt="Cursos CAP Inicial y CAP Continuo Bonificados"
-                :src="`http://localhost:8055/assets/${Imagen}`"
+                :src="`http://167.99.198.188:8055/assets/${Imagen}`"
                 class="absolute inset-0 h-full w-full object-cover object-left"
                 />
             </div>

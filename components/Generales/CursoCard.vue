@@ -2,7 +2,7 @@
     <!-- Ficha Mini Curso -->
     <article class="shadow-sm md:hover:scale-105 transition duration-200 ease-linear lg:hover:shadow-xl lg:hover:shadow-orange-500/20 ">
         <div class="relative">
-            <img class=" rounded-t-md" :src="`http://localhost:8055/assets/${Imagen}`">
+            <img class=" rounded-t-md" :src="`http://167.99.198.188:8055/assets/${Imagen}`">
         </div>
 
         <div class="bg-gray-200 border border-gray-200 shadow rounded-b-md">

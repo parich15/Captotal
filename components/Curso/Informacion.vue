@@ -11,11 +11,11 @@
         <div class="lg:translate-y-36" v-if="showSeccion">
             <div class="grid mt-20 gap-20 lg:gap-2" :class="futuro ? 'lg:grid-cols-2' : 'grid-cols-1'">
                 <div class="mx-auto flex flex-col">
-                    <img class=" object-cover" :src="`http://localhost:8055/assets/${actual}`" alt="">
+                    <img class=" object-cover" :src="`http://167.99.198.188:8055/assets/${actual}`" alt="">
                     <h4 class="text-center mt-6 font-titulo text-3xl text-orange-500 font-semibold">Curso actual</h4>
                 </div>
                 <div class="mx-auto flex flex-col" v-if="futuro">
-                    <img :src="`http://localhost:8055/assets/${futuro}`" alt="">
+                    <img :src="`http://167.99.198.188:8055/assets/${futuro}`" alt="">
                     <h4 class="text-center mt-6 font-titulo text-3xl text-orange-500 font-semibold">Próximo Curso</h4>
                 </div>
             </div>
