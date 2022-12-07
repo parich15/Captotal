@@ -22,7 +22,8 @@
 
         <Ventajas
         :Titulo="secciones[3].Content[0].item.Titulo"
-        :Descripcion="secciones[3].Content[1].item.Texto"></Ventajas>
+        :Descripcion="secciones[3].Content[1].item.Texto"
+        ></Ventajas>
 
         <div class="text-gray-900 w-[102vw] md:w-screen block">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#111827" fill-opacity="1" d="M0,96L60,117.3C120,139,240,181,360,197.3C480,213,600,203,720,176C840,149,960,107,1080,112C1200,117,1320,171,1380,197.3L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
@@ -48,14 +49,12 @@ import Ventajas from '../components/Inicio/Ventajas.vue';
 import Empresas from '../components/Inicio/Empresas.vue';
 import Colaboran from '../components/Inicio/Colaboran.vue';
 const {datos, secciones, getPageData, getPageSections } = usePageData();
-
 await getPageData(5)
 await getPageSections(5);
+
 
 useHead({
     title: datos.value.Titulo,
 })
-
-scrollToTop: true
 </script>
 

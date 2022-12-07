@@ -17,7 +17,7 @@
                     </NuxtLink>
                 </div>
             </div>
-            <div class="p-3 min-h-[140px] flex flex-col justify-around ">
+            <div class="p-3 min-h-[145px] flex flex-col justify-around ">
                 <h4 class="font-titulo font-bold uppercase tracking-normal text-xl text-orange-500 subpixel-antialiased">{{Titulo}}</h4>
                 <p class="font-texto text-gray-600 lg:text-regular mb-2">{{Descripcion}}</p>
                 <div class="flex flex-wrap text-xs font-texto text-gray-600 justify-between lg:text-sm">
@@ -51,7 +51,7 @@ const tituloUrl = computed(()=>{
 })
 
 const Descripcion = computed(()=>{
-    if(props.Desc.length >= 75)
+    if(props.Desc.length >= 65)
     return truncar(props.Desc,60);
     else{
         return props.Desc
