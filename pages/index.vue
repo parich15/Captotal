@@ -1,13 +1,14 @@
 <template>
     <main class="bg-gray-50 overflow-hidden" v-show="datos && secciones">
             
-        <Hero :Portada="datos.Portada" :Descripcion="secciones[0].Content[0].item.Texto"></Hero>
+        <!-- <Hero :Portada="datos.Portada" :Descripcion="secciones[0].Content[0].item.Texto"></Hero> -->
+        <InicioCarousel></InicioCarousel>
 
         <SelectorCursos 
             :Titulo="secciones[1].Content[0].item.Titulo"
             :Descripcion="secciones[1].Content[1].item.Texto">
         </SelectorCursos>
-            
+        
         <Bonificados
             :Titulo="secciones[2].Content[0].item.Titulo"
             :Subtitulo="secciones[2].Content[1].item.Titulo"

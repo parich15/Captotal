@@ -2,6 +2,7 @@ export const usePageData = () =>{
     const { getItems } = useDirectusItems();
     const datos = ref(null);
     const secciones = ref(null);
+    const datosCarousel = ref(null);
 
     const getPageData = async (id) => {
         const res = await getItems({
@@ -23,10 +24,27 @@ export const usePageData = () =>{
         
     }
 
+    const getCarouselData = async (id) =>{
+        try {
+            const res = await getItems({
+                collection: '/Carousel/' + id,
+                params: {
+                    fields: "Slide"
+                }
+            })
+            datosCarousel.value = res.Slide;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
     return {
         datos,
         secciones,
+        datosCarousel,
         getPageData,
-        getPageSections
+        getPageSections,
+        getCarouselData
     }
 }

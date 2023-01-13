@@ -26,11 +26,19 @@
 
         <section class="container mx-auto pb-16 lg:pb-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
-                <Contenido></Contenido>
+                <Contenido
+                 v-if="secciones[1]"
+                :Titulo="secciones[1]?.Content[0].item.Titulo"
+                :Subtitulo="secciones[1]?.Content[1].item.Titulo"
+                :Contenido="secciones[1]?.Content[2].item.Texto"
+                ></Contenido>
+
                 <Precios
+                :id="curso.id"
                 :Titulo="curso.Titulo"
                 :Precio="curso.Precio"
-                :Contenidos="curso.Contenidos"></Precios>
+                :Contenidos="curso.Contenidos"
+                @init-checkout="checkout = true"></Precios>
             </div>
         </section>
         <!-- Fin Intro -->
@@ -74,10 +82,11 @@ import BotonExplora from '~~/components/Curso/BotonExplora.vue';
 import Informacion from '~~/components/Curso/Informacion.vue';
 const ruta = useRoute();
 const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
-
+const checkout = ref(false);
 
 await getCursoData(ruta.query.id);
 await getCursoContenido(ruta.query.id);
+
 
 useHead({
     title: curso.value.Titulo + " | Cap Total"

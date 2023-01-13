@@ -27,10 +27,9 @@
 
         <div class="mt-12 text-center">
         <NuxtLink to="/Nosotros"
-            class="boton-primario transform scale-100 hover:scale-105 hover:shadow-md transition-all font-texto font-semibold w-60 mx-auto" 
-            
+            class="boton-primario transform scale-100 hover:scale-105 hover:shadow-md transition-all font-titulo font-semibold w-60 mx-auto"     
         >
-             Sobre Nosotros
+            Sobre Nosotros
         </NuxtLink>
         </div>
     </div>

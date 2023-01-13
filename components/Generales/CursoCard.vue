@@ -21,9 +21,11 @@
                 <h4 class="font-titulo font-bold uppercase tracking-normal text-xl text-orange-500 subpixel-antialiased">{{Titulo}}</h4>
                 <p class="font-texto text-gray-600 lg:text-regular mb-2">{{Descripcion}}</p>
                 <div class="flex flex-wrap text-xs font-texto text-gray-600 justify-between lg:text-sm">
-                    <span class="bg-orange-500 text-white p-1 rounded font-sans font-bold">{{Precio + '€'}}</span>
+                    <div class="flex justify-center items-center bg-orange-500 text-white rounded font-sans font-bold w-10 h-7">
+                        <span class="pb-[2px]">{{Precio + '€'}}</span>
+                    </div>
                     <span class="p-1 animate-pulse text-orange-400 font-titulo font-bold text-lg" v-if="Bonificado">Bonificado</span>
-                    <span class="p-1 text-orange-400 font-titulo font-bold" v-else-if="Activo">Disponible</span>
+                    <span class="p-1 text-orange-400 font-titulo font-bold text-lg" v-else-if="Activo">Disponible</span>
                     <span v-else class=" text-titulo text-red-500 font-semibold">Próximamente</span>
                 </div>
             </div>

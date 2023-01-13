@@ -26,8 +26,20 @@ export const useContactoData = () => {
         }
     }
 
+    const getTopbarInfo = async (id) =>{
+        try {
+            const res = await getItems({
+                collection: 'Topbar/'+id,
+            })
+            return res;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     return {
         getContactoData,
-        getContactoBasico
+        getContactoBasico,
+        getTopbarInfo
     }
 }

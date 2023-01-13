@@ -8,32 +8,22 @@
         <h2 class="text-3xl font-bold sm:text-4xl lg:text-5xl text-gray-700 font-titulo ">{{Titulo}}</h2>
         <div class="mt-3 h-1 w-20 lg:w-12 rounded bg-orange-500 mx-auto lg:mx-0"></div>
         <div class="mt-4 text-gray-500 font-texto text-lg" v-html="Descripcion"></div>
-
-        <NuxtLink to="/Cursos"
-          class="mt-9 boton-outline font-texto font-semibold text-lg hidden md:inline-flex "
-          
-        >
-          <span> Ver todos </span>
-
-          <svg
-            class="ml-3 h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
-        </NuxtLink>
+        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+            <div class="rounded-md shadow">
+              <NuxtLink to="/Cursos" class="boton-primario font-titulo transform scale-100 hover:scale-105 hover:shadow-md transition-all font-bold">
+                <span>Explorar cursos</span> 
+              </NuxtLink>
+            </div>
+            <div class="mt-3 sm:mt-0 sm:ml-3 lg:block">
+              <NuxtLink to="/Permisos" class=" font-titulo boton-secundario transform scale-100 hover:scale-105 hover:shadow-md transition-all  font-bold hover:text-orange-600 hover:bg-transparent hover:bg-orange-200">
+                <span>Permisos profesionales</span>
+              </NuxtLink>
+            </div>
+          </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <Minicurso v-for="curso in cursos.slice(0,6)" :key="curso.id" :id="curso.id" :Titulo="curso.Titulo" :Descripcion="curso.Descripcion" ></Minicurso>
+            <Minicurso v-for="curso in cursos.slice(0,6)" :key="curso.id" :id="curso.id" :Titulo="curso.Titulo" :Descripcion="curso.Descripcion" :Icono="curso.Icono" ></Minicurso>
       </div>
     </div>
   </div>
@@ -44,7 +34,7 @@
 import Minicurso from './Minicurso.vue';
 import {useCursoData} from '@@/composables/useCursoData'
 const {cursos, getAllCursos} = useCursoData();
-const filtros = {filter: {Destacado: true}, fields: 'id, Titulo, Descripcion'};
+const filtros = {filter: {Destacado: true}, fields: 'id, Titulo, Descripcion, Icono'};
 
 defineProps({
     Titulo: {

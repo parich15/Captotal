@@ -7,12 +7,12 @@
         :Subtitulo="secciones[0].Content[1].item.Titulo"
         :Landing="false"></Portada>
 
-        <Introduccion></Introduccion>
          <!-- Separador -->
-         <div class="-translate-y-5 w-[102vw] sm:-translate-y-10 lg:-translate-y-20"> 
+         <!-- <div class="-translate-y-5 w-[102vw] sm:-translate-y-10 lg:-translate-y-20"> 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#111827" fill-opacity="1" d="M0,64L480,128L960,128L1440,192L1440,0L960,0L480,0L0,0Z"></path></svg>
-        </div>
+        </div> -->
         <GridCursos :Titulo="'Nuestros'" :Span="'Permisos'" :params="params"></GridCursos>
+        <Introduccion></Introduccion>
         <Cta breadcrumb="permisos" :enlace="'/Cursos'"></Cta>
     </main>
 </template>

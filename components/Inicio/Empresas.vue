@@ -619,12 +619,7 @@
                
                 <NuxtLink
                   to="/Nosotros"
-                   class="
-                   font-texto
-                   boton-primario
-                   sm:w-3/4
-                   "
-                   >
+                   class="font-texto boton-primario sm:w-3/4">
                Ponte en contacto
                 </NuxtLink>
              </div>

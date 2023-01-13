@@ -29,24 +29,9 @@
                 </a>
                 <NuxtLink
                 to="/Nosotros"
-                class="mt-9 boton-outline font-texto font-semibold text-lg hidden md:inline-flex"
+                class="mt-9 boton-outline font-titulo font-semibold text-lg hidden md:inline-flex"
                 >
                 <span> Contacta con nosotros </span>
-
-                <svg
-                    class="ml-3 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                </svg>
                 </NuxtLink>
             </div>
         </div>

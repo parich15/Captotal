@@ -10,7 +10,10 @@
         </div>
         <!-- Contenedor Central // SOLO TABLET Y PC -->
         <div class="mx-auto hidden lg:block">
-            <h3 class="font-titulo text-orange-400/50">¡Novedad! Cursos CAP Inicial y Continuo 100% Subvencionados, sin ningún coste para ti. Inscríbete ahora!</h3>
+            <NuxtLink :to="topbar.Enlace" class="font-titulo text-orange-400/50 hover:text-orange-500 active:text-orange-500 transition">
+                {{ topbar.Frase }}
+            </NuxtLink>
+            <h3 class="font-titulo text-orange-400/50"></h3>
         </div>
         <!-- Fin Contenedor -->
         <div class="flex gap-1">
@@ -26,8 +29,10 @@
 
 <script setup>
 import { useContactoData } from '~~/composables/useContactoData';
-const {getContactoBasico} = useContactoData()
+const {getContactoBasico, getTopbarInfo} = useContactoData()
 const data = ref(null);
+const topbar = ref(null)
 
 data.value = await getContactoBasico(1);
+topbar.value = await getTopbarInfo(1)
 </script>

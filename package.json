@@ -12,6 +12,7 @@
     "nuxt": "3.0.0-rc.10"
   },
   "dependencies": {
-    "nuxt-directus": "^3.0.3"
+    "nuxt-directus": "^3.0.3",
+    "vue3-carousel": "^0.2.8"
   }
 }

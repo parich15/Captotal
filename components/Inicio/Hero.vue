@@ -15,7 +15,7 @@
             <span class="block text-orange-600 xl:inline"> de CAP y ADR</span>
           </h1>
           <div class="mt-3 text-base font-texto text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 lg:mx-0 font-semibold" v-html="Descripcion"></div>
-          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+          <!-- <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
             <div class="rounded-md shadow">
               <NuxtLink to="/Cursos" class="boton-primario transform scale-100 hover:scale-105 hover:shadow-md transition-all font-texto font-bold">
                 <span>Explorar cursos</span> 
@@ -24,7 +24,7 @@
             <div class="mt-3 sm:mt-0 sm:ml-3 hidden lg:block">
               <a href="#" class="boton-secundario transform scale-100 hover:scale-105 hover:shadow-md transition-all font-texto font-bold">Consigue tu carnet</a>
             </div>
-          </div>
+          </div> -->
         </div>
     </section>
     </div>

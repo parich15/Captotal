@@ -1,5 +1,5 @@
 <template>
-    <section class="container mx-auto mb-20 lg:mb-32 xl:mb-52">
+    <section class="container mx-auto mb-20 lg:mb-32 xl:mb-52 mt-12 lg:mt-32">
         <div class="w-full text-center mb-10 md:mb-20">
             <h4 class="font-titulo font-semibold antialiased text-4xl text-gray-700 tracking-tight md:text-7xl">{{Titulo}} <span class="text-orange-500">{{Span}}</span></h4>
         </div>
