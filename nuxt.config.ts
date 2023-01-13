@@ -28,6 +28,10 @@ export default defineNuxtConfig({
         height: '3px'
     },
 
+    css: [
+        'vue3-carousel/dist/carousel.css'
+    ],
+
     //Modulos
     modules: ['@nuxtjs/tailwindcss', 'nuxt-directus'],
 

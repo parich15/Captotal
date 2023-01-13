@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { usePageData } from '~~/composables/usePageData';
 
