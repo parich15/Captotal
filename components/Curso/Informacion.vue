@@ -39,7 +39,7 @@ const abrirSeccion = () => showSeccion.value = !showSeccion.value
 .calendarios-enter-from,
 .calendarios-leave-to {
     opacity: 0;
-};
+}
 .calendarios-enter-to,
 .calendarios-leave-from {
     opacity: 100%;
