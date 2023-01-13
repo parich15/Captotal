@@ -6,9 +6,11 @@
             <div class="container mx-auto flex h-full justify-center lg:justify-start">
                     <div class="flex flex-col lg:items-start lg:mb-36 lg:justify-end justify-center">
                         <p class="font-texto font-semibold text-gray-600 text-xs lg:text-base  fade-in"> - {{ Tipo }} Destacado -</p>
+                        <NuxtLink :to="Enlace">
                         <h2 class="text-focus-in font-titulo text-3xl font-semibold md:text-5xl text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
                             {{ Titulo }}
                         </h2>
+                        </NuxtLink>
                         <div class="mt-5 hidden lg:block font-texto font-semibold text-xl ml-1 text-gray-700 text-focus-in-delayed" v-html="Texto"></div>
                     </div>
                 </div>
@@ -26,10 +28,10 @@ defineProps({
         type: String,
         required: false
     },
-    // Enlace:{
-    //     type: String, 
-    //     required: true
-    // },
+    Enlace:{
+        type: String, 
+        required: true
+    },
     Imagen: {
         type: String,
         required: true

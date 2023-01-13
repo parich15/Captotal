@@ -9,7 +9,7 @@
 
           <h6 class="mt-2 font-bold font-titulo text-lg lg:text-xl text-orange-500 transition group-hover:text-white">{{Titulo}}</h6>
 
-          <p class="text-gray-400 sm:mt-1 sm:block sm:text-sm sm:text-gray-500 font-texto font-semibold group-hover:text-white">
+          <p class="text-gray-400 sm:mt-1 hidden md:block sm:text-sm sm:text-gray-500 font-texto font-semibold group-hover:text-white">
             {{showDescripcion}}
           </p>
         </NuxtLink>
