@@ -18,8 +18,8 @@
     </div>
     <!-- FORM -->
     <div class="lg:w-1/3 md:w-1/2  flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-      <h2 class=" mb-1 font-titulo font-semibold text-3xl text-gray-700">Contacta con nosotros</h2>
-      <p class="leading-relaxed mb-5 text-gray-600">Post-ironic portland shabby chic echo park, banjo fashion axe</p>
+      <h2 class=" mb-1 font-titulo font-semibold text-3xl text-orange-500">Contacta con nosotros</h2>
+      <p class="leading-relaxed mb-5 text-gray-600 font-texto">Nos pondremos en contacto contigo cuanto antes!</p>
       <form @submit="enviarForm">
         <div class="relative mb-4">
         <label for="Nombre" class="leading-7 text-sm text-gray-600">Nombre</label>
@@ -60,7 +60,7 @@
       </button>
         <p class="my-2 font-texto text-orange-500" v-if="Enviado">Enviado correctamente</p>
         <p class="text-sm text-red-500" v-if="Error">Ha habido un error, si el error persiste, contacta con nostros por <a href="mailto:info@captotal.com" class="font-semibold underline">email.</a></p>
-        <p class="text-xs text-gray-500 mt-3 font-texto font-light">blog helvetica normcore iceland tousled brook viral artisan.</p>
+        <p class="text-xs text-gray-500 mt-3 font-texto font-light">No utilizamos los datos para fines comerciales, tan solo para contactar contigo.</p>
       </form>
     </div>
   </div>

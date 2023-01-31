@@ -4,14 +4,17 @@
             <div class="flex flex-col text-center">
                 <h3 class="font-titulo font-semibold text-xl text-gray-600 lg:text-2xl lg:mb-3">Datos del curso</h3>
                 <!-- <hr class="w-10/12 mx-auto border-orange-200"> -->
-                <div class="grid grid-cols-3 py-3">
-                    <div>
+                <div
+                :class="tipo === 'Carnet' ? 'grid-cols-2' : 'grid-cols-3'"
+                class="grid py-3">
+                    <div v-if="tipo != 'Carnet'">
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Duración</p>
                         <span class="font-texto font-bold text-orange-500 lg:text-xl">{{duracion}}</span>
                     </div>
                     <div class="border-r border-l">
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Precio</p>
                         <span class="font-texto font-bold text-orange-500 lg:text-2xl hover:underline cursor-pointer animate-pulse hover:animate-none" v-if="bonificado" @click="mostrarInfo">Bonificado</span>
+                        <span class="font-texto font-bold text-orange-500 text-sm lg:text-xl" v-if="precio == '000'">Contacta con nosotros</span>
                         <span class="font-texto font-bold text-orange-500 lg:text-xl" v-else>{{precio}} €</span>
                     </div>
                     <div>
@@ -43,7 +46,8 @@ defineProps({
     precio: String,
     fecha: String,
     documentacion: Array,
-    bonificado: Boolean
+    bonificado: Boolean,
+    tipo: String,
 })
 const showBonificacionInfo = ref(false);
 const cerrarInfo = () => showBonificacionInfo.value = false;

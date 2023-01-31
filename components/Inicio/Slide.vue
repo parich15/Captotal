@@ -1,18 +1,29 @@
 <template>
     <div class="relative lg:h-[600px]">
-        <img :src="'http://167.99.198.188:8055/assets/'+Imagen+'?fit=cover&quality=70'" alt="">
-        <div class="absolute top-0 h-full w-full bg-gray-100 opacity-60 z-10"></div>
+        
+            <img
+            class=" object-cover h-[650px] w-auto object-center lg:object-bottom xl:w-screen xl:object-center" 
+            :src="'http://167.99.198.188:8055/assets/'+Imagen+'?fit=cover&quality=70'" alt="">
+
+        <div class="absolute top-0 h-full w-full bg-gray-100 opacity-80 z-10"></div>
         <div class="absolute top-0 h-full w-full z-20">
-            <div class="container mx-auto flex h-full justify-center lg:justify-start">
-                    <div class="flex flex-col lg:items-start lg:mb-36 lg:justify-end justify-center">
-                        <p class="font-texto font-semibold text-gray-600 text-xs lg:text-base  fade-in"> - {{ Tipo }} Destacado -</p>
+            <div class="container mx-auto flex flex-col h-full justify-center lg:justify-start">
+                    <div class="flex flex-grow flex-col lg:items-start lg:ml-12 lg:mb-36 lg:justify-end justify-center">
+                        <p class="font-titulo font-semibold text-gray-500 text-xl pb-1 lg:text-orange-500 fade-in">{{ Tipo }} Destacado</p>
                         <NuxtLink :to="Enlace">
-                        <h2 class="text-focus-in font-titulo text-3xl font-semibold md:text-5xl text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
+                        <h2 :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
+                        class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
                             {{ Titulo }}
                         </h2>
                         </NuxtLink>
-                        <div class="mt-5 hidden lg:block font-texto font-semibold text-xl ml-1 text-gray-700 text-focus-in-delayed" v-html="Texto"></div>
-                    </div>
+                        <div class="mt-3 hidden lg:block font-titulo font-semibold text-xl ml-1 text-gray-600 text-focus-in-delayed" v-html="Texto"></div>
+                        <button 
+                        @click="$router.push(Enlace)"
+                        class="hidden lg:block py-2 px-3 bg-orange-500/70 text-white font-titulo font-semibold rounded text-focus-in-delayed mt-3 hover:bg-orange-500 transition">Ir al {{ Tipo.toLocaleLowerCase() }}</button>
+                    </div> 
+                    <button 
+                        @click="$router.push(Enlace)"
+                        class="block lg:hidden w-2/3 mx-auto -translate-y-12 py-2 px-3 bg-orange-500/70 text-white font-titulo font-semibold rounded text-focus-in-delayed hover:bg-orange-500 transition">Ir al {{ Tipo.toLocaleLowerCase() }}</button>
                 </div>
             </div>
         </div>

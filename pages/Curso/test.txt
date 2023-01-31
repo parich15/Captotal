@@ -17,21 +17,20 @@
         :fecha="curso.fecha_inicio"
         :documentacion="curso.Documentacion"
         :bonificado="curso.Bonificado"
-        :tipo="curso.Tipo" 
         ></Datos>
 
         <Introduccion
         :Titulo="secciones[0].Content[0].item.Titulo"
         :Subtitulo="secciones[0].Content[1].item.Titulo"
-        :Texto="secciones[0].Content[2]?.item.Texto"></Introduccion>
+        :Texto="secciones[0].Content[2].item.Texto"></Introduccion>
 
         <section class="container mx-auto pb-16 lg:pb-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
                 <Contenido
                  v-if="secciones[1]"
-                :Titulo="secciones[1]?.Content[0]?.item.Titulo"
-                :Subtitulo="secciones[1]?.Content[1]?.item.Titulo"
-                :Contenido="secciones[1]?.Content[2]?.item.Texto"
+                :Titulo="secciones[1]?.Content[0].item.Titulo"
+                :Subtitulo="secciones[1]?.Content[1].item.Titulo"
+                :Contenido="secciones[1]?.Content[2].item.Texto"
                 ></Contenido>
 
                 <Precios
@@ -69,26 +68,3 @@
         <BotonExplora></BotonExplora>
     </main>
 </template>
-<script setup>
-import {useCursoData} from '~~/composables/useCursoData';
-import Portada from '~~/components/Generales/Portada.vue';
-import Datos from '~~/components/Curso/Datos.vue';
-import Introduccion from '~~/components/Curso/Introduccion.vue';
-import Contenido from '~~/components/Curso/Contenido.vue';
-import Precios from '~~/components/Curso/Precios.vue';
-import Ventajas from '~~/components/Inicio/Ventajas.vue';
-import CursoBonificados from '~~/components/Curso/CursoBonificados.vue';
-import BotonExplora from '~~/components/Curso/BotonExplora.vue';
-import Informacion from '~~/components/Curso/Informacion.vue';
-const ruta = useRoute();
-const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
-const checkout = ref(false);
-
-await getCursoData(ruta.query.id);
-await getCursoContenido(ruta.query.id);
-
-
-useHead({
-    title: curso.value.Titulo + " | Cap Total"
-})
-</script>

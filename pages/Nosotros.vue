@@ -7,10 +7,21 @@
         :Texto="secciones[0].Content[2].item.Texto"
         :Landing="false">
         </Portada>
-
-        <NosotrosPresentacion></NosotrosPresentacion>
-        <NosotrosSpeech></NosotrosSpeech>
-        <GeneralesGridBlog></GeneralesGridBlog>
+        <NosotrosPresentacion
+        :textoPrincipal="secciones[1].Content[2].item.Texto"
+        :col1Tit="secciones[2].Content[0].item.Titulo"
+        :col1Txt="secciones[2].Content[1].item.Texto"
+        :col2Tit="secciones[2].Content[2].item.Titulo"
+        :col2Txt="secciones[2].Content[3].item.Texto"
+        :col3Tit="secciones[2].Content[4].item.Titulo"
+        :col3Txt="secciones[2].Content[5].item.Texto"
+        :col4Tit="secciones[2].Content[6].item.Titulo"
+        :col4Txt="secciones[2].Content[7].item.Texto">
+        </NosotrosPresentacion>
+        <NosotrosSpeech
+        :texto="secciones[3].Content[1].item.Texto">
+        </NosotrosSpeech>
+        <GeneralesGridBlog class="hidden"></GeneralesGridBlog>
         <NosotrosContacto></NosotrosContacto>
         <GeneralesCta breadcrumb="detalles" enlace="/Cursos"></GeneralesCta>
     </main>
@@ -18,7 +29,8 @@
 
 <script setup>
 import {usePageData} from '../composables/usePageData';
-import Portada from '../components/Generales/Portada.vue'
+import Portada from '../components/Generales/Portada.vue';
+
 //Head y SEO
 useHead({
     title: 'Sobre Nosotros | Cap Total'

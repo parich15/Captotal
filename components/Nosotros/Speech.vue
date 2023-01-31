@@ -7,7 +7,7 @@
       </div>
       <div class="flex flex-col sm:flex-row mt-10">
         <div class=" sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-          <p class="leading-relaxed text-lg mb-4 font-texto">Meggings portland fingerstache lyft, post-ironic fixie man bun banh mi umami everyday carry hexagon locavore direct trade art party. Locavore small batch listicle gastropub farm-to-table lumbersexual salvia messenger bag. Coloring book flannel truffaut craft beer drinking vinegar sartorial, disrupt fashion axe normcore meh butcher. Portland 90's scenester vexillologist forage post-ironic asymmetrical, chartreuse disrupt butcher paleo intelligentsia pabst before they sold out four loko. 3 wolf moon brooklyn.</p>
+          <div class="leading-relaxed text-lg mb-4 font-texto" v-html="texto"></div>
          
           <span class="text-orange-500 inline-flex items-center font-semibold text-sm font-titulo">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-4 h-4 mr-2">
@@ -23,9 +23,8 @@
 </template>
 
 <script setup>
-
+defineProps({
+  texto: String
+})
 </script>
 
-<style lang="scss" scoped>
-
-</style>
