@@ -1,6 +1,6 @@
 <template>
     <carousel 
-     :items-to-show="1" :wrap-around="true" :transition="500" >
+     :items-to-show="1" :wrap-around="true" :transition="500" :autoplay="5000" :mouse-drag="true">
         <slide v-for="datos in datosCarousel" :key="datos">
             <InicioSlide 
             :Titulo="datos.Titulo" 
