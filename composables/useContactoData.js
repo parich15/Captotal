@@ -1,12 +1,14 @@
 export const useContactoData = () => {
     const { getItems } = useDirectusItems();
+    const data = ref(null);
     
     const getContactoData = async (id) =>{
         try {
             const res = await getItems({
                 collection: 'Contacto/' + id,
             })
-            return res;
+            data.value = res;
+            return data;
         } catch (e) {
             console.log(e)
         }
@@ -20,7 +22,8 @@ export const useContactoData = () => {
                     fields: 'Telefono,Email'
                 }
             });
-            return res;
+            data.value = res;
+            return data;
         } catch (e) {
             console.log(e);
         }
@@ -38,6 +41,7 @@ export const useContactoData = () => {
     }
 
     return {
+        data,
         getContactoData,
         getContactoBasico,
         getTopbarInfo

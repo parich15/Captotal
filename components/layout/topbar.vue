@@ -29,10 +29,9 @@
 
 <script setup>
 import { useContactoData } from '~~/composables/useContactoData';
-const {getContactoBasico, getTopbarInfo} = useContactoData()
-const data = ref(null);
+const {data ,getContactoBasico, getTopbarInfo} = useContactoData()
 const topbar = ref(null)
 
-data.value = await getContactoBasico(1);
+await getContactoBasico(1);
 topbar.value = await getTopbarInfo(1)
 </script>

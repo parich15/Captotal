@@ -6,13 +6,16 @@
       <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md opacity-100 group-hover:opacity-0 transition duration-500 ease-in-out">
         <div class="lg:w-1/2 px-6">
           <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">DIRECCION</h2>
-          <p class="mt-1 font-texto">Photo booth tattooed prism, portland taiyaki hoodie neutra typewriter</p>
+          <p class="mt-1 font-texto">{{ data.Calle }}</p>
+          <p class="mt-1 font-texto text-xs lg:text-base" v-if="data.Calle_2 != null">{{ data.Calle_2 }}</p>
         </div>
         <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
           <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
           <a class="text-orange-500 leading-relaxed font-texto">{{data.Email}}</a>
-          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">TELÉFONO</h2>
-          <p class="leading-relaxed">{{data.Telefono}}</p>
+          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">TELÉFONOS</h2>
+          <p class="leading-relaxed font-texto mt-1">{{data.Telefono}}</p>
+          <p class="leading-relaxed font-texto" v-if="data.Movil">{{data.Movil}}</p>
+
         </div>
       </div>
     </div>
@@ -22,19 +25,19 @@
       <p class="leading-relaxed mb-5 text-gray-600 font-texto">Nos pondremos en contacto contigo cuanto antes!</p>
       <form @submit="enviarForm">
         <div class="relative mb-4">
-        <label for="Nombre" class="leading-7 text-sm text-gray-600">Nombre</label>
+        <label for="Nombre" class="leading-7 text-sm text-gray-600 font-titulo">Nombre</label>
         <input v-model="Nombre" type="text" id="Nombre" name="Nombre" class="w-full bg-white rounded border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative mb-4">
-        <label for="Email" class="leading-7 text-sm text-gray-600">Email</label>
+        <label for="Email" class="leading-7 text-sm text-gray-600 font-titulo">Email</label>
         <input v-model="Email" type="email" id="Email" name="Email" class="w-full bg-white rounded border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative mb-4">
-        <label for="Telefono" class="leading-7 text-sm text-gray-600">Telefono</label>
+        <label for="Telefono" class="leading-7 text-sm text-gray-600 font-titulo">Telefono</label>
         <input v-model="Telefono" type="number" id="Telefono" name="Telefono" class="w-full bg-white rounded border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative mb-4">
-        <p for="Tipo" class="leading-7 text-sm text-gray-600">Contacto como</p>
+        <p for="Tipo" class="leading-7 text-sm text-gray-600 font-titulo">Contacto como</p>
         <div class="flex justify-evenly">
           <div>
              <input v-model="Tipo" type="radio" id="Empresa" name="Tipo" class=" h-4 w-4 border-gray-300  focus:ring-none" value="1">
@@ -47,7 +50,7 @@
         </div>
       </div>
       <div class="relative mb-4">
-        <label for="message" class="leading-7 text-sm text-gray-600">Mensaje</label>
+        <label for="message" class="leading-7 text-sm text-gray-600 font-titulo">Mensaje</label>
         <textarea v-model="Mensaje" id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
       </div>
       <button type="submit" class=" w-full text-white bg-orange-400 border-0 py-2 px-6 focus:outline-none hover:bg-orange-500 rounded text-lg transition font-titulo font-semibold enabled:hover:scale-95  disabled:hover:bg-gray-200 disabled:bg-gray-200" :disabled="comprobacionCampos">
@@ -70,9 +73,9 @@
 <script setup>
 import { useContactoData } from '~~/composables/useContactoData';
 const { createItems } = useDirectusItems();
-const {getContactoBasico} = useContactoData()
-const data = ref(null);
-data.value = await getContactoBasico(1);
+const {data, getContactoData} = useContactoData()
+
+await getContactoData(1);
 
 //Datos Form
 const Cargando  = ref(false);
