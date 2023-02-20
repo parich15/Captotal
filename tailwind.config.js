@@ -13,7 +13,7 @@ module.exports = {
       fontFamily:{
         'titulo' : ['League Spartan', 'sans-serif'],
         'texto'  : ['Nunito', 'sans-serif']
-      }
+      },
     },
   },
   plugins: [],

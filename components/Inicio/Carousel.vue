@@ -7,7 +7,8 @@
             :Texto="datos.Texto"
             :Imagen="datos.Imagen"
             :Enlace="datos.Enlace"
-            :Tipo="datos.Tipo"></InicioSlide>
+            :Tipo="datos.Tipo">
+          </InicioSlide>
         </slide>
 
     <template #addons>

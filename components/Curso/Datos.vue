@@ -11,13 +11,15 @@
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Duración</p>
                         <span class="font-texto font-bold text-orange-500 lg:text-xl">{{duracion}}</span>
                     </div>
-                    <div class="border-r border-l">
+                    <div
+                    :class="tipo === 'Carnet' ? '' : 'border-l'"
+                    class="border-r">
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Precio</p>
                         <span class="font-texto font-bold text-orange-500 lg:text-2xl hover:underline cursor-pointer animate-pulse hover:animate-none" v-if="bonificado" @click="mostrarInfo">Bonificado</span>
                         <span class="font-texto font-bold text-orange-500 text-sm lg:text-xl" v-if="precio == '000'">Contacta con nosotros</span>
                         <span class="font-texto font-bold text-orange-500 lg:text-xl" v-else>{{precio}} €</span>
                     </div>
-                    <div>
+                    <div v-if="fecha">
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Fecha Inicio</p>
                         <span class="font-texto font-bold text-orange-500 lg:text-xl">{{new Date(fecha).toLocaleDateString()}}</span>
                     </div>

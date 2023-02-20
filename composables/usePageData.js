@@ -24,6 +24,16 @@ export const usePageData = () =>{
         
     }
 
+    const getBloquesSections = async (id) => {
+        const res =  await getItems({
+            collection: 'Bloques_Estaticos/' + id,
+            params:{
+                fields: 'Contenido.Content.item.*'
+            }
+        });
+        return res;
+    }
+
     const getCarouselData = async (id) =>{
         try {
             const res = await getItems({
@@ -45,6 +55,7 @@ export const usePageData = () =>{
         datosCarousel,
         getPageData,
         getPageSections,
+        getBloquesSections,
         getCarouselData
     }
 }

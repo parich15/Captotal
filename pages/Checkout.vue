@@ -69,43 +69,43 @@
                         <h5 class="pl-3 font-titulo font-semibold text-lg text-orange-400 mt-2">Datos personales</h5>
                         <div class="flex flex-col p-3">
                             <label class="mb-2 font-titulo font-semibold text-gray-500" for="Nombre" >Dinos tu nombre</label>
-                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="text" name="Nombre" id="" placeholder="Tu nombre..." v-model="datos.Nombre">
+                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="Nombre" id="" placeholder="Tu nombre..." v-model="datos.Nombre">
                         </div>
                         <div class="flex flex-col p-3 ">
                             <label class="mb-2 font-titulo font-semibold text-gray-500" for="Apellidos">Y tus apellidos</label>
-                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="text" name="Apellidos" id="" placeholder="Tus apellidos..." v-model="datos.Apellidos">
+                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="Apellidos" id="" placeholder="Tus apellidos..." v-model="datos.Apellidos">
                         </div>
                         <div class="flex flex-col p-3 ">
-                            <label class="mb-2 font-titulo font-semibold text-gray-500" for="Telefono">Un telefono para contactar contigo</label>
-                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="number" name="Telefono" id="" placeholder="Ej: 93123456" v-model="datos.Telefono">
+                            <label class="mb-2 font-titulo font-semibold text-gray-500" for="Telefono">Un teléfono para contactar contigo</label>
+                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="number" name="Telefono" id="" placeholder="Ej: 93123456" v-model="datos.Telefono">
                         </div>
                         <div class="flex flex-col p-3 ">
                             <label class="mb-2 font-titulo font-semibold text-gray-500" for="Email">Tu correo para registrarte como alumno</label>
-                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="text" name="Email" id="" placeholder="Tu Email" v-model="datos.Email">
+                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="Email" id="" placeholder="Tu Email" v-model="datos.Email">
                         </div>
                         <div class="flex flex-col p-3 ">
-                            <label class="mb-2 font-titulo font-semibold text-gray-500" for="NieNif">Finalmente tu DNI (o Nie)</label>
-                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded mb-3" required  type="text" name="NieNif" placeholder="Dni o Nie" v-model="datos.NieNif">
+                            <label class="mb-2 font-titulo font-semibold text-gray-500" for="NieNif">Finalmente tu DNI (o NIE)</label>
+                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded mb-3" required  type="text" name="NieNif" placeholder="DNI o NIE" v-model="datos.NieNif">
                         </div>
                         <hr class="p-3">
                         <h5 class="pl-3 font-titulo font-semibold text-lg text-orange-400">Datos de pago</h5>
                         <div class="flex flex-col p-3">
                             <label class="mb-2 font-titulo font-semibold text-gray-500" for="NumTjt">Número Tarjeta</label>
-                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="number" name="NumTjt" id="" placeholder="Ej: 4637382899123" v-model="datos.pago.NumTjt">
+                            <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="number" name="NumTjt" id="" placeholder="Ej: 4637382899123" v-model="datos.pago.NumTjt">
                         </div>
                         <div class="flex p-3 mb-5">
                             <div class="flex flex-col w-1/2 p-1">
                                 <label class="mb-2 font-titulo font-semibold text-gray-500" for="FechaTjt">Fecha</label>
-                                <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="text" name="FechaTjt" id="" placeholder="01/23" v-model="datos.pago.FechaTjt">
+                                <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="FechaTjt" id="" placeholder="01/23" v-model="datos.pago.FechaTjt">
                             </div>
                             <div class="flex flex-col w-1/2 p-1">
-                                <label class="mb-2 font-titulo font-semibold text-gray-500" for="CVC">Codigo Secreto</label>
-                                <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 transition rounded" required type="number" name="CVC" id="" placeholder="123" v-model="datos.pago.Cvc">
+                                <label class="mb-2 font-titulo font-semibold text-gray-500" for="CVC">CVC</label>
+                                <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="number" name="CVC" id="" placeholder="123" v-model="datos.pago.Cvc">
                             </div>
                         </div>
 
                         <div class="flex justify-center mb-3">
-                            <button class="disabled:bg-gray-400 bg-orange-500 w-2/3 h-10 rounded font-titulo font-semibold text-white text-xl focus:outline-none focus:scale-105 transition">Inscribirme en el curso</button>
+                            <button class="disabled:bg-gray-400 bg-orange-500 w-2/3 h-10 rounded font-titulo font-semibold text-white text-xl focus:outline-none focus:scale-105 lg:focus:scale-100 transition">Inscribirme en el curso</button>
                         </div>
                     </form>
                 </div>
