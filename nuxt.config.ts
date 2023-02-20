@@ -45,8 +45,5 @@ export default defineNuxtConfig({
     //Directus
     directus: {
         url: 'http://167.99.198.188:8055/',
-    },
-
-    // Server Config
-    buildModules: ['@averjs/nuxt-compression']
+    }
 })
