@@ -45,5 +45,12 @@ export default defineNuxtConfig({
     //Directus
     directus: {
         url: 'http://167.99.198.188:8055/',
+    },
+
+    // Api y Env
+    runtimeConfig:{
+        public:{
+            adminToken: process.env.ADMIN_TOKEN,
+        }
     }
 })

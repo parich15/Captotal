@@ -73,7 +73,10 @@
 <script setup>
 import { useContactoData } from '~~/composables/useContactoData';
 const { createItems } = useDirectusItems();
+const { createNotification } = useDirectusNotifications();
+const { getItems } = useDirectusItems();
 const {data, getContactoData} = useContactoData()
+const runtimeConfig = useRuntimeConfig();
 
 await getContactoData(1);
 
@@ -102,6 +105,25 @@ const enviarForm = async (evt) => {
       }
     
     await createItems({collection:"Mensajes",items});
+    let id = await getItems({
+      collection:"Mensajes",
+      params:{
+        fields: "id",
+        sort: "-id",
+        limit: 1,
+        access_token: runtimeConfig.adminToken
+      }
+    })
+    await createNotification({
+      notification:{
+        status: "inbox",
+        recipient: "24d09644-0c69-40da-a599-c003af59033a",
+        subject: "Nuevo Mensaje",
+        message: "Hay un nuevo mensaje en la colección de mensajes",
+        collection: "Mensajes",
+        item: id[0].id
+      }
+    })
 
     Cargando.value = false;
     Enviado.value = true;

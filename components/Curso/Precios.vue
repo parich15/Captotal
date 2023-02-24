@@ -43,9 +43,10 @@
           <p class="text-xs text-gray-500 mt-3 ml-1">{{Frase}}</p>
 
           <!-- Form Contacto  -->
-          <div class="border-t mt-3 block h-auto">
+          <div class="border-t mt-3 block relative" >
             <Transition name="formulario">
-              <div class="flex flex-col flex-wrap mt-3 relative" v-show="mostrarFormulario">
+              <div class="block" v-show="mostrarFormulario">
+                <div class="flex flex-col flex-wrap mt-3" >
                 <a href="tel:+34930107462" class="flex items-center w-full font-titulo  font-semibold text-white bg-orange-400 rounded py-2 px-4 tracking-wide sm:hidden">
                   <span>Llámanos y infórmate</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 fill-white ml-auto">
@@ -57,20 +58,26 @@
                   <h3 class="font-titulo font-bold text-gray-500 text-2xl tracking-wide leading-6">  
                     Déjanos tus datos y nos pondremos en contacto!
                   </h3>
-      
-                  <form class="mt-3 flex flex-wrap">
+                  <form class="mt-3 flex flex-wrap" @submit="enviarForm">
                     <label class="font-titulo text-sm font-semibold text-gray-400 " for="Nombre">Dinos tu nombre</label>
-                      <input required class="w-full bg-gray-300 border-b-2 mb-1 border-gray-300 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold text-gray-700 px-1" type="text" name="Nombre"> 
+                      <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" name="Nombre" v-model="userData.Nombre"> 
                     <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Tu telefono</label>
-                      <input required class="w-full bg-gray-300 border-b-2 mb-1 border-gray-300 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold text-gray-700 px-1" type="number">
+                      <input pattern="tel" required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="number" v-model="userData.Telefono">
                     <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Y tu email</label>
-                      <input required class="w-full bg-gray-300 border-b-2 mb-1 border-gray-300 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold text-gray-700 px-1" type="text">
+                      <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" v-model="userData.Email">
                     <span class="text-xs mt-1 mb-2 text-gray-500">Los datos serán usados únicamente para contactar contigo y no se utilizarán para finalidades comerciales.</span>
-                    <button v-if="!enviando" class="flex px-4 py-2 font-titulo text-white bg-orange-400 rounded font-semibold mt-2">Enviar</button>
+                    <button v-if="!enviando" class="flex px-4 py-2 font-titulo text-white bg-orange-400 rounded font-semibold mt-2 disabled:bg-gray-500" :disabled="!formCompleto" type="submit">Enviar</button>
                     <button v-else class="flex px-4 py-2 font-titulo text-white bg-orange-400 rounded font-semibold mt-2">Enviando</button>
                   </form>
+                  <Transition name="appear">
+                  <div v-show="mensajeEnviado" class="font-titulo text-xl text-green-400 mt-3 -mb-2 text-center">
+                    <p>Enviado correctamente</p>
+                  </div>
+                </Transition>
                 </div>
               </div>
+              </div>
+              
             </Transition>
             </div>
           <!-- End Form -->
@@ -82,6 +89,11 @@
 
 <script setup>
 import { useCheckout } from '~~/composables/useCheckout';
+const { createItems } = useDirectusItems();
+const { createNotification } = useDirectusNotifications();
+const { getItems } = useDirectusItems();
+const runtimeConfig = useRuntimeConfig();
+
 //Props
 const props = defineProps({
   id: {
@@ -130,8 +142,77 @@ const initCheckout = async () => {
 const mostrarFormulario = ref(false);
 const toggleFormulario = () => mostrarFormulario.value = !mostrarFormulario.value;
 const enviando = ref(false);
+const mensajeEnviado = ref(false);
+const userData = reactive({
+  Nombre: null,
+  Email: null,
+  Telefono: null
+});
 
+const formCompleto = computed(()=>{
+  if(
+    userData.Nombre != null && userData.Nombre != "" && 
+    userData.Email != null  && userData.Email != "" &&
+    userData.Telefono != null && userData.Telefono != ""){
+    return true;
+  }else{
+    return false;
+  }
+})
 
+const enviarForm = async (e) =>{
+  e.preventDefault();
+  enviando.value = true;
+  try {
+    let items = [{
+    Nombre: userData.Nombre,
+    Email: userData.Email,
+    Telefono: userData.Telefono,
+    Curso: ruta.query.id,
+    Centro: 1
+    }];
+    
+    await createItems({
+      collection: 'Interesados',
+      items
+    });
+
+    let ids = await getItems({
+      collection: "Interesados",
+      params:{
+        fields: "id",
+        sort: "-id",
+        limit: 1,
+        access_token: runtimeConfig.adminToken
+      }
+    })
+    
+    await createNotification({
+      notification: {
+        status: "inbox",
+        recipient: "24d09644-0c69-40da-a599-c003af59033a",
+        subject: "Nuevo interesado | Curso: "+ props.Titulo,
+        message: "Hay un nuevo registro en la colección de Interesados",
+        collection: "Interesados",
+        item: ids[0].id
+      }
+    });
+
+    enviando.value = false;
+    userData.Nombre = '', userData.Email = '', userData.Telefono = '';
+    mostrarMensaje();
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const mostrarMensaje = () => {
+  mensajeEnviado.value = true;
+  setTimeout(()=>{
+    mensajeEnviado.value = false;
+    mostrarFormulario.value = false;
+  },2500)
+}
 
 //Ejecutamos
 onMounted(async ()=>{
@@ -140,20 +221,34 @@ onMounted(async ()=>{
 </script>
 
 <style>
+/* Transicion Formulario */
 .formulario-enter-from,.formulario-leave-to {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
   opacity: 0;
-  height: 0;
 }
-
-.formulario-enter-to, .formulario-leave-from {
+.formulario-enter-to{
   opacity: 1;
   transform: translateY(0px);
-  height: max-content;
+}
+.formulario-leave-from {
+  opacity: .75;
+  transform: translateY(0px);
+}
+.formulario-enter-active {
+  transition: opacity 300ms ease-in ;
+}
+.formulario-leave-active{
+  transition: all 150ms ease-out;
 }
 
-.formulario-enter-active, .formulario-leave-active{
-  transition: all 500ms ease ;
+/* Transicion Mensaje */
+.appear-enter-from,.appear-leave-to {
+  opacity: 0;
 }
-
+.apperar-enter-to, .appear-leave-from{
+  opacity: 1;
+}
+.appear-enter-active, .appear-leave-active{
+  transition: opacity 200ms ease-in;
+}
 </style>
