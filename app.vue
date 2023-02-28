@@ -3,7 +3,7 @@
     <NuxtLoadingIndicator color="#f97316" />
     <Topbar></Topbar>
     <navbar></navbar>
-    <NuxtPage></NuxtPage>
+      <NuxtPage></NuxtPage>
     <Footer></Footer>
     <div id="teleportContent"></div>
   </div>

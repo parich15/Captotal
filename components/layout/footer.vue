@@ -80,101 +80,22 @@
         </div>
 
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:mt-12">
-          <div class="text-center lg:text-left">
-            <p class="text-lg  text-white font-titulo font-bold">Cursos</p>
+          
+          <div class="text-center lg:text-left" v-for="enlace in data">
+            <p class="text-lg  text-white font-titulo font-bold">{{enlace.Nombre}}</p>
             
             <nav class="mt-4">
               <ul class="space-y-1.5 text-sm">
-                <li>
-                  <a class="text-white font-texto transition hover:text-white/75" href="/">
-                    CAP Inicial
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white font-texto transition hover:text-white/75" href="/">
-                    Cap Continuo
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white font-texto transition hover:text-white/75" href="/">
-                    Permiso C + CAP
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white font-texto transition hover:text-white/75" href="/">
-                    Titulo Transportista
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          <div class="text-center lg:text-left">
-            <p class="text-lg font-bold text-white font-titulo ">Permisos</p>
-
-            <nav class="mt-4">
-              <ul class="space-y-1.5 text-sm">
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Permiso C
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Permiso D
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Permiso D + E
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Permiso C + D
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          <div class="text-center lg:text-left">
-            <p class="text-lg font-bold text-white font-titulo">Acerca De   </p>
-
-            <nav class="mt-4">
-              <ul class="space-y-1.5 text-sm">
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Sobre Nosotros
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Autoescuela Car Land
-                  </a>
-                </li>
-
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Contacto
-                  </a>
-                </li>
-                <li>
-                  <a class="text-white transition font-texto hover:text-white/75" href="/">
-                    Blog
-                  </a>
+                <li v-for="submenu in enlace.Submenu">
+                  <NuxtLink :to="submenu.Url" class="text-white font-texto transition hover:text-white/75">
+                    {{ submenu.Nombre }}
+                  </NuxtLink>
                 </li>
               </ul>
             </nav>
           </div>
         </div>
+
 
         <div
           class="mt-16 border-t border-gray-800 pt-8 text-sm text-white lg:mt-24"
@@ -193,6 +114,8 @@
 </template>
 
 <script setup>
+import { useMenu } from '~~/composables/useMenu';
+const {data, getMenu} = useMenu();
 const { createItems } = useDirectusItems();
 const Email = ref(null);
 const Error = ref(false);
@@ -226,4 +149,7 @@ const comprobarCampo = computed(()=> {
     return true
   }
 })
+
+await getMenu(2);
+
 </script>

@@ -4,22 +4,25 @@
         <h2 class="mb-8 lg:mb-16 text-3xl tracking-tight leading-tight text-center text-gray-600 md:text-4xl font-titulo opacity-90">Colaboradores<span class="text-orange-500"> | </span>Partners</h2>
         
 
-        <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-5 dark:text-gray-400">
-            <a href="#" class="flex justify-center items-center">
+        <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
+            <a target="_blank" rel="follow" href="https://www.dgt.es/inicio/" class=" max-h-20 flex justify-center items-center">
                 <Dgt></Dgt>
             </a>
-            <a href="#" class="flex justify-center items-center">
-                <PartnersTomTom></PartnersTomTom>
+            <a target="_blank" rel="follow" href="https://www.tomtom.com/es_es/navigation/" class=" max-h-20 flex justify-center items-center">
+                <TomTom></TomTom>
             </a>
-            <a href="#" class="flex justify-center items-center">
+            <a target="_blank" rel="follow" href="https://www.mitma.gob.es/transporte_terrestre" class=" max-h-20 flex justify-center items-center">
                 <PartnersFomento></PartnersFomento>                     
             </a>
 
-            <a href="#" class="flex justify-center items-center">
+            <a target="_blank" rel="follow" href="https://transit.gencat.cat/ca/inici" class=" max-h-20 flex justify-center items-center">
                 <PartnersTransit></PartnersTransit>                                                                                
             </a>
-            <a href="#" class="flex justify-center items-center">
+            <a target="_blank" rel="follow" href="https://www.webfleet.com/es_es/webfleet/" class=" max-h-20 flex justify-center items-center">
                 <Webfleet></Webfleet>
+            </a>
+            <a target="_blank" rel="follow" href="https://autoescuelacarland.com/" class=" max-h-20 flex justify-center items-center">
+                <img src="../../static/Logo/Carland.png" alt="" srcset="" width="132mm" height="65mm">
             </a>
         </div>
     </div>
@@ -28,6 +31,7 @@
 
 <script setup>
 import Dgt from '../Partners/Dgt.vue';
+import TomTom from '../Partners/TomTom.vue'
 import Webfleet from '../Partners/Webfleet.vue';
 
 

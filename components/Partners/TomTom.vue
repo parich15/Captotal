@@ -1,5 +1,5 @@
 <template>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve"> 
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve" width="132.29166mm" height="65.654663mm"> 
     <g id="XMLID_1_">
         <path id="XMLID_2_" class="st0" d="M378.1,250c0,14.6,12,26.6,26.6,26.6c14.6,0,26.6-12,26.6-26.6s-12-26.6-26.6-26.6   C390.1,223.5,378.1,235.4,378.1,250z"/>
         
@@ -333,7 +333,7 @@
 
 </script>
 
-<style lang="css" scoped>
+<style>
     .st0{fill:#FFFFFF;}
 	.st1{fill:url(#SVGID_1_);}
 	.st2{clip-path:url(#XMLID_82_);fill:url(#SVGID_2_);}
