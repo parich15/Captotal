@@ -30,6 +30,13 @@
 import {usePageData} from '../composables/usePageData';
 import Portada from '../components/Generales/Portada.vue'
 
+//Datos
+const {datos, secciones, getPageData, getPageSections} = usePageData();
+const params = {filter: {Tipo: "Online"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion'};
+
+//Instanciamos
+await getPageData(8);
+await getPageSections(8);
 
 //Titulo y SEO
 useHead({
@@ -57,11 +64,4 @@ useHead({
          },
     ]
 })
-//Datos
-const {datos, secciones, getPageData, getPageSections} = usePageData();
-const params = {filter: {Tipo: "Online"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion'};
-
-//Instanciamos
-await getPageData(8);
-await getPageSections(8);
 </script>

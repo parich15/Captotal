@@ -18,20 +18,3 @@ const {secciones, getPageSections } = usePageData();
 
 await getPageSections(10);
 </script>
-
-<style>
-#Contenido h3 {
-    font-family: 'League Spartan';
-    font-size: clamp(1em,10vh,1.6em);
-    margin-bottom: 10px;
-}
-
-#Contenido ul {
-    list-style-type: circle;
-}
-
-#Contenido p {
-    text-align: justify;
-    margin-bottom: 3em;
-}
-</style>

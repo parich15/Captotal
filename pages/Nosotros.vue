@@ -32,6 +32,12 @@ import {usePageData} from '../composables/usePageData';
 import Portada from '../components/Generales/Portada.vue';
 
 //Head y SEO
+
+const {datos, secciones, getPageData, getPageSections} = usePageData();
+//Instanciamos
+await getPageData(9);
+await getPageSections(9);
+
 useHead({
     title: 'Sobre Nosotros | Cap Total',
     meta:[
@@ -57,9 +63,4 @@ useHead({
          },
     ]
 })
-
-const {datos, secciones, getPageData, getPageSections} = usePageData();
-//Instanciamos
-await getPageData(9);
-await getPageSections(9);
 </script>
