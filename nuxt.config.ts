@@ -80,5 +80,9 @@ export default defineNuxtConfig({
         public:{
             adminToken: process.env.ADMIN_TOKEN,
         }
-    }
+    },
+    // Server
+    nitro: {
+        compressPublicAssets: true,
+    },
 })
