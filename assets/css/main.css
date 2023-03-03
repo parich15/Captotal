@@ -39,3 +39,29 @@
     border-radius: 25px;
     background-color: rgb(255 255 255 / 0.05);
 }
+
+/* Aviso Legal */
+#Contenido h3 {
+    font-family: 'League Spartan';
+    font-size: clamp(1em,10vh,1.6em);
+    margin-bottom: 10px;
+}
+
+#Contenido ul {
+    list-style-type: circle;
+}
+
+#Contenido p {
+    text-align: justify;
+    margin-bottom: 3em;
+}
+/* Cursos */
+#Curso ul{
+    list-style:disc;
+    padding: 1em;
+}
+
+/* Footer */
+#Footer .router-link-active{
+    background-color: none;
+}

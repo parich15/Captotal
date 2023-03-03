@@ -33,6 +33,28 @@ await getPageSections(7);
 
 useHead({
     title: datos.value.Titulo,
+    meta:[
+        {
+            hid: 'title',
+            name: 'title',
+            content: datos.value.Meta_Titulo
+        },
+        {
+            hid: 'description',
+            name: 'description',
+            content: datos.value.Meta_Descripcion
+        },
+        {
+            hid: 'og:title',
+            name: 'og:title',
+            content: datos.value.Titulo
+        },
+        {
+            hid: 'og:description',
+            name: 'og:description',
+            content: datos.value.Meta_Descripcion,
+         },
+    ]
 })
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-gray-100 overflow-hidden">
+    <main id="Curso" class="bg-gray-100 overflow-hidden">
         <!-- Intro / Portada + Info -->
         <suspense>
             <Portada
@@ -89,6 +89,28 @@ await getCursoContenido(ruta.query.id);
 
 
 useHead({
-    title: curso.value.Titulo + " | Cap Total"
+    title: curso.value.Titulo + " | Cap Total",
+    meta:[
+        {
+            hid: 'title',
+            name: 'title',
+            content:curso.value.Meta_Titulo
+        },
+        {
+            hid: 'description',
+            name: 'description',
+            content:curso.value.Meta_Descripcion
+        },
+        {
+            hid: 'og:title',
+            name: 'og:title',
+            content:curso.value.Titulo
+        },
+        {
+            hid: 'og:description',
+            name: 'og:description',
+            content:curso.value.Meta_Descripcion,
+         },
+    ]
 })
 </script>

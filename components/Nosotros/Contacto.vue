@@ -3,9 +3,9 @@
   <div class="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap lg:w-5/6">
     <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative group">
       <iframe width="100%" height="100%" class="absolute inset-0 grayscale contrast-125 opacity-40 hover:filter-none hover:opacity-100 transition-all duration-300" frameborder="0" title="map" marginheight="0" marginwidth="0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.5669716098914!2d2.143630915356026!3d41.34002870689268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a1ffe87d3655%3A0xb3b93be85fa7596b!2sCap%20Total%20S.L!5e0!3m2!1ses!2ses!4v1667710652322!5m2!1ses!2ses" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md opacity-100 group-hover:opacity-0 transition duration-500 ease-in-out">
+      <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md opacity-100 group-hover:opacity-0 transition duration-500 ease-in-out ">
         <div class="lg:w-1/2 px-6">
-          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">DIRECCION</h2>
+          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">DIRECCIÓN</h2>
           <p class="mt-1 font-texto">{{ data.Calle }}</p>
           <p class="mt-1 font-texto text-xs lg:text-base" v-if="data.Calle_2 != null">{{ data.Calle_2 }}</p>
         </div>
@@ -33,7 +33,7 @@
         <input v-model="Email" type="email" id="Email" name="Email" class="w-full bg-white rounded border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative mb-4">
-        <label for="Telefono" class="leading-7 text-sm text-gray-600 font-titulo">Telefono</label>
+        <label for="Telefono" class="leading-7 text-sm text-gray-600 font-titulo">Teléfono</label>
         <input v-model="Telefono" type="number" id="Telefono" name="Telefono" class="w-full bg-white rounded border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative mb-4">

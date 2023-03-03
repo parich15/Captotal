@@ -33,7 +33,29 @@ import Portada from '../components/Generales/Portada.vue'
 
 //Titulo y SEO
 useHead({
-    title: 'CAP Online | Cap Total'
+    title: 'CAP Online | Cap Total',
+    meta:[
+        {
+            hid: 'title',
+            name: 'title',
+            content: datos.value.Meta_Titulo
+        },
+        {
+            hid: 'description',
+            name: 'description',
+            content: datos.value.Meta_Descripcion
+        },
+        {
+            hid: 'og:title',
+            name: 'og:title',
+            content: datos.value.Titulo
+        },
+        {
+            hid: 'og:description',
+            name: 'og:description',
+            content: datos.value.Meta_Descripcion,
+         },
+    ]
 })
 //Datos
 const {datos, secciones, getPageData, getPageSections} = usePageData();
