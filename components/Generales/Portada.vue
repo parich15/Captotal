@@ -10,7 +10,7 @@
         </strong>
       </h1>
 
-      <div class="mt-4 max-w-lg sm:text-xl sm:leading-relaxed md:text-lg lg:text-xl xl:text-2xl lg:max-w-xl font-titulo font-semibold text-gray-600 hidden md:block" v-html="Texto"></div>
+      <div class="mt-4 max-w-lg sm:text-xl sm:leading-relaxed md:text-lg lg:text-xl xl:text-2xl lg:max-w-xl font-titulo font-semibold text-gray-600 hidden md:block md:mx-auto" v-html="Texto"></div>
     </div>
   </div>
 </section>
