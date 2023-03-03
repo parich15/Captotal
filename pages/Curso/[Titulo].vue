@@ -25,7 +25,7 @@
         :Subtitulo="secciones[0].Content[1].item.Titulo"
         :Texto="secciones[0].Content[2]?.item.Texto"></Introduccion>
 
-        <section class="container mx-auto pb-16 lg:pb-12">
+        <section class="contenido container mx-auto pb-16 lg:pb-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
                 <Contenido
                  v-if="secciones[1]"

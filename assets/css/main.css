@@ -56,7 +56,7 @@
     margin-bottom: 3em;
 }
 /* Cursos */
-#Curso ul{
+#Curso .contenido ul{
     list-style:disc;
     padding: 1em;
 }
