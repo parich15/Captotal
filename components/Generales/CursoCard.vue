@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="p-3 h-[145px]  flex flex-col justify-around">
-                <h4 class="font-titulo font-bold uppercase tracking-normal text-xl text-orange-500 subpixel-antialiased">{{Titulo}}</h4>
+                <h4 @click="$router.push({name:'Curso-Titulo', params:{Titulo: tituloUrl}, query:{id}})" class="font-titulo font-bold uppercase tracking-normal text-xl text-orange-500 subpixel-antialiased">{{Titulo}}</h4>
                 <p class="font-texto text-gray-600 lg:text-regular mb-2 h-[50px]">{{Descripcion}}</p>
                 <div class="flex flex-wrap text-xs font-texto text-gray-600 justify-between lg:text-sm">
                     <div v-if="Precio != '000'" class="flex justify-center items-center bg-orange-500 text-white rounded font-sans font-bold w-10 h-7">
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import {utils} from '~~/helpers/utils'
+import {utils} from '~~/helpers/utils';
 const props = defineProps({
     id: Number,
     Titulo: String,

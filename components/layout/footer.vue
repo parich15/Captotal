@@ -27,10 +27,7 @@
             <p
               class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-gray-400 lg:mx-0 font-texto"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Veritatis, harum deserunt nesciunt praesentium, repellendus eum
-              perspiciatis ratione pariatur a aperiam eius numquam doloribus
-              asperiores sunt.
+            Súmate a nuestra newsletter para conocer todas nuestras ofertas y enterarte de todo lo que pasa en el sector. Suscríbete y enterate de todas las novedades en materia de transportes.
             </p>
           </div>
 
