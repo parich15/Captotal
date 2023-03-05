@@ -8,15 +8,19 @@
                 <div class="w-full xl:w-1/2 px-3 sm:px-4">
                    <div class="py-3 sm:py-4">
                       <img
-                         src="https://cdn.tailgrids.com/1.0/assets/images/services/image-1.jpg"
-                         alt=""
+                         width="270"
+                         height="320"
+                         src="assets/img/ImagenBonificados1.webp"
+                         alt="Imagen Bonificdos"
                          class="rounded-2xl w-full shadow-xl"
                          />
                    </div>
                    <div class="py-3 sm:py-4">
                       <img
-                         src="https://cdn.tailgrids.com/1.0/assets/images/services/image-2.jpg"
-                         alt=""
+                         width="270"
+                         height="400"
+                         src="assets/img/ImagenBonificados2.webp"
+                         alt="Curso CAP Bonificado"
                          class="rounded-2xl w-full shadow-xl"
                          />
                    </div>
@@ -24,8 +28,10 @@
                 <div class="w-full xl:w-1/2 px-3 sm:px-4">
                    <div class="my-4 relative z-10">
                       <img
-                         src="https://cdn.tailgrids.com/1.0/assets/images/services/image-3.jpg"
-                         alt=""
+                         width="270"
+                         height="320"
+                         src="assets/img/ImagenBonificados3.webp"
+                         alt="Estudiantes del curso CAP Inicial"
                          class="rounded-2xl w-full shadow-xl"
                          />
                       <span class="absolute -right-7 -bottom-7 z-[-1] sm:-bottom-9 lg:-bottom-10">
@@ -620,7 +626,7 @@
                 <NuxtLink
                   to="/Nosotros"
                    class="font-titulo font-semibold boton-primario sm:w-3/4">
-               Ponte en contacto
+                  Ponte en contacto
                 </NuxtLink>
              </div>
           </div>
