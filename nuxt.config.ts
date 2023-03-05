@@ -44,6 +44,7 @@ export default defineNuxtConfig({
             script: [],
             //Link
             link: [
+                {rel: 'icon', type: 'image/png', href: "/static/favicon-32x32.png"},
                 {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Nunito:wght@300;400;600;800&display=swap'}
             ],
             //Css

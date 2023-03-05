@@ -17,7 +17,8 @@
             </span>{{Contenido.Contenido}}
           </p>
           <div class="mt-16">
-            <button v-if="stock >= 1 && carga == false && Precio !='000'" class="flex items-center md:mt-auto my-2 text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded group-hover:scale-105 group-hover:bg-orange-500 transition font-texto" @click="initCheckout">
+            <!-- Quitamos boton hasta tener pasarela (clase anterior flex) -->
+            <button v-if="stock >= 1 && carga == false && Precio !='000'" class=" flexx hidden items-center md:mt-auto my-2 text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded group-hover:scale-105 group-hover:bg-orange-500 transition font-texto" @click="initCheckout">
             Inscribirme ahora
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto group-hover:animate-pulse" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
