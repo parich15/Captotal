@@ -61,7 +61,7 @@
                   <form class="mt-3 flex flex-wrap" @submit="enviarForm">
                     <label class="font-titulo text-sm font-semibold text-gray-400 " for="Nombre">Dinos tu nombre</label>
                       <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" name="Nombre" v-model="userData.Nombre"> 
-                    <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Tu telefono</label>
+                    <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Tu teléfono</label>
                       <input pattern="tel" required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="number" v-model="userData.Telefono">
                     <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Y tu email</label>
                       <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" v-model="userData.Email">

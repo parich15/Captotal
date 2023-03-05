@@ -2,9 +2,9 @@
     <section class="text-white bg-gray-900">
     <div class="mx-auto max-w-screen-xl px-4 py-16 lg:py-14 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-lg text-center">
-        <h2 class="texto-gradiente pb-6 text-5xl font-bold sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 font-titulo lg:text-6xl xl:text-7xl">{{Titulo}}</h2>
+        <h2 class="texto-gradiente pb-6 text-5xl font-bold sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 font-titulo lg:text-6xl xl:text-7xl">{{datos.Contenido[0].Content[0].item.Titulo}}</h2>
 
-        <div class="mt-4 text-gray-200 font-texto font-semibold text-base xl:text-xl" v-html="Descripcion">
+        <div class="mt-4 text-gray-200 font-texto font-semibold text-base xl:text-xl" v-html="datos.Contenido[0].Content[1].item.Texto">
            
         </div>
         </div>
@@ -38,13 +38,13 @@
 </template>
 
 <script setup>
+import { usePageData } from '~~/composables/usePageData';
 import { useVentajas } from '~~/composables/useVentajas';
+const {getBloquesSections} = usePageData()
 const {ventajas, getVentajas} = useVentajas();
-defineProps({
-    Titulo: String,
-    Descripcion: String
-})
+const datos = ref(null)
 
+datos.value = await getBloquesSections(2)
 await getVentajas();
 </script>
 
