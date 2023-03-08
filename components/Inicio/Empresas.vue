@@ -10,7 +10,7 @@
                       <img
                          width="270"
                          height="320"
-                         src="assets/img/ImagenBonificados1.webp"
+                         src="~/assets/img/ImagenBonificados1.webp"
                          alt="Imagen Bonificdos"
                          class="rounded-2xl w-full shadow-xl"
                          />
@@ -19,7 +19,7 @@
                       <img
                          width="270"
                          height="400"
-                         src="assets/img/ImagenBonificados2.webp"
+                         src="~/assets/img/ImagenBonificados2.webp"
                          alt="Curso CAP Bonificado"
                          class="rounded-2xl w-full shadow-xl"
                          />
@@ -30,7 +30,7 @@
                       <img
                          width="270"
                          height="320"
-                         src="assets/img/ImagenBonificados3.webp"
+                         src="~/assets/img/ImagenBonificados3.webp"
                          alt="Estudiantes del curso CAP Inicial"
                          class="rounded-2xl w-full shadow-xl"
                          />

@@ -8,11 +8,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^5.3.3",
-    "nuxt": "3.0.0-rc.10"
+    "@nuxtjs/tailwindcss": "^6.4.1",
+    "nuxt": "^3.2.3"
   },
   "dependencies": {
-    "nuxt-directus": "^3.0.3",
-    "vue3-carousel": "^0.2.8"
+    "nuxt-directus": "^5.0.1",
+    "vue3-carousel": "^0.2.12"
   }
 }

@@ -22,7 +22,7 @@
                 <Webfleet></Webfleet>
             </a>
             <a target="_blank" rel="follow" href="https://autoescuelacarland.com/" class=" max-h-20 flex justify-center items-center">
-                <img src="assets/img/Carland.png" alt="" srcset="" width="132mm" height="65mm">
+                <Carland></Carland>
             </a>
         </div>
     </div>
@@ -33,7 +33,7 @@
 import Dgt from '../Partners/Dgt.vue';
 import TomTom from '../Partners/TomTom.vue'
 import Webfleet from '../Partners/Webfleet.vue';
-
+import Carland from '../Partners/Carland.vue';
 
 </script>
 <style type="text/css">

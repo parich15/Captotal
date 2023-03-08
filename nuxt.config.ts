@@ -44,31 +44,29 @@ export default defineNuxtConfig({
             script: [],
             //Link
             link: [
-                {rel: 'icon', type: 'image/png', href: "/static/favicon-32x32.png"},
+                {rel: 'icon', type: 'image/png', href: "/favicon.png"},
                 {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Nunito:wght@300;400;600;800&display=swap'}
             ],
             //Css
             style:[]
         }
     },
-    //Loading
-    loading:{
-        color: '#f97316',
-        height: '3px'
-    },
 
+    //CSS
     css: [
         'vue3-carousel/dist/carousel.css'
     ],
 
     //Modulos
-    modules: ['@nuxtjs/tailwindcss', 'nuxt-directus'],
+    modules: ['@nuxtjs/tailwindcss','nuxt-directus'],
+    
 
     //Tailwind Options
     tailwindcss: {
         cssPath: '~/assets/css/main.css',
         configPath: 'tailwind.config.js',
-        exposeConfig: false
+        exposeConfig: false,
+        viewer: false
     },
 
     //Directus
@@ -79,10 +77,10 @@ export default defineNuxtConfig({
     // Api y Env
     runtimeConfig:{
         public:{
-            adminToken: process.env.ADMIN_TOKEN,
+            notifications: process.env.NOTIFICATION_TOKEN,
         }
     },
-    // Server
+    //Server
     nitro: {
         compressPublicAssets: true,
     },

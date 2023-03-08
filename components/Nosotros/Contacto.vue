@@ -111,13 +111,13 @@ const enviarForm = async (evt) => {
         fields: "id",
         sort: "-id",
         limit: 1,
-        access_token: runtimeConfig.adminToken
+        access_token: runtimeConfig.notifications
       }
     })
     await createNotification({
       notification:{
         status: "inbox",
-        recipient: "24d09644-0c69-40da-a599-c003af59033a",
+        recipient: "e64ad966-00f8-4a65-8461-f2debdde73e4",
         subject: "Nuevo Mensaje",
         message: "Hay un nuevo mensaje en la colección de mensajes",
         collection: "Mensajes",
