@@ -71,7 +71,7 @@ export default defineNuxtConfig({
 
     //Directus
     directus: {
-        url: 'http://167.99.198.188:8055/',
+        url: 'https://admin.captotal.com',
     },
 
     // Api y Env
@@ -93,7 +93,7 @@ export default defineNuxtConfig({
     //Sitemap -- Cargamos todos los cursos que hay y eliminamos los espacios para dejarlos identicos a la Url
     sitemap:{
         urls: async () => {
-            const cursos = await fetch('http://167.99.198.188:8055/items/Cursos?fields=id,Titulo').then(res => res.json());
+            const cursos = await fetch('https://admin.captotal.com/items/Cursos?fields=id,Titulo').then(res => res.json());
             return cursos.data.map((pagina: any) => ({
                 url: `/Curso/${pagina?.Titulo.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replaceAll(" ", "")}?id=${pagina.id}`,
             }));

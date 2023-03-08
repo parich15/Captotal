@@ -3,7 +3,7 @@
         
             <img
             class=" object-cover h-[650px] w-auto object-center lg:object-bottom xl:w-screen xl:object-center" 
-            :src="'http://167.99.198.188:8055/assets/'+Imagen+'?fit=cover&quality=70'" alt="">
+            :src="'https://admin.captotal.com/assets/'+Imagen+'?fit=cover&quality=70'" alt="">
 
         <div class="absolute top-0 h-full w-full bg-gray-100 opacity-80 z-10"></div>
         <div class="absolute top-0 h-full w-full z-20">

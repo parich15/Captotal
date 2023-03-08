@@ -1,5 +1,5 @@
 <template>
-<section :style="`background-image: url('http://167.99.198.188:8055/assets/${Imagen}')`" class="relative bg-right bg-no-repeat bg-cover shadow-md shadow-white/40 md:shadow-white/20">
+<section :style="`background-image: url('https://admin.captotal.com/assets/${Imagen}')`" class="relative bg-right bg-no-repeat bg-cover shadow-md shadow-white/40 md:shadow-white/20">
   <div class="absolute inset-0 bg-gray-50/70 sm:bg-transparent sm:bg-gradient-to-r sm:from-white/90 sm:to-white/30"></div>
   <div :class="Landing ? 'justify-center': ''" class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8 ">
     <div :class="!Landing ? 'sm:text-left': 'mx-auto'" class="max-w-xl text-center lg:max-w-3xl">
