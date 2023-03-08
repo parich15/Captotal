@@ -9,7 +9,8 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.4.1",
-    "nuxt": "^3.2.3"
+    "nuxt": "^3.2.3",
+    "nuxt-simple-sitemap": "^1.0.9"
   },
   "dependencies": {
     "nuxt-directus": "^5.0.1",
