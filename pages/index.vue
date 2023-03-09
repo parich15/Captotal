@@ -5,15 +5,15 @@
         <InicioCarousel></InicioCarousel>
 
         <SelectorCursos 
-            :Titulo="secciones[1].Content[0].item.Titulo"
-            :Descripcion="secciones[1].Content[1].item.Texto">
+            :Titulo="secciones[0].Content[0].item.Titulo"
+            :Descripcion="secciones[0].Content[1].item.Texto">
         </SelectorCursos>
         
         <Bonificados
-            :Titulo="secciones[2].Content[0].item.Titulo"
-            :Subtitulo="secciones[2].Content[1].item.Titulo"
-            :Descripcion="secciones[2].Content[2].item.Texto"
-            :Imagen="secciones[2].Content[3].item.Imagen">
+            :Titulo="secciones[1].Content[0].item.Titulo"
+            :Subtitulo="secciones[1].Content[1].item.Titulo"
+            :Descripcion="secciones[1].Content[2].item.Texto"
+            :Imagen="secciones[1].Content[3].item.Imagen">
         </Bonificados>
 
         <!-- SEPARADOR SECCIÓN BLACK -->
@@ -30,9 +30,9 @@
         <!-- FIN SEPARADOR -->
         
         <Empresas 
-        :Titulo="secciones[4].Content[1].item.Titulo"
-        :Subtitulo="secciones[4].Content[0].item.Titulo"
-        :Texto="secciones[4].Content[2].item.Texto"></Empresas>
+        :Titulo="secciones[3].Content[1].item.Titulo"
+        :Subtitulo="secciones[3].Content[0].item.Titulo"
+        :Texto="secciones[3].Content[2].item.Texto"></Empresas>
         <Colaboran></Colaboran>
         
     </main>
