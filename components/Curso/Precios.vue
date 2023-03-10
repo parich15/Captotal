@@ -192,7 +192,12 @@ const enviarForm = async (e) =>{
         status: "inbox",
         recipient: "e64ad966-00f8-4a65-8461-f2debdde73e4",
         subject: "Nuevo interesado | Curso: "+ props.Titulo,
-        message: "Hay un nuevo registro en la colección de Interesados",
+        message: `<p>Nuevo interesado en ${props.Titulo}</p>
+                  <br>
+                  <p>Nombre: ${userData.Nombre}</p>
+                  <p>Telefono: ${userData.Telefono}</p>
+                  <p>Email: ${userData.Email}</p>
+                  `,
         collection: "Interesados",
         item: ids[0].id
       }

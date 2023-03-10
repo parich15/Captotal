@@ -119,7 +119,11 @@ const enviarForm = async (evt) => {
         status: "inbox",
         recipient: "e64ad966-00f8-4a65-8461-f2debdde73e4",
         subject: "Nuevo Mensaje",
-        message: "Hay un nuevo mensaje en la colección de mensajes",
+        message: `<p>Hay un nuevo mensaje en la colección de mensajes</p>
+                  <br>
+                  <p>Nombre: ${Nombre.value} <p><br>
+                  <p>Telefono y Email: ${Telefono.value} | ${Email.value}<p><br>
+                  <div><p>Mensaje:</p><br>${Mensaje.value.toString()}<div>`,
         collection: "Mensajes",
         item: id[0].id
       }
