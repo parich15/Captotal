@@ -170,7 +170,8 @@ const enviarForm = async (e) =>{
     Email: userData.Email,
     Telefono: userData.Telefono,
     Curso: ruta.query.id,
-    Centro: 1
+    Centro: 1,
+    Fecha: new Date()
     }];
     
     await createItems({
