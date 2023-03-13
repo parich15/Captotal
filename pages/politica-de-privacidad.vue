@@ -1,7 +1,7 @@
 <template>
     <main>
         <section class="flex h-48 bg-orange-400 justify-center items-center relative z-20 shadow-xl shadow-slate-300">
-            <h1 class="text-xl md:text-3xl lg:text-5xl font-titulo font-semibold text-white tracking-wide">Aviso Legal</h1>
+            <h1 class="text-xl md:text-3xl lg:text-5xl font-titulo font-semibold text-white tracking-wide">Politica de Privacidad</h1>
         </section>
         <section id="Contenido" class="my-5 container mx-auto" v-for="contenido in secciones[0].Content" :key="contenido.id">
             <div v-for="seccion in contenido" class="pt-10">
@@ -16,5 +16,5 @@
 import { usePageData } from '~~/composables/usePageData';
 const {secciones, getPageSections } = usePageData();
 
-await getPageSections(12);
+await getPageSections(11);
 </script>

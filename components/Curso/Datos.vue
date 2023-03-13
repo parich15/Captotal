@@ -23,6 +23,10 @@
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Fecha Inicio</p>
                         <span class="font-texto font-bold text-orange-500 lg:text-xl">{{new Date(fecha).toLocaleDateString()}}</span>
                     </div>
+                    <div v-else>
+                        <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Fecha Curso</p>
+                        <span class="font-texto font-bold text-orange-500 lg:text-xl">Próximamente</span>
+                    </div>
                 </div>
                 <hr class="w-10/12 mx-auto">
                 <div class="text-center mt-2 mb-2">

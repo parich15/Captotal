@@ -83,11 +83,7 @@ export default defineNuxtConfig({
     },
     //Server
     nitro: {
-        compressPublicAssets: true,
-        // prerender:{
-        //     crawlLinks: true,
-        //     routes: ['/']
-        // }
+        compressPublicAssets: true
     },
 
     //Sitemap -- Cargamos todos los cursos que hay y eliminamos los espacios para dejarlos identicos a la Url
