@@ -1,6 +1,6 @@
 <template>
  <div class="p-4 xl:w-3/5 md:w-3/4 w-full mx-auto group">
-        <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden group-hover:border-orange-500/60 transition">
+        <div class="h-auto p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden group-hover:border-orange-500/60 transition">
           <h2 class="text-sm tracking-widest title-font mb-1 font-semibold font-texto text-gray-400 uppercase">{{Titulo}}</h2>
           <h1 class="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200 font-texto">
             <span v-if="Precio == '000'" class="text-xl mt-1 font-titulo font-semibold text-orange-500">Solicita más información</span>
