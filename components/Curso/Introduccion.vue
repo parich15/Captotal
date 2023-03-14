@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-gray-100 container mx-auto pb-20 pt-48 lg:pt-56">
+    <section class="bg-gray-100 container mx-auto pb-10 lg:pb-20 pt-48 lg:pt-56">
         <div class="mt-10 mx-5 con">
             <h2 class="font-titulo text-4xl mb-1 font-semibold text-gray-700">{{Titulo}}</h2>
             <h3 class="font-texto font-semibold text-xl text-gray-500 mb-2" v-if="Subtitulo">{{Subtitulo}}</h3>
