@@ -55,13 +55,14 @@
 
         <!-- Calendarios -->
         <Informacion
+        v-if="curso.Calendario_Actual"
         :actual="curso.Calendario_Actual"
         :futuro="curso?.Calendario_Proximo"></Informacion>
         <!-- Fin Calendarios -->
 
         <!-- Separador Ventajas -->
-        <div class=" w-[105vw]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <div class="w-[110vw]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 119 1500 200">
                 <path fill="#111827" fill-opacity="1" d="M0,128L48,133.3C96,139,192,149,288,181.3C384,213,480,267,576,293.3C672,320,768,320,864,304C960,288,1056,256,1152,250.7C1248,245,1344,267,1392,277.3L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
             </svg>
         </div>
