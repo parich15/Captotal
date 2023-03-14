@@ -25,14 +25,22 @@
         :Subtitulo="secciones[0].Content[1].item.Titulo"
         :Texto="secciones[0].Content[2]?.item.Texto"></Introduccion>
 
-        <section class="contenido container mx-auto pb-16 lg:pb-12">
+        <section class="container mx-auto pb-16 lg:pb-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
-                <Contenido
-                 v-if="secciones[1]"
-                :Titulo="secciones[1]?.Content[0]?.item.Titulo"
-                :Subtitulo="secciones[1]?.Content[1]?.item.Titulo"
-                :Contenido="secciones[1]?.Content[2]?.item.Texto"
-                ></Contenido>
+                <div class="mx-5 row-start-2 md:row-start-1">
+                    <Contenido
+                    v-if="secciones[1]"
+                    :Titulo="secciones[1]?.Content[0]?.item.Titulo"
+                    :Subtitulo="secciones[1]?.Content[1]?.item.Titulo"
+                    :Contenido="secciones[1]?.Content[2]?.item.Texto"
+                    ></Contenido>
+                    <ul v-if="curso.Desplegable" id="Desplegables" class=" list-none">
+                        <li v-for="desplegable in curso.Desplegable" >
+                            <Desplegable :titulo="desplegable.Titulo" :contenido="desplegable.Texto"></Desplegable>
+                        </li>
+                    </ul>
+                </div>
+                
 
                 <Precios
                 :id="curso.id"
@@ -77,6 +85,7 @@ import Ventajas from '~~/components/Inicio/Ventajas.vue';
 import CursoBonificados from '~~/components/Curso/CursoBonificados.vue';
 import BotonExplora from '~~/components/Curso/BotonExplora.vue';
 import Informacion from '~~/components/Curso/Informacion.vue';
+import Desplegable from '~~/components/Curso/Desplegable.vue';
 const ruta = useRoute();
 const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
 const checkout = ref(false);
