@@ -34,8 +34,9 @@
                     :Subtitulo="secciones[1]?.Content[1]?.item.Titulo"
                     :Contenido="secciones[1]?.Content[2]?.item.Texto"
                     ></Contenido>
-                    <ul v-if="curso.Desplegable" id="Desplegables" class=" list-none">
-                        <li v-for="desplegable in curso.Desplegable" >
+                    <ul v-if="curso.Desplegable" id="Desplegables" class="list-none lg:pt-2">
+                        <li class="my-5 lg:my-6"
+                        v-for="desplegable in curso.Desplegable" >
                             <Desplegable :titulo="desplegable.Titulo" :contenido="desplegable.Texto"></Desplegable>
                         </li>
                     </ul>
