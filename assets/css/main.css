@@ -65,3 +65,9 @@
 #Footer .router-link-active{
     background-color: none;
 }
+/* Contacto Inicio */
+#home #contacto>.container {
+    padding-top: 0!important;
+    padding-bottom: 3.5rem!important;
+    margin-top: -3.5rem;
+}

@@ -1,9 +1,9 @@
 <template>
-    <section class="container mx-auto w-full bg-gray-50 lg:mt-28">
+    <section class="container mx-auto w-full bg-gray-50 lg:py-8">
         <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <!-- Imagen -->
-            <div class="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:h-full shadow-2xl">
+            <div  class="relative h-auto overflow-hidden rounded-lg sm:h-80 lg:h-full shadow-2xl ">
                 <img
                 height="575"
                 width="400"
@@ -14,7 +14,7 @@
             </div>
 
             <!-- Texto -->
-            <div class="lg:py-24">
+            <div :class="Orden ? 'row-start-1' : ''" class="lg:py-24">
                 <h2 class="text-4xl font-bold sm:text-5xl font-titulo text-gray-700">{{Titulo}}</h2>
                 <h4 class="font-texto font-semibold text-orange-500 animate-pulse">{{Subtitulo}}</h4>
 
@@ -55,6 +55,10 @@ defineProps({
     },
     Imagen: {
         type: String,
+    },
+    Orden: {
+        type: Boolean,
+        default: false
     }
 })
 </script>

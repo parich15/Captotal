@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-gray-50 overflow-hidden" v-show="datos && secciones">
+    <main id="home" class="bg-gray-50 overflow-hidden" v-show="datos && secciones">
             
         <!-- <Hero :Portada="datos.Portada" :Descripcion="secciones[0].Content[0].item.Texto"></Hero> -->
         <InicioCarousel></InicioCarousel>
@@ -13,9 +13,17 @@
             :Titulo="secciones[1].Content[0].item.Titulo"
             :Subtitulo="secciones[1].Content[1].item.Titulo"
             :Descripcion="secciones[1].Content[2].item.Texto"
-            :Imagen="secciones[1].Content[3].item.Imagen">
+            :Imagen="secciones[1].Content[3].item.Imagen"
+            :Orden="false">
         </Bonificados>
+        <Bonificados
+            :Titulo="secciones[4].Content[0].item.Titulo"
+            :Subtitulo="secciones[4].Content[1].item.Titulo"
+            :Descripcion="secciones[4].Content[2].item.Texto"
+            :Imagen="secciones[4].Content[3].item.Imagen"
+            :Orden="true">
 
+        </Bonificados>
         <!-- SEPARADOR SECCIÓN BLACK -->
         <div class="md:mt-32 text-gray-900 w-[105vw]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 1440 320"><path fill="currentColor" fill-opacity="1" d="M0,128L60,117.3C120,107,240,85,360,96C480,107,600,149,720,154.7C840,160,960,128,1080,101.3C1200,75,1320,53,1380,42.7L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
@@ -34,7 +42,7 @@
         :Subtitulo="secciones[3].Content[0].item.Titulo"
         :Texto="secciones[3].Content[2].item.Texto"></Empresas>
         <Colaboran></Colaboran>
-        
+        <NosotrosContacto></NosotrosContacto>
     </main>
 </template>
 
