@@ -4,6 +4,7 @@
     <Topbar></Topbar>
     <navbar></navbar>
       <NuxtPage></NuxtPage>
+      <LayoutBannerCookies></LayoutBannerCookies>
     <Footer></Footer>
     <div id="teleportContent"></div>
   </div>

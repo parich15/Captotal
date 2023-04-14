@@ -77,6 +77,7 @@
     </main>
 </template>
 <script setup>
+import { useGtag } from "vue-gtag-next";
 import {useCursoData} from '~~/composables/useCursoData';
 import Portada from '~~/components/Generales/Portada.vue';
 import Datos from '~~/components/Curso/Datos.vue';
@@ -90,11 +91,17 @@ import Informacion from '~~/components/Curso/Informacion.vue';
 import Desplegable from '~~/components/Curso/Desplegable.vue';
 const ruta = useRoute();
 const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
+const { pageview } = useGtag() 
 const checkout = ref(false);
 
 await getCursoData(ruta.query.id);
 await getCursoContenido(ruta.query.id);
 
+pageview({ 
+    page_title: curso.value.Titulo,
+    page_path: ruta.path,
+    page_location: ruta.fullPath
+})
 
 useHead({
     title: curso.value.Titulo + " | Cap Total",

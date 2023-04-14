@@ -13,6 +13,7 @@
     "nuxt-simple-sitemap": "^1.0.9"
   },
   "dependencies": {
+    "crypto-js": "^4.1.1",
     "nuxt-directus": "^5.0.1",
     "vue-gtag-next": "^1.14.0",
     "vue3-carousel": "^0.2.12"

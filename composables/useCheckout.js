@@ -10,12 +10,13 @@ export const useCheckout = () => {
         Email: null,
         Telefono: null,
         NieNif: null,
-        pago: {
-            NumTjt: null,
-            FechaTjt: null,
-            Cvc: null
-        }
-    })
+        Curso: null,
+        NombreCurso: null,
+        Order: {
+            numOrder:null,
+            precio:null,
+        },
+    });
 
     const getStock = async (id) => {
         carga.value = true;

@@ -47,7 +47,6 @@
 </template>
 
 <script setup>
-import Hero from '~~/components/Inicio/Hero.vue';
 import { usePageData } from '~~/composables/usePageData';
 import SelectorCursos from '../components/Inicio/SelectorCursos.vue';
 import Bonificados from '~~/components/Inicio/Bonificados.vue';
