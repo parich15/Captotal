@@ -125,7 +125,6 @@ const {stock, carga,  getStock} = useCheckout();
 const initCheckout = async () => {
   await getStock(ruta.query?.id);
   if(stock.value < 1){
-    console.log("Lo sentimos, no hay plazas disponibles.")
     stock.value = false;
     return;
   }

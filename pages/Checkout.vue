@@ -205,7 +205,7 @@ const encodeDatosCliente = async () => {
 const track = ()=> {
     query("event", "begin_checkout", {
         currency: 'EUR',
-        value: curso.value.Precio,
+        value: parseInt(curso.value.Precio),
         items: [{
             item_id: `curso_${curso.value.id}`,
             item_name: curso.value.Titulo,
