@@ -88,9 +88,8 @@
                             <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded mb-3" required  type="text" name="NieNif" placeholder="DNI o NIE" v-model="datos.NieNif">
                         </div>
                         <hr class="p-3">
-                        <!-- <h5 class="pl-3 font-titulo font-semibold text-lg text-orange-400">Datos de pago</h5> -->
                         <ClientOnly>
-                            <form ref="redsys_form" name="pasarelaPago" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST">
+                            <form ref="redsys_form" name="pasarelaPago" action="https://sis.redsys.es/sis/realizarPago" method="POST">
                                 <input type="hidden" name="Ds_SignatureVersion" v-model="Ds_SignatureVersion"/>
                                 <input type="hidden" name="Ds_MerchantParameters" v-model="Ds_MerchantParameters"/>
                                 <input type="hidden" name="Ds_Signature" v-model="Ds_Signature"/>
@@ -129,9 +128,8 @@ const cookie = useCookie('datosCliente', {
     maxAge: 86400,
     secure: true
 });
-
 const orderNumber = Math.floor(Math.random() * Date.now()).toString().slice(2,13);
-const secret = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
+const secret = 'TIVfhTviJ1b5sNRU/qMorrf+w56fpu5V';
 const TPVinfo = {
   DS_MERCHANT_AMOUNT: '',
   DS_MERCHANT_CURRENCY: "978",

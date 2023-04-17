@@ -76,12 +76,6 @@ export default defineNuxtConfig({
 
     // Api y Env
     runtimeConfig:{
-        pago: {
-            comercio: process.env.NUM_COMERCIO,
-            terminal: process.env.NUM_TERMINAL,
-              moneda: process.env.NUM_MONEDA,
-                 key: process.env.SECRET_KEY
-        },
         public:{
             notifications: process.env.NOTIFICATION_TOKEN,
             siteUrl: process.env.BASE_URL || 'https://captotal.com',

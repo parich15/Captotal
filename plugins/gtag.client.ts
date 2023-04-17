@@ -5,12 +5,10 @@ export default defineNuxtPlugin((nuxtApp) => {
       id: 'G-D9BXMR4TWB'
     },
     isEnabled: true,
-    useDebugger: process.env.NODE_ENV == 'production' ? false : true,
   })
 
   trackRouter(useRouter(),{
     template(to) {
-      console.log(to)
       if(to.name == "Curso-Titulo" ){
         return {
           page_title: to.params.Titulo,
