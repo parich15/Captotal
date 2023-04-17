@@ -111,10 +111,14 @@
 import CryptoJS from 'crypto-js';
 import { useCursoData } from '~~/composables/useCursoData';
 import { useCheckout } from '~~/composables/useCheckout';
+import { useGtag } from 'vue-gtag-next';
+
 const ruta = useRoute();
 const {stock, datos, getStock} = useCheckout();
 const {curso, getCursoData} = useCursoData();
+const {query} = useGtag();
 const redsys_form = ref(null);
+
 //Obtenemos Datos
 await getCursoData(ruta.query.id);
 await getStock(ruta.query.id);
@@ -196,6 +200,21 @@ const encodeDatosCliente = async () => {
 }
 
 
+// Logica Marketing: Captamos Checkout Event
+
+const track = ()=> {
+    query("event", "begin_checkout", {
+        currency: 'EUR',
+        value: curso.value.Precio,
+        items: [{
+            item_id: `curso_${curso.value.id}`,
+            item_name: curso.value.Titulo,
+            item_category: curso.value.Tipo,
+            quantity: 1
+        }]
+    })
+}
+
 //Mecanismo anti acceso por Url
 onMounted(async ()=>{
     if(stock.value < 1){
@@ -204,5 +223,6 @@ onMounted(async ()=>{
     if(cookie.value){
         cookie.value = '';
     }
+    track();
 })
 </script>

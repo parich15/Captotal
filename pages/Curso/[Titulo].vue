@@ -91,7 +91,7 @@ import Informacion from '~~/components/Curso/Informacion.vue';
 import Desplegable from '~~/components/Curso/Desplegable.vue';
 const ruta = useRoute();
 const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
-const { pageview } = useGtag() 
+const { pageview, query} = useGtag();
 const checkout = ref(false);
 
 await getCursoData(ruta.query.id);
@@ -127,5 +127,22 @@ useHead({
             content:curso.value.Meta_Descripcion,
          },
     ]
+})
+
+const track = () =>{
+    query("event", "view_item",{
+        currency: 'EUR',
+        value: parseInt(curso.value.Precio),
+        items:[{
+            item_id: `curso_${curso.value.id}`,
+            item_name: curso.value.Titulo,
+            item_category: curso.value.Tipo,
+            quantity: 1
+        }]
+    })
+}
+
+onMounted(()=>{
+    track();
 })
 </script>
