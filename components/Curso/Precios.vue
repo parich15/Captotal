@@ -2,13 +2,13 @@
  <div class="p-4 xl:w-3/5 md:w-3/4 w-full mx-auto group">
         <div class="h-auto p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden group-hover:border-orange-500/60 transition">
           <h2 class="text-sm tracking-widest title-font mb-1 font-semibold font-texto text-gray-400 uppercase">{{Titulo}}</h2>
-          <h1 class="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200 font-texto">
+          <h4 class="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200 font-texto">
             <span v-if="Precio == '000'" class="text-xl mt-1 font-titulo font-semibold text-orange-500">Solicita más información</span>
             <div v-else>
               <span>{{Precio}}</span>
               <span class="text-xl ml-1 font-normal text-gray-500">€</span>
             </div>
-          </h1>
+          </h4>
           <p class="flex items-center mb-2 text-gray-500 group-hover:text-gray-700 font-texto" v-for="Contenido in Contenidos" :key="Contenido.id">
             <span class="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400/20 text-white rounded-full flex-shrink-0 group-hover:bg-orange-500 group-hover:animate-pulse transition-all">
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" class="w-3 h-3" viewBox="0 0 24 24">
