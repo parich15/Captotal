@@ -9,19 +9,24 @@
         <div class="absolute top-0 h-full w-full z-20">
             <div class="container mx-auto flex flex-col h-full justify-center lg:justify-start">
                     <div class="flex flex-grow flex-col lg:items-start lg:ml-12 lg:mb-36 lg:justify-end justify-center">
-                        <p class="font-titulo font-semibold text-gray-500 text-xl pb-1 lg:text-orange-500 fade-in">{{ Tipo }} Destacado</p>
+                        <p class="font-titulo font-semibold text-gray-500 text-xl pb-1 lg:text-orange-500 fade-in" v-if="!isFirst">{{ Tipo }} Destacado</p>
                         <NuxtLink :to="Enlace">
-                        <h1 :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
-                        class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
+                        <h1 v-if="isFirst" :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
+                        class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl ">
                             {{ Titulo }}
                         </h1>
+                        <h2 v-else :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
+                        class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
+                            {{ Titulo }}
+                        </h2>
                         </NuxtLink>
                         <div class="mt-3 hidden lg:block font-titulo font-semibold text-xl ml-1 text-gray-600 text-focus-in-delayed" v-html="Texto"></div>
                         <button 
+                        v-if="!isFirst"
                         @click="$router.push(Enlace)"
                         class="hidden lg:block py-2 px-3 bg-orange-500/70 text-white font-titulo font-semibold rounded text-focus-in-delayed mt-3 hover:bg-orange-500 transition">Ir al {{ Tipo.toLocaleLowerCase() }}</button>
                     </div> 
-                    <button 
+                    <button v-if="!isFirst"
                         @click="$router.push(Enlace)"
                         class="block lg:hidden w-2/3 mx-auto -translate-y-12 py-2 px-3 bg-orange-500/70 text-white font-titulo font-semibold rounded text-focus-in-delayed hover:bg-orange-500 transition">Ir al {{ Tipo.toLocaleLowerCase() }}</button>
                 </div>
@@ -50,6 +55,11 @@ defineProps({
     Tipo:{
         type: String,
         required: true
+    },
+    isFirst:{
+        type:Boolean,
+        required:true,
+        default:false
     }
 })
 </script>

@@ -1,8 +1,9 @@
 <template>
     <carousel 
      :items-to-show="1" :wrap-around="true" :transition="500" :autoplay="5000" :mouse-drag="true">
-        <slide v-for="datos in datosCarousel" :key="datos">
+        <slide v-for="(datos,index) in datosCarousel" :key="datos">
             <InicioSlide 
+            :isFirst="index === 0 ? true : false"
             :Titulo="datos.Titulo" 
             :Texto="datos.Texto"
             :Imagen="datos.Imagen"

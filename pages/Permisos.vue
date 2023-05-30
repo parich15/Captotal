@@ -26,7 +26,7 @@ import Introduccion from '../components/Generales/Introduccion.vue';
 import GridCursos from '../components/Generales/GridCursos.vue';
 import Cta from '~~/components/Generales/Cta.vue';
 const {datos, secciones, getPageData, getPageSections } = usePageData();
-const params = {filter: {Tipo: "Carnet"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion'};
+const params = {filter: {Tipo: "Carnet"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion,Slug'};
 
 await getPageData(7);
 await getPageSections(7);

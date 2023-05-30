@@ -14,7 +14,8 @@
                :Precio="curso.Precio"
                :Imagen="curso.Portada"
                :Activo="curso.Activo"
-               :Bonificado="curso.Bonificado"></CursoCard>
+               :Bonificado="curso.Bonificado"
+               :Slug="curso.Slug"></CursoCard>
            </Suspense>
         </div>
     </section>

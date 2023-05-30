@@ -1,5 +1,5 @@
 <template>
-    <main id="Curso" class="bg-gray-100 overflow-hidden">
+     <main id="Curso" class="bg-gray-100 overflow-hidden">
         <!-- Intro / Portada + Info -->
         <suspense>
             <Portada
@@ -75,6 +75,7 @@
         <CursoBonificados></CursoBonificados>
         <BotonExplora></BotonExplora>
     </main>
+
 </template>
 <script setup>
 import { useGtag } from "vue-gtag-next";
@@ -94,8 +95,8 @@ const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
 const { pageview, query} = useGtag();
 const checkout = ref(false);
 
-await getCursoData(ruta.query.id);
-await getCursoContenido(ruta.query.id);
+await getCursoData(ruta.params.slug);
+await getCursoContenido(ruta.params.slug);
 
 pageview({ 
     page_title: curso.value.Titulo,

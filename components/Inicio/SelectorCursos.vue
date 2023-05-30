@@ -23,7 +23,7 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <Minicurso v-for="curso in cursos.slice(0,6)" :key="curso.id" :id="curso.id" :Titulo="curso.Titulo" :Descripcion="curso.Descripcion" :Icono="curso.Icono" ></Minicurso>
+            <Minicurso v-for="curso in cursos.slice(0,6)" :key="curso.id" :id="curso.id" :Titulo="curso.Titulo" :Descripcion="curso.Descripcion" :Icono="curso.Icono" :Slug="curso.Slug" ></Minicurso>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
 import Minicurso from './Minicurso.vue';
 import {useCursoData} from '@@/composables/useCursoData'
 const {cursos, getAllCursos} = useCursoData();
-const filtros = {filter: {Destacado: true}, fields: 'id, Titulo, Descripcion, Icono'};
+const filtros = {filter: {Destacado: true}, fields: 'id, Titulo, Descripcion, Icono, Slug'};
 
 defineProps({
     Titulo: {

@@ -5,27 +5,34 @@ export const useCursoData = () => {
     const secciones     = ref(null);
     const cursos        = ref(null);
 
-    const getCursoData = async (id, params) =>{
+    const getCursoData = async (slug) =>{
         try {
             const res = await getItems({
-                collection: 'Cursos/' + id,
-                params: params,
+                collection: 'Cursos',
+                params: {
+                    filter:{
+                        Slug: slug
+                    }
+                },
             });
-            curso.value = res;
+            curso.value = res[0];
             return curso;
         } catch (e) {
             console.log(e);
         }
     }
 
-    const getCursoContenido = async (id) =>{
+    const getCursoContenido = async (slug) =>{
         const res = await getItems({
-            collection: 'Cursos/' + id,
+            collection: 'Cursos',
             params:{
+                filter: {
+                    Slug: slug
+                 },
                 fields: 'Secciones.Content.item.*'
             }
         });
-        secciones.value = res.Secciones;
+        secciones.value = res[0].Secciones;
         return secciones;
     }
 

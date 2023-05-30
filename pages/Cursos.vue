@@ -28,7 +28,7 @@ import Cta from '~~/components/Generales/Cta.vue';
 const {datos, secciones, getPageData, getPageSections } = usePageData();
 await getPageData(6);
 await getPageSections(6);
-const params = {filter: {Tipo: "Curso"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion,Bonificado'};
+const params = {filter: {Tipo: "Curso"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion,Bonificado,Slug'};
 
 useHead({
     title: datos.value.Titulo,

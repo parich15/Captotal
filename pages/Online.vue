@@ -32,7 +32,7 @@ import Portada from '../components/Generales/Portada.vue'
 
 //Datos
 const {datos, secciones, getPageData, getPageSections} = usePageData();
-const params = {filter: {Tipo: "Online"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion'};
+const params = {filter: {Tipo: "Online"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion,Slug'};
 
 //Instanciamos
 await getPageData(8);

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NuxtLink :to="{name: 'Curso-Titulo' , params:{Titulo: tituloUrl}, query:{id: id}}"
+        <NuxtLink :to="{name:'Curso-slug', params:{ slug:props.Slug} }"
           class="block rounded-xl border transition border-gray-100 p-4 shadow-sm hover:border-orange-200 hover:ring-1 hover:ring-orange-200 focus:outline-none focus:ring group hover:bg-orange-500 duration-500 ease-in-out transform hover:scale-105 max-h-[200px]"
         >
           <span class="inline-block rounded-lg bg-oram-50 p-3">
@@ -29,7 +29,8 @@ const props = defineProps({
         type: String,
         default: 'Descripcion Curso'
     },
-    Icono: String
+    Icono: String,
+    Slug: String,
 })
 
 const showDescripcion = computed(()=>{
@@ -38,9 +39,5 @@ const showDescripcion = computed(()=>{
     }else{
         return props.Descripcion
     }
-})
-
-const tituloUrl = computed(()=>{
-    return props.Titulo.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replaceAll(" ", "");
 })
 </script>
