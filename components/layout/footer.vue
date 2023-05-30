@@ -15,7 +15,7 @@
         class="border-b border-gray-800 py-16 lg:order-last lg:border-b-0 lg:border-l lg:py-24 lg:pl-12"
       >
         <div class="flex justify-center lg:hidden">
-          <img class="w-auto h-20" src="~~/src/logo.webp" alt="">
+          <img class="w-auto h-20" src="~~/src/logo.webp" alt="Logo Cap Total Footer">
         </div>
 
         <div class="mt-12 space-y-4 lg:mt-0">

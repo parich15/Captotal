@@ -14,14 +14,16 @@
             :Subtitulo="secciones[1].Content[1].item.Titulo"
             :Descripcion="secciones[1].Content[2].item.Texto"
             :Imagen="secciones[1].Content[3].item.Imagen"
-            :Orden="false">
+            :Orden="false"
+            :Alt="'Cursos Subvencionados en Cap Total'">
         </Bonificados>
         <Bonificados
             :Titulo="secciones[4].Content[0].item.Titulo"
             :Subtitulo="secciones[4].Content[1].item.Titulo"
             :Descripcion="secciones[4].Content[2].item.Texto"
             :Imagen="secciones[4].Content[3].item.Imagen"
-            :Orden="true">
+            :Orden="true"
+            :Alt="'Solicita tu Tarjeta Tacografo'">
 
         </Bonificados>
         <!-- SEPARADOR SECCIÓN BLACK -->

@@ -11,7 +11,7 @@
                          width="270"
                          height="320"
                          src="~/assets/img/ImagenBonificados1.webp"
-                         alt="Imagen Bonificdos"
+                         alt="Cursos CAP Bonificados Cap Total"
                          class="rounded-2xl w-full shadow-xl"
                          />
                    </div>
@@ -31,7 +31,7 @@
                          width="270"
                          height="320"
                          src="~/assets/img/ImagenBonificados3.webp"
-                         alt="Estudiantes del curso CAP Inicial"
+                         alt="Estudiantes del Cap Total en cursos bonificados"
                          class="rounded-2xl w-full shadow-xl"
                          />
                       <span class="absolute -right-7 -bottom-7 z-[-1] sm:-bottom-9 lg:-bottom-10">

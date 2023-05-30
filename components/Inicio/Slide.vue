@@ -3,19 +3,19 @@
         
             <img
             class=" object-cover h-[650px] w-auto object-center lg:object-bottom xl:w-screen xl:object-center" 
-            :src="'https://admin.captotal.com/assets/'+Imagen+'?fit=cover&quality=70'" alt="">
+            :src="'https://admin.captotal.com/assets/'+Imagen+'?fit=cover&quality=70'" :alt="Titulo + ' | ' + Tipo + ' Profesional Cap Total'">
 
         <div class="absolute top-0 h-full w-full bg-gray-100 opacity-80 z-10"></div>
         <div class="absolute top-0 h-full w-full z-20">
             <div class="container mx-auto flex flex-col h-full justify-center lg:justify-start">
                     <div class="flex flex-grow flex-col lg:items-start lg:ml-12 lg:mb-36 lg:justify-end justify-center">
                         <p class="font-titulo font-semibold text-gray-500 text-xl pb-1 lg:text-orange-500 fade-in" v-if="!isFirst">{{ Tipo }} Destacado</p>
-                        <NuxtLink :to="Enlace">
                         <h1 v-if="isFirst" :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
                         class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl ">
                             {{ Titulo }}
                         </h1>
-                        <h2 v-else :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
+                        <NuxtLink v-else :to="Enlace">
+                         <h2  :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
                         class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
                             {{ Titulo }}
                         </h2>

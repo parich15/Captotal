@@ -7,7 +7,7 @@
                 <img
                 height="575"
                 width="400"
-                alt="Cursos CAP Inicial y CAP Continuo Bonificados"
+                :alt="props.Alt"
                 :src="`https://admin.captotal.com/assets/${Imagen}`"
                 class="absolute inset-0 h-full w-full object-cover object-left"
                 />
@@ -40,11 +40,12 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     Titulo: {
         type: String || undefined,
         default: "Cursos Bonificados"
     },
+    Alt: String,
     Subtitulo:{
         type: String,
         default: ''
