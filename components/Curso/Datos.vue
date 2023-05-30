@@ -25,7 +25,9 @@
                     </div>
                     <div v-else>
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Fecha Curso</p>
-                        <span class="font-texto font-bold text-orange-500 lg:text-xl">Próximamente</span>
+                        <a href="#Precios" class="hover:underline cursor-pointer text-orange-500 ">
+                            <span class="font-texto font-bold lg:text-xl">Más Informacion</span>
+                        </a>
                     </div>
                 </div>
                 <hr class="w-10/12 mx-auto">

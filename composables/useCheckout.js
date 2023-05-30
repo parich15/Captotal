@@ -18,16 +18,19 @@ export const useCheckout = () => {
         },
     });
 
-    const getStock = async (id) => {
+    const getStock = async (ruta) => {
         carga.value = true;
         try {
             const res = await getItems({
-                collection: 'Cursos/' + id,
+                collection: 'Cursos',
                 params:{
+                    filter: {
+                        Slug: ruta
+                    },
                     fields: 'Aforo'
                 }
             })
-            stock.value = res.Aforo
+            stock.value = res[0].Aforo
             carga.value = false
             return stock
         } catch (e) {

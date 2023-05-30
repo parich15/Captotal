@@ -26,7 +26,7 @@
                 
             </div>
             <div class="flex-grow">
-                <img width="320" height="320" :src="'https://admin.captotal.com/assets/'+ datos.Contenido[0].Content[3].item.Imagen" alt="Curso Bonificado" class='max-h-56 mx-auto object-cover shadow-lg rounded'>
+                <img loading="lazy" width="320" height="320" :src="'https://admin.captotal.com/assets/'+ datos.Contenido[0].Content[3].item.Imagen" alt="Curso Bonificado" class='max-h-56 mx-auto object-cover shadow-lg rounded'>
             </div>
         </div>
     </section>

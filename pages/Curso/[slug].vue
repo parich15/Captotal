@@ -32,7 +32,7 @@
                     v-if="secciones[1]"
                     :Titulo="secciones[1]?.Content[0]?.item.Titulo"
                     :Subtitulo="secciones[1]?.Content[1]?.item.Titulo"
-                    :Contenido="secciones[1]?.Content[2]?.item.Texto"
+                    :Contenido="secciones[1]?.Content[2]?.item.Texto || secciones[1]?.Content[1].item.Texto"
                     ></Contenido>
                     <ul v-if="curso.Desplegable" id="Desplegables" class="list-none lg:pt-2">
                         <li class="my-5 lg:my-6"
@@ -142,8 +142,11 @@ const track = () =>{
         }]
     })
 }
-
 onMounted(()=>{
     track();
+    document.querySelector('html').style.scrollBehavior = "smooth"
+})
+onBeforeUnmount(()=>{
+    document.querySelector('html').style.scrollBehavior = "auto"
 })
 </script>

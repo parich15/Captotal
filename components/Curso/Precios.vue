@@ -1,5 +1,5 @@
 <template>
- <div class="p-4 xl:w-3/5 md:w-3/4 w-full mx-auto group">
+ <div class="p-4 xl:w-3/5 md:w-3/4 w-full mx-auto group" id="Precios">
         <div class="h-auto p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden group-hover:border-orange-500/60 transition">
           <h2 class="text-sm tracking-widest title-font mb-1 font-semibold font-texto text-gray-400 uppercase">{{Titulo}}</h2>
           <h4 class="text-5xl text-gray-900 leading-none flex items-center pb-4 mb-4 border-b border-gray-200 font-texto">
@@ -117,21 +117,22 @@ const props = defineProps({
     default: "El mejor precio garantizado"
   }
 })
+
 //Datos
 const ruta = useRoute();
-
 //Comprobamos disponibilidad en carga y en checkout init
 const {stock, carga,  getStock} = useCheckout();
+
 const initCheckout = async () => {
-  await getStock(ruta.query?.id);
+  await getStock(ruta.params.slug);
   if(stock.value < 1){
     stock.value = false;
     return;
   }
   useRouter().push({ 
     path: "/Checkout",
-    query: {
-      id: ruta.query.id
+    params: {
+      slug: ruta.params.slug
     }
   })
 
@@ -220,7 +221,7 @@ const mostrarMensaje = () => {
 
 //Ejecutamos
 onMounted(async ()=>{
-  await getStock(ruta.query?.id);
+  await getStock(ruta.params.slug);
 })
 </script>
 
@@ -255,4 +256,5 @@ onMounted(async ()=>{
 .appear-enter-active, .appear-leave-active{
   transition: opacity 200ms ease-in;
 }
+
 </style>
