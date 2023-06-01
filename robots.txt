@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /Checkout
+Sitemap: https://captotal.com/sitemap.xml
