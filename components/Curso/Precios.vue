@@ -168,7 +168,7 @@ const enviarForm = async (e) =>{
     Nombre: userData.Nombre,
     Email: userData.Email,
     Telefono: userData.Telefono,
-    Curso: ruta.query.id,
+    Curso: props.id,
     Centro: 1,
     Fecha: new Date()
     }];
