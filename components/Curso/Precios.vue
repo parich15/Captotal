@@ -131,8 +131,8 @@ const initCheckout = async () => {
   }
   useRouter().push({ 
     path: "/Checkout",
-    params: {
-      slug: ruta.params.slug
+    query: {
+      curso: ruta.params.slug
     }
   })
 

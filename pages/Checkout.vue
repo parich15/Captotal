@@ -120,8 +120,8 @@ const {query} = useGtag();
 const redsys_form = ref(null);
 
 //Obtenemos Datos
-await getCursoData(ruta.query.id);
-await getStock(ruta.query.id);
+await getCursoData(ruta.query.curso);
+await getStock(ruta.query.curso);
 
 // Logica de Pago
 const fecha = new Date();
