@@ -4,12 +4,13 @@ export default defineNuxtPlugin((nuxtApp) => {
     property: {
       id: 'G-D9BXMR4TWB'
     },
-    isEnabled: true,
+    isEnabled: true
+    // useDebugger:true
   })
 
   trackRouter(useRouter(),{
     template(to) {
-      if(to.name == "Curso-Titulo" ){
+      if(to.name == "Curso-slug" ){
         return {
           page_title: to.params.Titulo,
           page_location: to.fullPath,

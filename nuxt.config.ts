@@ -15,14 +15,8 @@ export default defineNuxtConfig({
                     content: '#f97316'
                 },
                 {
-                    hid: 'robots',
-                    name: 'robots',
-                    content: 'index, follow'
-                },
-                {
-                    hid: 'googlebot',
-                    name: 'googlebot',
-                    content: 'index, follow'
+                    name: 'seobility',
+                    content: '2303551818a68f4dbf5b1c078ae65f84'
                 },
                 {
                     hid: 'og:url',
