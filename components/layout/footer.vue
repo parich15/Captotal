@@ -44,6 +44,7 @@
               />
 
               <button
+                aria-label="Boton Subscripcion sNewsletter"
                 class="absolute top-1/2 right-1.5 -translate-y-1/2 rounded bg-orange-400 p-3 text-white transition enabled:hover:bg-orange-500 enabled:hover:scale-105"
                 type="submit"
                 :disabled="comprobarCampo"

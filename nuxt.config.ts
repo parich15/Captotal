@@ -1,9 +1,11 @@
+import { Link } from "./.nuxt/components";
+
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
     //App Config
     app: {
         head:{
-            viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+            viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
             charset: 'utf-8',
             htmlAttrs:{
                 lang: "es-ES"
@@ -39,18 +41,23 @@ export default defineNuxtConfig({
             //Link
             link: [
                 {rel: 'icon', type: 'image/png', href: "/favicon.png"},
-                {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Nunito:wght@300;400;600;800&display=swap'}
+                {rel: 'preload', as:'style', onload:"this.onload=null;this.rel='stylesheet'", href: 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Nunito:wght@300;400;600;800&display=swap'}
             ],
+            noscript: [
+                {
+                    hid: 'Fonts',
+                    innerHTML: '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Nunito:wght@300;400;600;800&display=swap">'
+                }
+            ],            
             //Css
             style:[]
         }
     },
-
     //CSS
     css: [
         'vue3-carousel/dist/carousel.css'
     ],
-
+    
     //Modulos
     modules: ['@nuxtjs/tailwindcss','nuxt-directus','nuxt-simple-sitemap'],
     
