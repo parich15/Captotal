@@ -3,7 +3,10 @@
     <NuxtLoadingIndicator color="#f97316" />
     <Topbar></Topbar>
     <navbar></navbar>
-      <NuxtPage></NuxtPage>
+        <NuxtPage :transition="{
+          name: 'page',
+          mode: 'out-in'
+        }"></NuxtPage>
       <LayoutBannerCookies></LayoutBannerCookies>
     <Footer></Footer>
     <div id="teleportContent"></div>
@@ -19,7 +22,7 @@ import Footer from './components/layout/footer.vue';
 <style>
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.4s;
+  transition: all .5s;
 }
 .page-enter-from,
 .page-leave-to {

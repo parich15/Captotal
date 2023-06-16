@@ -144,9 +144,5 @@ const track = () =>{
 }
 onMounted(()=>{
     track();
-    document.querySelector('html').style.scrollBehavior = "smooth"
-})
-onBeforeUnmount(()=>{
-    document.querySelector('html').style.scrollBehavior = "auto"
 })
 </script>

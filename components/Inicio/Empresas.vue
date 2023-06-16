@@ -8,6 +8,7 @@
                 <div class="w-full xl:w-1/2 px-3 sm:px-4">
                    <div class="py-3 sm:py-4">
                       <img
+                         loading="lazy"
                          width="270"
                          height="320"
                          src="~/assets/img/ImagenBonificados1.webp"
@@ -17,6 +18,7 @@
                    </div>
                    <div class="py-3 sm:py-4">
                       <img
+                         loading="lazy"
                          width="270"
                          height="400"
                          src="~/assets/img/ImagenBonificados2.webp"
@@ -28,6 +30,7 @@
                 <div class="w-full xl:w-1/2 px-3 sm:px-4">
                    <div class="my-4 relative z-10">
                       <img
+                         loading="lazy"
                          width="270"
                          height="320"
                          src="~/assets/img/ImagenBonificados3.webp"
