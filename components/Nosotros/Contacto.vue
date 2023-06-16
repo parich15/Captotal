@@ -5,14 +5,14 @@
       <iframe width="100%" height="100%" class="absolute inset-0 grayscale contrast-125 opacity-40 hover:filter-none hover:opacity-100 transition-all duration-300" frameborder="0" title="map" marginheight="0" marginwidth="0" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.5669716098914!2d2.143630915356026!3d41.34002870689268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a1ffe87d3655%3A0xb3b93be85fa7596b!2sCap%20Total%20S.L!5e0!3m2!1ses!2ses!4v1667710652322!5m2!1ses!2ses" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md opacity-100 group-hover:opacity-0 transition duration-500 ease-in-out ">
         <div class="lg:w-1/2 px-6">
-          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">DIRECCIÓN</h2>
+          <p class="title-font font-semibold text-gray-900 tracking-widest text-xs">DIRECCIÓN</p>
           <p class="mt-1 font-texto">{{ data.Calle }}</p>
           <p class="mt-1 font-texto text-xs lg:text-base" v-if="data.Calle_2 != null">{{ data.Calle_2 }}</p>
         </div>
         <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
-          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
+          <p class="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</p>
           <a class="text-orange-500 leading-relaxed font-texto">{{data.Email}}</a>
-          <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">TELÉFONOS</h2>
+          <p class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">TELÉFONOS</p>
           <p class="leading-relaxed font-texto mt-1">{{data.Telefono}}</p>
           <p class="leading-relaxed font-texto" v-if="data.Movil">{{data.Movil}}</p>
 
@@ -21,7 +21,7 @@
     </div>
     <!-- FORM -->
     <div class="lg:w-1/3 md:w-1/2  flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-      <h2 class=" mb-1 font-titulo font-semibold text-3xl text-orange-500">Contacta con nosotros</h2>
+      <h5 class=" mb-1 font-titulo font-semibold text-3xl text-orange-500">Contacta con nosotros</h5>
       <p class="leading-relaxed mb-5 text-gray-600 font-texto">Nos pondremos en contacto contigo cuanto antes!</p>
       <form @submit="enviarForm">
         <div class="relative mb-4">
