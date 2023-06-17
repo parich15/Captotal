@@ -3,7 +3,7 @@
         <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <!-- Imagen -->
-            <div  class="relative h-auto overflow-hidden rounded-lg sm:h-80 lg:h-full shadow-2xl ">
+            <div  class="relative  overflow-hidden rounded-lg h-80 lg:h-full shadow-2xl ">
                 <img
                 height="575"
                 width="400"
