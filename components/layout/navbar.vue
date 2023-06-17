@@ -29,13 +29,16 @@
             </div>
             
             <!-- Modal Movil -->
-            <div v-if="mostrarMenuMovil" class="bg-slate-900/80 backdrop-blur w-screen h-screen absolute top-16 left-0 overflow-hidden">
-                <div class="container flex flex-col h-full justify-center">
-                    <div class="flex flex-col mx-6">
-                        <Enlaces :enlaces="data" class="enlacesMovil mb-12 font-titulo text-4xl flex flex-col gap-12 font-bold text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-yellow-600 "></Enlaces>
-                    </div> 
+            <Transition name="menu">
+                 <div v-if="mostrarMenuMovil" class="bg-slate-900/80 backdrop-blur w-screen h-screen absolute top-16 left-0 overflow-hidden">
+                    <div class="container flex flex-col h-full justify-center">
+                        <div class="flex flex-col mx-6">
+                            <Enlaces :enlaces="data" class="enlacesMovil mb-12 font-titulo text-4xl flex flex-col gap-12 font-bold text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-yellow-600 "></Enlaces>
+                        </div> 
+                    </div>
                 </div>
-            </div>
+            </Transition>
+           
             
         </div>
     </div>
@@ -75,6 +78,23 @@ opacity: 1;
 transform: translateX(0);
 }
 .fade-enter-active, .fade-leave-active{
-transition: all 100ms ease;
+transition: all 250ms ease-in-out;
+}
+
+.menu-enter-from, .menu-leave-to{
+    transform: translateX(50%);
+    opacity: 0;
+}
+
+.menu-enter-to, .menu-leave-from {
+    transform: translateX(0%);
+    opacity: 1;
+}
+.menu-enter-active {
+    transition: all 350ms ease;
+}
+.menu-leave-active{
+    transition: all 200ms ease-out;
+
 }
 </style>
