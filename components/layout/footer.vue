@@ -92,7 +92,7 @@
 
       <div class="pt-16 pb-8 lg:pt-24 lg:pr-12">
         <div class="hidden lg:flex">
-            <img src="~~/src/logo.webp" alt="Logo Cap Total Footer PC">
+            <img src="~~/src/logo.webp" alt="Logo Cap Total Footer PC" width="200" height="85">
         </div>
 
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:mt-12">
