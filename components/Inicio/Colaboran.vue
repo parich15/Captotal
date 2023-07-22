@@ -5,23 +5,23 @@
         
 
         <div class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
-            <a target="_blank" rel="follow" href="https://www.dgt.es/inicio/" class=" max-h-20 flex justify-center items-center">
+            <a aria-label="Enlace hacia la web de DGT" target="_blank" rel="follow" href="https://www.dgt.es/inicio/" class=" max-h-20 flex justify-center items-center">
                 <Dgt></Dgt>
             </a>
-            <a target="_blank" rel="follow" href="https://www.tomtom.com/es_es/navigation/" class=" max-h-20 flex justify-center items-center">
+            <a aria-label="Enlace hacia la web de TomTom" target="_blank" rel="follow" href="https://www.tomtom.com/es_es/navigation/" class=" max-h-20 flex justify-center items-center">
                 <TomTom></TomTom>
             </a>
-            <a target="_blank" rel="follow" href="https://www.mitma.gob.es/transporte_terrestre" class=" max-h-20 flex justify-center items-center">
+            <a aria-label="Enlace hacia la web de Fomento" target="_blank" rel="follow" href="https://www.mitma.gob.es/transporte_terrestre" class=" max-h-20 flex justify-center items-center">
                 <PartnersFomento></PartnersFomento>                     
             </a>
 
-            <a target="_blank" rel="follow" href="https://transit.gencat.cat/ca/inici" class=" max-h-20 flex justify-center items-center">
+            <a aria-label="Enlace hacia la web de Transit" target="_blank" rel="follow" href="https://transit.gencat.cat/ca/inici" class=" max-h-20 flex justify-center items-center">
                 <PartnersTransit></PartnersTransit>                                                                                
             </a>
-            <a target="_blank" rel="follow" href="https://www.webfleet.com/es_es/webfleet/" class=" max-h-20 flex justify-center items-center">
+            <a aria-label="Enlace hacia la web de WebFleet" target="_blank" rel="follow" href="https://www.webfleet.com/es_es/webfleet/" class=" max-h-20 flex justify-center items-center">
                 <Webfleet></Webfleet>
             </a>
-            <a target="_blank" rel="follow" href="https://autoescuelacarland.com/" class=" max-h-20 flex justify-center items-center">
+            <a aria-label="Enlace hacia la web de Autoescuela Car Land" target="_blank" rel="follow" href="https://autoescuelacarland.com/" class=" max-h-20 flex justify-center items-center">
                 <Carland></Carland>
             </a>
         </div>

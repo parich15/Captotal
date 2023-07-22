@@ -12,7 +12,7 @@
         </div>
         <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
           <p class="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</p>
-          <a class="text-orange-500 leading-relaxed font-texto">{{data.Email}}</a>
+          <a rel="nofollow" :href="`mailto:${data.Email}`" class="text-orange-500 leading-relaxed font-texto" target="_blank">{{data.Email}}</a>
           <p class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">TELÉFONOS</p>
           <p class="leading-relaxed font-texto mt-1">{{data.Telefono}}</p>
           <p class="leading-relaxed font-texto" v-if="data.Movil">{{data.Movil}}</p>
@@ -22,7 +22,7 @@
     </div>
     <!-- FORM -->
     <div class="lg:w-1/3 md:w-1/2  flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-      <h6 class=" mb-1 font-titulo font-semibold text-3xl text-orange-500">Contacta con nosotros</h6>
+      <p class=" mb-1 font-titulo font-semibold text-3xl text-orange-500">Contacta con nosotros</p>
       <p class="leading-relaxed mb-5 text-gray-600 font-texto">Nos pondremos en contacto contigo cuanto antes!</p>
       <form @submit="enviarForm">
         <div class="relative mb-4">
