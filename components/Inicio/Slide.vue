@@ -2,7 +2,9 @@
     <div class="relative lg:h-[600px]">
         
             <img
-            
+            :loading="esPrimera ? 'eager' : 'lazy'"
+            :width="ancho"
+            height="650"
             class=" object-cover h-[650px] w-auto object-center lg:object-bottom xl:w-screen xl:object-center" 
             :src="'https://admin.captotal.com/assets/'+Imagen+'?fit=cover&quality=70'" :alt="Titulo + ' | ' + Tipo + ' Profesional Cap Total'">
 
@@ -52,7 +54,16 @@ defineProps({
     Tipo:{
         type: String,
         required: true
+    },
+    esPrimera:{
+        type:Boolean
     }
+})
+
+const ancho = ref(null);
+
+onMounted(()=>{
+    ancho.value = document.body.clientWidth
 })
 </script>
 <style scoped>

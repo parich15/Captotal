@@ -7,7 +7,8 @@
             :Texto="datos.Texto"
             :Imagen="datos.Imagen"
             :Enlace="datos.Enlace"
-            :Tipo="datos.Tipo">
+            :Tipo="datos.Tipo"
+            :esPrimera="index == 0 ? true : false">
           </InicioSlide>
         </slide>
 
