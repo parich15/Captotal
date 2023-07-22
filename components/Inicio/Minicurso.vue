@@ -7,7 +7,7 @@
             <Iconos :llave="Icono"></Iconos>
           </span>
 
-          <h6 class="mt-2 font-bold font-titulo text-lg lg:text-xl text-orange-500 transition group-hover:text-white">{{Titulo}}</h6>
+          <h3 class="mt-2 font-bold font-titulo text-lg lg:text-xl text-orange-500 transition group-hover:text-white">{{Titulo}}</h3>
 
           <p class="text-gray-400 sm:mt-1 hidden md:block sm:text-sm sm:text-gray-500 font-texto font-semibold group-hover:text-white">
             {{showDescripcion}}

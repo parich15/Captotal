@@ -2,7 +2,7 @@
     <div class="relative lg:h-[600px]">
         
             <img
-            loading="lazy"
+            
             class=" object-cover h-[650px] w-auto object-center lg:object-bottom xl:w-screen xl:object-center" 
             :src="'https://admin.captotal.com/assets/'+Imagen+'?fit=cover&quality=70'" :alt="Titulo + ' | ' + Tipo + ' Profesional Cap Total'">
 
