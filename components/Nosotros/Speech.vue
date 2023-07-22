@@ -3,7 +3,7 @@
   <div class=" px-5 py-24 flex flex-col lg:pt-20 lg:pb-0">
     <div class="lg:w-5/6 mx-auto">
       <div class="rounded-lg h-64 overflow-hidden">
-        <img alt="Cap Total, centro de formación en el Puerto de Barcelona" class="object-cover object-center h-full w-full" src="assets/img/PuertoBarcelona.webp" width="1200" height="500">
+        <img alt="Cap Total, centro de formación en el Puerto de Barcelona" class="object-cover object-center h-full w-full" src="../../assets/img/PuertoBarcelona.webp" width="1200" height="500">
       </div>
       <div class="flex flex-col sm:flex-row mt-10">
         <div class=" sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">

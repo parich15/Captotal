@@ -619,9 +619,9 @@
                 <span class="font-bold text-lg text-primary mb-2 block font-titulo antialiased text-gray-600 lg:text-xl lg:font-texto">
                     {{Subtitulo}}
                 </span>
-                <h2 class="font-bold text-3xl sm:text-4xl text-dark mb-2 font-texto text-gray-700">
+                <h3 class="font-bold text-3xl sm:text-4xl text-dark mb-2 font-texto text-gray-700">
                    {{Titulo}}
-                </h2>
+                </h3>
 
                 <div class="h-1 w-12 bg-orange-500 rounded block mb-8"></div>
                 <div class="text-base md:text-lg text-gray-600 font-texto text-body-color mb-8" v-html="Texto"></div>

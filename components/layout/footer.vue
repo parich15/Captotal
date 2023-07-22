@@ -69,6 +69,24 @@
             <p v-if="Error" class="text-red-500 font-texto text-sm ml-1 mt-2">Email ya en uso</p>
 
           </form>
+          <div class="flex ml-1">
+            <a href="https://www.facebook.com/captotal/" rel="nofollow" target="_blank" class="group">
+              <div class="group-hover:bg-orange-500 rounded-full transition duration-300">
+                <img loading="lazy" src="../../assets/img/Facebook.svg" class="h-6 w-6 " alt="Logo Facebook">
+              </div>
+            </a>
+            <a href="https://www.instagram.com/captotal/" rel="nofollow" target="_blank" class="group mx-5">
+              <div class="group-hover:bg-orange-500 rounded-full transition duration-300">
+                <img loading="lazy" src="../../assets/img/Instagram.svg" class="h-6 w-6 " alt="Logo Instagram">
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/captotal/" rel="nofollow" target="_blank" class="group">
+              <div class="group-hover:bg-orange-500 rounded-full transition duration-300">
+                <img loading="lazy" src="../../assets/img/Linkedin.svg" class="h-6 w-6 " alt="Logo Linkedin">
+              </div>
+            </a>
+            
+          </div>
         </div>
       </div>
 
@@ -113,6 +131,7 @@
 
 <script setup>
 import { useMenu } from '~~/composables/useMenu';
+
 const {data, getMenu} = useMenu();
 const { createItems } = useDirectusItems();
 const Email = ref(null);

@@ -62,8 +62,8 @@
 }
 
 /* Footer */
-#Footer .router-link-active{
-    background-color: none;
+#footer a.router-link-active{
+    background-color: transparent;
 }
 /* Contacto Inicio */
 #home #contacto>.container {

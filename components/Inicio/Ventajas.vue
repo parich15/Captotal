@@ -2,7 +2,7 @@
     <section class="text-white bg-gray-900">
     <div class="mx-auto max-w-screen-xl px-4 py-16 lg:py-14 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-lg text-center">
-        <h3 class="texto-gradiente pb-6 text-5xl font-bold sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 font-titulo lg:text-6xl xl:text-7xl">{{datos.Contenido[0].Content[0].item.Titulo}}</h3>
+        <p class="texto-gradiente pb-6 text-5xl font-bold sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 font-titulo lg:text-6xl xl:text-7xl">{{datos.Contenido[0].Content[0].item.Titulo}}</p>
 
         <div class="mt-4 text-gray-200 font-texto font-semibold text-base xl:text-xl" v-html="datos.Contenido[0].Content[1].item.Texto">
            
@@ -29,7 +29,7 @@
         <NuxtLink to="/Nosotros"
             class="boton-primario transform scale-100 hover:scale-105 hover:shadow-md transition-all font-titulo font-semibold w-60 mx-auto"     
         >
-            Sobre Nosotros
+           Acerca de Nosotros
         </NuxtLink>
         </div>
     </div>

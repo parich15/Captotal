@@ -8,6 +8,7 @@
           <p class="title-font font-semibold text-gray-900 tracking-widest text-xs">DIRECCIÓN</p>
           <p class="mt-1 font-texto">{{ data.Calle }}</p>
           <p class="mt-1 font-texto text-xs lg:text-base" v-if="data.Calle_2 != null">{{ data.Calle_2 }}</p>
+          <p class="mt-1 font-texto">{{data.CP}} {{ data.Ciudad }}</p>
         </div>
         <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
           <p class="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</p>
