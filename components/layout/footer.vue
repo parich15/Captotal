@@ -22,7 +22,7 @@
           <span class="rounded bg-orange-500 lg:block lg:h-1 lg:w-10"></span>
 
           <div class="text-center lg:text-left">
-            <h5 class="font-medium text-white font-titulo text-3xl">Únete a nuestra newsletter!</h5>
+            <p class="font-medium text-white font-titulo text-3xl">Únete a nuestra newsletter!</p>
 
             <p
               class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-gray-400 lg:mx-0 font-texto"
