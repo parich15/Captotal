@@ -35,7 +35,12 @@ export default defineNuxtConfig({
                   }
             ],
             //Scripts
-            script: [],
+            script: [
+                {
+                    src: `https://js.clickrank.ai/seo/850e6014-7556-4ad9-84af-491e3d95295b/script?${new Date().getTime()}`,
+                    async: true,
+                }
+            ],
             //Link
             link: [
                 {rel: 'icon', type: 'image/png', href: "/favicon.png"},
