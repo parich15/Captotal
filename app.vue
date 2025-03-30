@@ -1,4 +1,13 @@
 <template>
+  <head>
+    <link
+      rel="preload"
+      as="image"
+      href="https://admin.captotal.com/assets/584d8674-f819-4853-ab1c-550f7099e04b"
+      type="image/webp"
+    />
+  </head>
+<template>
   <div>
     <NuxtLoadingIndicator color="#f97316" />
     <Topbar></Topbar>
