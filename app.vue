@@ -2,7 +2,7 @@
   <div>
     <NuxtLoadingIndicator color="#f97316" />
     <Topbar />
-    <navbar></navbar>
+    <Navbar />
     <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
     <LayoutBannerCookies />
     <Footer />
@@ -14,6 +14,7 @@
 import Navbar from './components/layout/navbar.vue';
 import Topbar from './components/layout/topbar.vue';
 import Footer from './components/layout/footer.vue';
+import LayoutBannerCookies from './components/layout/LayoutBannerCookies.vue';
 </script>
 
 <style>
