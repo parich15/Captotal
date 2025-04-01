@@ -12,11 +12,11 @@
         </div>
         <!-- Contenedor Central // SOLO TABLET Y PC -->
         <div class="mx-auto hidden lg:block">
-            <h3 class="font-titulo text-orange-500 transition-transform hover:scale-95">
+            <p class="font-titulo text-orange-500 transition-transform hover:scale-95">
                 <NuxtLink :to="topbar.Enlace">
                     {{ topbar.Frase }}
                 </NuxtLink>
-            </h3>
+            </p>
         </div>
         <!-- Fin Contenedor -->
         <div class="flex gap-1">

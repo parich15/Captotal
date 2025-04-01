@@ -2,7 +2,7 @@
     <div class="relative">
         <div class="absolute rounded-xl bg-gray-50 -top-10 w-11/12 mx-auto left-0 right-0 p-3 container shadow-md shadow-orange-500/10">
             <div class="flex flex-col text-center">
-                <h3 class="font-titulo font-semibold text-xl text-gray-600 lg:text-2xl lg:mb-3">Datos del curso</h3>
+                <h2 class="font-titulo font-semibold text-xl text-gray-600 lg:text-2xl lg:mb-3">Datos del curso</h2>
                 <!-- <hr class="w-10/12 mx-auto border-orange-200"> -->
                 <div
                 :class="tipo === 'Carnet' ? 'grid-cols-2' : 'grid-cols-3'"
