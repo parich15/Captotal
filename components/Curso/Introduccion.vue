@@ -25,4 +25,4 @@ defineProps({
         default: "El curso del CAP Inicial tiene como objetivo la obtención del certificado de aptitud profesional. Este título es de carácter obligatorio para todos los conductores profesionales, o si se pretende empezar o continuar con la profesión de conductor profesional de transporte por carretera. Existen dos especialidades para obtener el CAP Inicial: Mercancías y Viajeros.        El CAP de Mercancías como su nombre indica está enfocado para aquellos conductores que en su actividad laboral transporten mercancías, por otro lado el de Viajeros como su nombre indica se enfoca para aquellos conductores que transportan pasajeros. Ambos cursos tienen una duración de 140 horas y constan de un exámen tipo test de 100 preguntas.Si ya has obtenido el CAP necesitarás renovarlo cada 5 años sea cual sea la especialidad escogida, si necesitas renovar el CAP infórmate de nuestros cursos de CAP Continuo."
     }
 })
-</script>
+</script> 
