@@ -12,12 +12,12 @@
         <div class="absolute top-0 h-full w-full z-20">
             <div class="container mx-auto flex flex-col h-full justify-center lg:justify-start">
                     <div class="flex flex-grow flex-col lg:items-start lg:ml-12 lg:mb-36 lg:justify-end justify-center">
-                        <p class="font-titulo font-semibold text-gray-500 text-xl pb-1 lg:text-orange-500 fade-in">{{ Tipo }} Destacado</p>
+                        <span class="font-titulo font-semibold text-gray-500 text-xl pb-1 lg:text-orange-500 fade-in">{{ Tipo }} Destacado</span>
                         <NuxtLink :to="Enlace">
-                         <p  :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
+                         <h1  :class="Titulo.length < 20 ? 'text-5xl' : 'text-4xl' " 
                         class="text-focus-in font-titulo font-semibold  text-orange-500 mt-2 lg:mt-4 lg:text-6xl">
                             {{ Titulo }}
-                        </p>
+                        </h1>
                         </NuxtLink>
                         <div class="mt-3 hidden lg:block font-titulo font-semibold text-xl ml-1 text-gray-600 text-focus-in-delayed" v-html="Texto"></div>
                         <button 

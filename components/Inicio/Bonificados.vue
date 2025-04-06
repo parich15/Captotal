@@ -15,7 +15,7 @@
 
             <!-- Texto -->
             <div :class="Orden ? 'row-start-1' : ''" class="lg:py-24">
-                <h3 class="text-4xl font-bold sm:text-5xl font-titulo text-gray-700">{{Titulo}}</h3>
+                <h2 class="text-4xl font-bold sm:text-5xl font-titulo text-gray-700">{{Titulo}}</h2>
                 <p class="font-texto font-semibold text-orange-500 animate-pulse">{{Subtitulo}}</p>
 
                 <div class="mt-4 text-gray-500 font-texto text-lg max-h-64 overflow-hidden" v-html="Descripcion"></div>
@@ -63,4 +63,3 @@ const props = defineProps({
     }
 })
 </script>
-
