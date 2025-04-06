@@ -4,9 +4,8 @@
     <Topbar />
     <Navbar />
     <NuxtPage :transition="{ name: 'page', mode: 'out-in' }" />
-    <LayoutBannerCookies />
     <Footer />
-    <div id="teleportContent"></div>
+    <LayoutBannerCookies />
   </div>
 </template>
 
@@ -15,6 +14,7 @@ import Navbar from './components/layout/navbar.vue';
 import Topbar from './components/layout/topbar.vue';
 import Footer from './components/layout/footer.vue';
 import LayoutBannerCookies from './components/layout/LayoutBannerCookies.vue';
+// import LayoutBannerCookies from './components/layout/LayoutBannerCookies.vue';
 </script>
 
 <style>
