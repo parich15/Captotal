@@ -102,7 +102,8 @@ const enviarForm = async (evt) => {
         Email: Email.value,
         Telefono: Telefono.value.toString(),
         Tipo: Tipo.value,
-        Mensaje: Mensaje.value
+        Mensaje: Mensaje.value,
+        Creado: new Date(),
       }
     
     await createItems({collection:"Mensajes",items});

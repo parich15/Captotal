@@ -19,7 +19,7 @@
                             {{ Titulo }}
                         </p>
                         </NuxtLink>
-                        <div class="mt-3 hidden lg:block font-titulo font-semibold text-xl ml-1 text-gray-600 text-focus-in-delayed" v-html="Texto"></div>
+                        <div class="mt-3 block font-titulo font-semibold text-xl ml-1 text-gray-600 text-focus-in-delayed lg:text-left" v-html="Texto"></div>
                         <button 
                        
                         @click="$router.push(Enlace)"

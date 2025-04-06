@@ -55,9 +55,9 @@
                 </a>
               
                 <div class="pt-5 sm:pt-1 px-2">
-                  <h3 class="font-titulo font-bold text-gray-500 text-2xl tracking-wide leading-6">  
+                  <p class="font-titulo font-bold text-gray-500 text-2xl tracking-wide leading-6">  
                     Déjanos tus datos y nos pondremos en contacto!
-                  </h3>
+                  </p>
                   <form class="mt-3 flex flex-wrap" @submit="enviarForm">
                     <label class="font-titulo text-sm font-semibold text-gray-400 " for="Nombre">Dinos tu nombre</label>
                       <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" name="Nombre" v-model="userData.Nombre"> 
