@@ -25,9 +25,14 @@
           </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <Minicurso v-for="curso in cursos.slice(0,6)" :key="curso.id" :id="curso.id" :Titulo="curso.Titulo" :Descripcion="curso.Descripcion" :Icono="curso.Icono" :Slug="curso.Slug" ></Minicurso>
+      <div class="flex flex-col gap-y-5"> 
+        <h2 class="text-3xl font-bold text-gray-700 font-titulo">Nuestros Cursos</h2>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <Minicurso v-for="curso in cursos.slice(0,6)" :key="curso.id" :id="curso.id" :Titulo="curso.Titulo" :Descripcion="curso.Descripcion" :Icono="curso.Icono" :Slug="curso.Slug" ></Minicurso>
+        </div>
       </div>
+
+
     </div>
   </div>
 </section>

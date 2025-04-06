@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { usePageData } from '~~/composables/usePageData';
+import { usePageData } from '~/composables/usePageData';
 
 const {getBloquesSections} = usePageData()
 const data = await getBloquesSections(3);
