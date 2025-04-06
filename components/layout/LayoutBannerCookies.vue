@@ -1,6 +1,6 @@
 <template>
     <ClientOnly>
-        <div id="bannerCookie" class=" w-full  fixed bottom-5 z-[9999]" v-if="mostrar">
+        <div id="bannerCookie" class=" w-full fixed bottom-5 z-[9999]" v-if="mostrar">
             <div class="p-3 w-10/12 lg:w-6/12 mx-auto bg-orange-500/80 rounded-lg">
                 <div class="texto text-justify font-texto font-semibold text-white text-xs" v-html="data.Contenido[0].Content[0].item.Texto"></div>
                 <div class="flex justify-center mt-2 md:justify-around align-middle">
