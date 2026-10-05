@@ -1,42 +1,30 @@
-# Nuxt 3 Minimal Starter
+# Captotal
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Web de [captotal.com](https://captotal.com) hecha con [Nuxt 4](https://nuxt.com/docs) y Directus como CMS.
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
-# yarn
-yarn install
-
-# npm
 npm install
-
-# pnpm
-pnpm install --shamefully-hoist
 ```
 
-## Development Server
+## Desarrollo
 
-Start the development server on http://localhost:3000
+Servidor en http://localhost:3000
 
 ```bash
 npm run dev
 ```
 
-## Production
-
-Build the application for production:
+## Producción
 
 ```bash
 npm run build
+pm2 start ecosystem.config.js
 ```
 
-Locally preview production build:
+Previsualizar la build en local:
 
 ```bash
 npm run preview
 ```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.

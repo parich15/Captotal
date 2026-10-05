@@ -1,7 +1,5 @@
-import {RenderResponse} from "nitropack";
-
 export default defineNitroPlugin((nitroApp) => {
-    nitroApp.hooks.hook('render:response', (response: RenderResponse) => {
+    nitroApp.hooks.hook('render:response', (response) => {
         delete response.headers['x-powered-by'];
     })
 })
