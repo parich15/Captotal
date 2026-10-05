@@ -74,6 +74,7 @@
 <script setup>
 import { useContactoData } from '~/composables/useContactoData';
 const {data, getContactoData} = useContactoData()
+const { enviar } = useDataLayer();
 
 await getContactoData(1);
 
@@ -104,6 +105,7 @@ const enviarForm = async (evt) => {
         Mensaje: Mensaje.value,
       }
     });
+    enviar({ event: 'generate_lead', formulario: 'contacto' });
 
     Cargando.value = false;
     Enviado.value = true;

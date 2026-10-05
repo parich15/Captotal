@@ -52,21 +52,12 @@
 
 <script setup>
 import { useBlogData } from '~/composables/useBlogData';
-import { useGtag } from 'vue-gtag-next';
 import PostGrid from '~/components/Blog/PostGrid.vue';
 import Ventajas from '~/components/Inicio/Ventajas.vue';
 
-const ruta = useRoute();
 const { posts, getAllPosts } = useBlogData();
-const { pageview } = useGtag();
 
 await getAllPosts();
-
-pageview({ 
-  page_title: 'Blog | Cap Total',
-  page_path: ruta.path,
-  page_location: ruta.fullPath
-});
 
 useHead({
   title: 'Blog | Cap Total',

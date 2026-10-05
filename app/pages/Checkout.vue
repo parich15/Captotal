@@ -96,12 +96,11 @@
 <script setup>
 import { useCursoData } from '~/composables/useCursoData';
 import { useCheckout } from '~/composables/useCheckout';
-import { useGtag } from 'vue-gtag-next';
 
 const ruta = useRoute();
 const {stock, datos, getStock} = useCheckout();
 const {curso, getCursoData} = useCursoData();
-const {query} = useGtag();
+const { enviarEcommerce, itemCurso } = useDataLayer();
 const redsys_form = ref(null);
 
 //Obtenemos Datos
@@ -145,15 +144,9 @@ const comenzarPago = async () =>{
 
 // Logica Marketing: Captamos Checkout Event
 const track = ()=> {
-    query("event", "begin_checkout", {
-        currency: 'EUR',
-        value: parseInt(curso.value.Precio),
-        items: [{
-            item_id: `curso_${curso.value.id}`,
-            item_name: curso.value.Titulo,
-            item_category: curso.value.Tipo,
-            quantity: 1
-        }]
+    enviarEcommerce('begin_checkout', {
+        value: Number(curso.value.Precio),
+        items: [itemCurso(curso.value)]
     })
 }
 

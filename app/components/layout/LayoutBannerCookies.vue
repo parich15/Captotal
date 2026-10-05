@@ -19,29 +19,27 @@
 
 <script setup>
 import { usePageData } from '~/composables/usePageData';
-import { useState as useGtagState } from 'vue-gtag-next';
 
 const {getBloquesSections} = usePageData()
 const data = await getBloquesSections(3);
 
 const mostrar = ref(true);
-const { isEnabled } = useGtagState();
+const { enviarPaginaVista } = useDataLayer();
 
 const aceptarCookies = () => {
     mostrar.value = false;
     localStorage.setItem('cookiesAceptadas', 'true');
-    // Activamos Google Analytics y cargamos Google Tag Manager (definido en nuxt.config) sin recargar la página
-    isEnabled.value = true;
+    // Cargamos Google Tag Manager (definido en nuxt.config) sin recargar y registramos la página actual
     window.cargarGTM?.();
+    enviarPaginaVista();
 }
 
 const rechazarCookies = () => {
     mostrar.value = false;
     localStorage.setItem('cookiesAceptadas', 'false');
-    isEnabled.value = false;
 }
 
-// Si ya hay una decisión guardada no mostramos el banner (GA y GTM ya arrancan solos si se aceptó)
+// Si ya hay una decisión guardada no mostramos el banner (GTM ya arranca solo si se aceptó)
 onMounted(() => {
     if (['true', 'false'].includes(localStorage.getItem('cookiesAceptadas'))) {
         mostrar.value = false;

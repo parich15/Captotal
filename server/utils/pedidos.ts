@@ -10,7 +10,7 @@ export interface Pedido {
     token: string
     importe: string
     precio: string
-    curso: { id: number, Titulo: string }
+    curso: { id: number, Titulo: string, Tipo?: string }
     alumno: { Nombre: string, Apellidos: string, Email: string, Telefono: string | number, NieNif: string }
     creado: string
 }

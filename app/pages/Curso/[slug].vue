@@ -89,7 +89,6 @@
 
 </template>
 <script setup>
-import { useGtag } from "vue-gtag-next";
 import {useCursoData} from '~/composables/useCursoData';
 import Portada from '~/components/Generales/Portada.vue';
 import Datos from '~/components/Curso/Datos.vue';
@@ -103,17 +102,11 @@ import Informacion from '~/components/Curso/Informacion.vue';
 import Desplegable from '~/components/Curso/Desplegable.vue';
 const ruta = useRoute();
 const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
-const { pageview, query} = useGtag();
+const { enviarEcommerce, itemCurso } = useDataLayer();
 const checkout = ref(false);
 
 await getCursoData(ruta.params.slug);
 await getCursoContenido(ruta.params.slug);
-
-pageview({ 
-    page_title: curso.value.Titulo,
-    page_path: ruta.path,
-    page_location: ruta.fullPath
-})
 
 useHead({
     title: curso.value.Titulo + " | Cap Total",
@@ -138,15 +131,9 @@ useHead({
 })
 
 const track = () =>{
-    query("event", "view_item",{
-        currency: 'EUR',
-        value: parseInt(curso.value.Precio),
-        items:[{
-            item_id: `curso_${curso.value.id}`,
-            item_name: curso.value.Titulo,
-            item_category: curso.value.Tipo,
-            quantity: 1
-        }]
+    enviarEcommerce('view_item', {
+        value: Number(curso.value.Precio),
+        items: [itemCurso(curso.value)]
     })
 }
 onMounted(()=>{

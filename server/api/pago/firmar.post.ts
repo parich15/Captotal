@@ -17,8 +17,8 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 400, statusMessage: 'Faltan datos del alumno' })
     }
 
-    const { data } = await directus<{ data: { id: number, Titulo: string, Precio: string, Aforo: number | null }[] }>(event, '/items/Cursos', {
-        query: { filter: JSON.stringify({ Slug: { _eq: slug } }), fields: 'id,Titulo,Precio,Aforo', limit: 1 },
+    const { data } = await directus<{ data: { id: number, Titulo: string, Tipo: string, Precio: string, Aforo: number | null }[] }>(event, '/items/Cursos', {
+        query: { filter: JSON.stringify({ Slug: { _eq: slug } }), fields: 'id,Titulo,Tipo,Precio,Aforo', limit: 1 },
     })
     const curso = data[0]
     if (!curso) throw createError({ statusCode: 404, statusMessage: 'Curso no encontrado' })
@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
         token,
         importe: String(centimos),
         precio,
-        curso: { id: curso.id, Titulo: curso.Titulo },
+        curso: { id: curso.id, Titulo: curso.Titulo, Tipo: curso.Tipo },
         alumno: alumno as Pedido['alumno'],
         creado: new Date().toISOString(),
     })

@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
         Email: pedido.alumno.Email,
         NombreCurso: pedido.curso.Titulo,
         Curso: pedido.curso.id,
+        TipoCurso: pedido.curso.Tipo,
         Order: { numOrder, precio: pedido.precio },
         // Solo la primera vez, para no enviar la compra a Analytics en cada recarga
         primeraVista: await marcarUnaVez(numOrder, 'vista'),

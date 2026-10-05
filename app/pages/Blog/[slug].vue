@@ -58,7 +58,6 @@
 
 <script setup>
 import { useBlogData } from '~/composables/useBlogData';
-import { useGtag } from 'vue-gtag-next';
 import Breadcrumbs from '~/components/Blog/Breadcrumbs.vue';
 import Portada from '~/components/Generales/Portada.vue';
 import PostContent from '~/components/Blog/PostContent.vue';
@@ -66,7 +65,6 @@ import Ventajas from '~/components/Inicio/Ventajas.vue';
 
 const ruta = useRoute();
 const { post, posts, getPostData, getAllPosts } = useBlogData();
-const { pageview } = useGtag();
 
 await getPostData(ruta.params.slug);
 await getAllPosts();
@@ -81,12 +79,6 @@ const relatedPosts = computed(() => {
 
 watchEffect(() => {
   if (post.value) {
-    pageview({ 
-      page_title: post.value.Titulo + ' | Cap Total',
-      page_path: ruta.path,
-      page_location: ruta.fullPath
-    });
-
     useHead({
       title: post.value.Titulo + ' | Cap Total',
       meta: [

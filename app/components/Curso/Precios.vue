@@ -89,6 +89,7 @@
 
 <script setup>
 import { useCheckout } from '~/composables/useCheckout';
+const { enviar } = useDataLayer();
 
 //Props
 const props = defineProps({
@@ -171,6 +172,7 @@ const enviarForm = async (e) =>{
         Titulo: props.Titulo
       }
     });
+    enviar({ event: 'generate_lead', formulario: 'interesado_curso', curso: props.Titulo });
 
     enviando.value = false;
     userData.Nombre = '', userData.Email = '', userData.Telefono = '';

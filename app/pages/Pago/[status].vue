@@ -67,28 +67,22 @@
 </template>
 
 <script setup>
-import { useGtag } from "vue-gtag-next";
-
 const ruta = useRoute();
-const {purchase} = useGtag();
+const { enviarEcommerce, itemCurso } = useDataLayer();
 const datos = ref(null);
 
-// Trackeamos Evento Compra con sus datos y enviamos a Analytics
+// Compra para GTM (GA4 y conversión de Google Ads): transaction_id evita contarla dos veces
 const track = () => {
-      purchase({
-        "transaction_id": datos.value.Order.numOrder,
-        "value": parseInt(datos.value.Order.precio),
-        "currency": "EUR",
-        "shipping": 0,
-        "items": [
-            {
-                "id": datos.value.Curso,
-                "name": datos.value.NombreCurso,
-                "category": "Cursos",
-                "price": datos.value.Order.precio
-            }
-        ]
-      })
+    enviarEcommerce('purchase', {
+        transaction_id: datos.value.Order.numOrder,
+        value: Number(datos.value.Order.precio),
+        items: [itemCurso({
+            id: datos.value.Curso,
+            Titulo: datos.value.NombreCurso,
+            Tipo: datos.value.TipoCurso,
+            Precio: datos.value.Order.precio
+        })]
+    })
 }
 
 useHead({
