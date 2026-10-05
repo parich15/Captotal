@@ -134,7 +134,13 @@ const comenzarPago = async () =>{
         Ds_MerchantParameters.value = firma.Ds_MerchantParameters;
         Ds_Signature.value = firma.Ds_Signature;
         await nextTick();
-        redsys_form.value.submit();
+        // Conversión del checkout: se envía al salir hacia Redsys, acabe el pago bien o mal
+        enviarEcommerce('add_payment_info', {
+            transaction_id: firma.pedido,
+            value: Number(curso.value.Precio),
+            payment_type: 'Tarjeta (Redsys)',
+            items: [itemCurso(curso.value)]
+        }, () => redsys_form.value.submit());
     } catch (e) {
         console.log(e);
         pagando.value = false;

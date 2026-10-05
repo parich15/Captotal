@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
     // Identifica al comprador en la página de confirmación (los datos personales se quedan en el servidor)
     setCookie(event, 'pedido', `${numOrder}.${token}`, { httpOnly: true, secure: true, path: '/', maxAge: 86400 })
 
-    return firmarPeticionRedsys(config.redsys.secreto, {
+    const firma = firmarPeticionRedsys(config.redsys.secreto, {
         DS_MERCHANT_AMOUNT: String(centimos),
         DS_MERCHANT_CURRENCY: '978',
         DS_MERCHANT_MERCHANTCODE: config.redsys.comercio,
@@ -61,7 +61,8 @@ export default defineEventHandler(async (event) => {
         DS_MERCHANT_ORDER: numOrder,
         DS_MERCHANT_TERMINAL: config.redsys.terminal,
         DS_MERCHANT_TRANSACTIONTYPE: '0',
-        DS_MERCHANT_URLKO: `${origen}/Pago/Fallido?status=ko`,
+        DS_MERCHANT_URLKO: `${origen}/Pago/Fallido?status=ko&order=${numOrder}`,
         DS_MERCHANT_URLOK: `${origen}/Pago/Completo?status=ok&order=${numOrder}`,
     })
+    return { ...firma, pedido: numOrder }
 })

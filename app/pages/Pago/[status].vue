@@ -68,7 +68,7 @@
 
 <script setup>
 const ruta = useRoute();
-const { enviarEcommerce, itemCurso } = useDataLayer();
+const { enviar, enviarEcommerce, itemCurso } = useDataLayer();
 const datos = ref(null);
 
 // Compra para GTM (GA4 y conversión de Google Ads): transaction_id evita contarla dos veces
@@ -109,6 +109,14 @@ onMounted(async ()=>{
         } catch (e) {
             console.log(e);
         }
+    } else if (ruta.query.status == "ko") {
+        // Pago fallido o cancelado en Redsys (una vez por pedido, aunque se recargue la página)
+        const clave = `pago_ko_${ruta.query.order || ''}`;
+        try {
+            if (sessionStorage.getItem(clave)) return;
+            sessionStorage.setItem(clave, '1');
+        } catch (e) {}
+        enviar({ event: 'payment_failed', transaction_id: ruta.query.order || null });
     }
 })
 </script>
