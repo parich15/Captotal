@@ -93,7 +93,9 @@ export default defineNuxtConfig({
     },
     //Server
     nitro: {
-        compressPublicAssets: true
+        compressPublicAssets: true,
+        // desplegar.sh compila en otra carpeta mientras la web sigue sirviendo la build actual
+        ...(process.env.NITRO_OUTPUT_DIR && { output: { dir: process.env.NITRO_OUTPUT_DIR } })
     },
 
     //Sitemap -- Los cursos y posts se cargan en tiempo real desde Directus (server/api/__sitemap__/urls.ts)
