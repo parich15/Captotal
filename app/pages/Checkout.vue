@@ -83,7 +83,7 @@
                             <input type="hidden" name="Ds_MerchantParameters" :value="Ds_MerchantParameters"/>
                             <input type="hidden" name="Ds_Signature" :value="Ds_Signature"/>
                             <div class="flex justify-center mb-3">
-                                <button @click.prevent="validarFormulario" class="disabled:bg-gray-400 bg-orange-500 w-2/3 h-10 rounded font-titulo font-semibold text-white text-xl focus:outline-none focus:scale-105 lg:focus:scale-100 transition">Inscribirme en el curso</button>
+                                <button @click.prevent="validarFormulario" :disabled="pagando" class="disabled:bg-gray-400 bg-orange-500 w-2/3 h-10 rounded font-titulo font-semibold text-white text-xl focus:outline-none focus:scale-105 lg:focus:scale-100 transition">Inscribirme en el curso</button>
                             </div>
                         </form>
                     </ClientOnly>
@@ -94,7 +94,6 @@
 </template>
 
 <script setup>
-import CryptoJS from 'crypto-js';
 import { useCursoData } from '~/composables/useCursoData';
 import { useCheckout } from '~/composables/useCheckout';
 import { useGtag } from 'vue-gtag-next';
@@ -109,87 +108,38 @@ const redsys_form = ref(null);
 await getCursoData(ruta.query.curso);
 await getStock(ruta.query.curso);
 
-// Logica de Pago
-const fecha = new Date();
+// Logica de Pago: el servidor fija el precio y firma la petición (la clave de Redsys no llega al navegador)
 const Ds_MerchantParameters = ref(null);
 const Ds_Signature = ref(null);
-const Ds_SignatureVersion = "HMAC_SHA256_V1"
-const cookie = useCookie('datosCliente', {
-    maxAge: 86400,
-    secure: true
-});
-const orderNumber = Math.floor(Math.random() * Date.now()).toString().slice(2,13);
-const secret = 'TIVfhTviJ1b5sNRU/qMorrf+w56fpu5V';
-const TPVinfo = {
-  DS_MERCHANT_AMOUNT: '',
-  DS_MERCHANT_CURRENCY: "978",
-  DS_MERCHANT_MERCHANTCODE: '358281368',
-  DS_MERCHANT_MERCHANTURL: "https://www.captotal.com/",
-  DS_MERCHANT_ORDER: orderNumber,
-  DS_MERCHANT_TERMINAL: "1",
-  DS_MERCHANT_TRANSACTIONTYPE: "0",
-  DS_MERCHANT_URLKO: `https://captotal.com/Pago/Fallido?status=ko`,
-  DS_MERCHANT_URLOK: `https://captotal.com/Pago/Completo?status=ok&order=${orderNumber}`
-};
+const Ds_SignatureVersion = ref(null);
+const pagando = ref(false);
 
-// Lanzamos proceso de encriptacion y procedemos con la solicitud
 const comenzarPago = async () =>{
-    let encodedData = await encodePaymentInfo();
-    if(encodedData){
-        redsys_form.value.submit();
-    }
-}
-
-// Codificamos Datos de Pago
-const encodePaymentInfo = async () =>{
+    pagando.value = true;
     try {
-        // Codificamos Datos cliente
-        await encodeDatosCliente();
-
-        // Formateo Precio
-        TPVinfo.DS_MERCHANT_AMOUNT = curso.value.Precio.toString() + '00';
-
-        // Redsys vuelve al mismo dominio desde el que se paga (con o sin www): así se conservan
-        // la cookie con los datos del alumno y el consentimiento de cookies (GTM/GA)
-        TPVinfo.DS_MERCHANT_URLKO = `${window.location.origin}/Pago/Fallido?status=ko`;
-        TPVinfo.DS_MERCHANT_URLOK = `${window.location.origin}/Pago/Completo?status=ok&order=${orderNumber}`;
-
-        //Codifico Parametros en Base 64
-        let TPVencoded = CryptoJS.enc.Utf8.parse(JSON.stringify(TPVinfo));
-        Ds_MerchantParameters.value = TPVencoded.toString(CryptoJS.enc.Base64)
-
-        // TripleDes + Merchant Order + Signature
-        let key = CryptoJS.enc.Base64.parse(secret);
-        let iv = CryptoJS.enc.Hex.parse("0000000000000000");
-        let cipher = CryptoJS.TripleDES.encrypt(TPVinfo.DS_MERCHANT_ORDER,key,{
-            iv: iv,
-            mode:CryptoJS.mode.CBC,
-            padding: CryptoJS.pad.ZeroPadding
+        const firma = await $fetch('/api/pago/firmar', {
+            method: 'POST',
+            body: {
+                curso: ruta.query.curso,
+                origen: window.location.origin,
+                alumno: {
+                    Nombre: datos.Nombre,
+                    Apellidos: datos.Apellidos,
+                    Email: datos.Email,
+                    Telefono: datos.Telefono,
+                    NieNif: datos.NieNif,
+                }
+            }
         });
-
-        let signature = CryptoJS.HmacSHA256(Ds_MerchantParameters.value, cipher.ciphertext);
-        Ds_Signature.value = signature.toString(CryptoJS.enc.Base64);
-
-        return true;
-
+        Ds_SignatureVersion.value = firma.Ds_SignatureVersion;
+        Ds_MerchantParameters.value = firma.Ds_MerchantParameters;
+        Ds_Signature.value = firma.Ds_Signature;
+        await nextTick();
+        redsys_form.value.submit();
     } catch (e) {
-        console.log(e)
-    }
-}
-
-// Codificamos Datos de cliente y guardamos en almacenamiento de sesion
-const encodeDatosCliente = async () => {
-    try {
-        datos.Curso = curso.value.id;
-        datos.Order.numOrder = orderNumber;
-        datos.NombreCurso = curso.value.Titulo;
-        datos.Order.precio = curso.value.Precio;
-        let a = CryptoJS.enc.Utf8.parse(JSON.stringify(datos)),
-            b = a.toString(CryptoJS.enc.Base64);
-        cookie.value = b;
-        return; 
-    } catch (error) {
-        console.log(error);
+        console.log(e);
+        pagando.value = false;
+        alert('No se ha podido iniciar el pago. Inténtalo de nuevo o contacta con nosotros.');
     }
 }
 
@@ -211,9 +161,6 @@ const track = ()=> {
 onMounted(async ()=>{
     if(stock.value < 1){
         useRouter().push('/');
-    }
-    if(cookie.value){
-        cookie.value = '';
     }
     track();
 })

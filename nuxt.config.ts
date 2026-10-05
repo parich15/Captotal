@@ -74,10 +74,20 @@ export default defineNuxtConfig({
         url: 'https://admin.captotal.com',
     },
 
-    // Api y Env
+    // Api y Env. Lo que está fuera de `public` solo existe en el servidor (se puede sobrescribir con NUXT_*, p.ej. NUXT_DIRECTUS_TOKEN)
     runtimeConfig:{
+        directusUrl: 'https://admin.captotal.com',
+        directusToken: process.env.NOTIFICATION_TOKEN,
+        redsys: {
+            secreto: 'TIVfhTviJ1b5sNRU/qMorrf+w56fpu5V',
+            comercio: '358281368',
+            terminal: '1',
+        },
+        // 'flexible': si Redsys no manda respuesta firmada, el alumno se da de alta al llegar a la confirmación (como antes).
+        // 'estricta': solo con la notificación online o la respuesta firmada en la URLOK.
+        pagoVerificacion: 'flexible',
+        pagosDir: '.data/pagos',
         public:{
-            notifications: process.env.NOTIFICATION_TOKEN,
             siteUrl: process.env.BASE_URL || 'https://captotal.com',
         }
     },

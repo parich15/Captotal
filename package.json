@@ -13,7 +13,6 @@
     "nuxt": "^4.5.2"
   },
   "dependencies": {
-    "crypto-js": "^4.2.0",
     "nuxt-directus": "^5.7.0",
     "vue-gtag-next": "^1.14.0",
     "vue3-carousel": "^0.2.12"

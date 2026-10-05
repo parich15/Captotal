@@ -89,10 +89,6 @@
 
 <script setup>
 import { useCheckout } from '~/composables/useCheckout';
-const { createItems } = useDirectusItems();
-const { createNotification } = useDirectusNotifications();
-const { getItems } = useDirectusItems();
-const runtimeConfig = useRuntimeConfig();
 
 //Props
 const props = defineProps({
@@ -164,42 +160,15 @@ const enviarForm = async (e) =>{
   e.preventDefault();
   enviando.value = true;
   try {
-    let items = [{
-    Nombre: userData.Nombre,
-    Email: userData.Email,
-    Telefono: userData.Telefono,
-    Curso: props.id,
-    Centro: 1,
-    Fecha: new Date()
-    }];
-    
-    await createItems({
-      collection: 'Interesados',
-      items
-    });
-    let ids = await getItems({
-      collection: "Interesados",
-      params:{
-        fields: "id",
-        sort: "-id",
-        limit: 1,
-        access_token: runtimeConfig.notifications
-      }
-    })
-    
-    await createNotification({
-      notification: {
-        status: "inbox",
-        recipient: "e64ad966-00f8-4a65-8461-f2debdde73e4",
-        subject: "Nuevo interesado | Curso: "+ props.Titulo,
-        message: `<p>Nuevo interesado en ${props.Titulo}</p>
-                  <br>
-                  <p>Nombre: ${userData.Nombre}</p>
-                  <p>Telefono: ${userData.Telefono}</p>
-                  <p>Email: ${userData.Email}</p>
-                  `,
-        collection: "Interesados",
-        item: ids[0].id
+    // El servidor guarda el interesado y avisa en Directus (el token no sale del servidor)
+    await $fetch('/api/interesados', {
+      method: 'POST',
+      body: {
+        Nombre: userData.Nombre,
+        Email: userData.Email,
+        Telefono: userData.Telefono,
+        Curso: props.id,
+        Titulo: props.Titulo
       }
     });
 

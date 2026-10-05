@@ -67,30 +67,11 @@
 </template>
 
 <script setup>
-import CryptoJs from 'crypto-js';
 import { useGtag } from "vue-gtag-next";
 
 const ruta = useRoute();
 const {purchase} = useGtag();
-const { createItems } = useDirectusItems();
 const datos = ref(null);
-const cookie = useCookie('datosCliente')
-
-
-// Decodificamos Datos de Cliente
-const decodeClientData = async () => {
-    if(!cookie.value){
-        return;
-    }
-
-    try {
-        let decrypt = CryptoJs.enc.Base64.parse(cookie.value);
-        let utf = CryptoJs.enc.Utf8.stringify(decrypt);
-        datos.value = JSON.parse(utf);
-    } catch (e) {
-        console.log(e);
-    }
-}
 
 // Trackeamos Evento Compra con sus datos y enviamos a Analytics
 const track = () => {
@@ -110,41 +91,30 @@ const track = () => {
       })
 }
 
-const crearAlumno = async (datos) =>{
-    let items = [{
-        Nombre: datos.Nombre,
-        Apellidos: datos.Apellidos,
-        Email: datos.Email,
-        Telefono: datos.Telefono,
-        Nie: datos.NieNif,
-        Numero_Pedido: datos.Order.numOrder,
-        Curso: datos.Curso.toString(),
-        Total: parseInt(datos.Order.precio)
-    }];
-    await createItems({
-        collection: 'Alumnos',
-        items
-    })
-}
-
-await decodeClientData();
-
 useHead({
     title: 'Pasarela de Pago'
 })
 
-onMounted(()=>{
-    if(ruta.query.status == "ok" && datos.value){
-        nextTick(async ()=>{
-            await crearAlumno(datos.value);
-            track()
-            // Borramos la cookie para que recargar la página no duplique el alumno ni la compra
-            cookie.value = '';
-        })
+// El servidor da de alta al alumno (una sola vez por pedido) y devuelve los datos de la compra.
+// Si Redsys añade su respuesta firmada a la URL (Ds_*), se envía para verificar el pago.
+onMounted(async ()=>{
+    if(ruta.query.status == "ok" && ruta.query.order){
+        try {
+            datos.value = await $fetch('/api/pago/confirmar', {
+                method: 'POST',
+                body: {
+                    order: ruta.query.order,
+                    Ds_SignatureVersion: ruta.query.Ds_SignatureVersion,
+                    Ds_MerchantParameters: ruta.query.Ds_MerchantParameters,
+                    Ds_Signature: ruta.query.Ds_Signature,
+                }
+            });
+            if (datos.value.primeraVista) {
+                track();
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
-})
-
-onBeforeRouteLeave(()=>{
-    cookie.value = '';
 })
 </script>

@@ -73,11 +73,7 @@
 
 <script setup>
 import { useContactoData } from '~/composables/useContactoData';
-const { createItems } = useDirectusItems();
-const { createNotification } = useDirectusNotifications();
-const { getItems } = useDirectusItems();
 const {data, getContactoData} = useContactoData()
-const runtimeConfig = useRuntimeConfig();
 
 await getContactoData(1);
 
@@ -97,39 +93,17 @@ const enviarForm = async (evt) => {
   Error.value = false;
 
   try {
-    let items = {
+    // El servidor guarda el mensaje y avisa en Directus (el token no sale del servidor)
+    await $fetch('/api/contacto', {
+      method: 'POST',
+      body: {
         Nombre: Nombre.value,
         Email: Email.value,
         Telefono: Telefono.value.toString(),
         Tipo: Tipo.value,
         Mensaje: Mensaje.value,
-        Creado: new Date(),
       }
-    
-    await createItems({collection:"Mensajes",items});
-    let id = await getItems({
-      collection:"Mensajes",
-      params:{
-        fields: "id",
-        sort: "-id",
-        limit: 1,
-        access_token: runtimeConfig.notifications
-      }
-    })
-    await createNotification({
-      notification:{
-        status: "inbox",
-        recipient: "e64ad966-00f8-4a65-8461-f2debdde73e4",
-        subject: "Nuevo Mensaje",
-        message: `<p>Hay un nuevo mensaje en la colección de mensajes</p>
-                  <br>
-                  <p>Nombre: ${Nombre.value} <p><br>
-                  <p>Telefono y Email: ${Telefono.value} | ${Email.value}<p><br>
-                  <div><p>Mensaje:</p><br>${Mensaje.value.toString()}<div>`,
-        collection: "Mensajes",
-        item: id[0].id
-      }
-    })
+    });
 
     Cargando.value = false;
     Enviado.value = true;
