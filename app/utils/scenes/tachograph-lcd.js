@@ -1,0 +1,169 @@
+// Pantalla de matriz de puntos 5x7 con los pictogramas del tacógrafo (Reglamento UE 2016/799).
+
+const FONT = {
+  ' ': [0, 0, 0, 0, 0, 0, 0],
+  '0': [0x0E, 0x11, 0x13, 0x15, 0x19, 0x11, 0x0E],
+  '1': [0x04, 0x0C, 0x04, 0x04, 0x04, 0x04, 0x0E],
+  '2': [0x0E, 0x11, 0x01, 0x02, 0x04, 0x08, 0x1F],
+  '3': [0x1F, 0x02, 0x04, 0x02, 0x01, 0x11, 0x0E],
+  '4': [0x02, 0x06, 0x0A, 0x12, 0x1F, 0x02, 0x02],
+  '5': [0x1F, 0x10, 0x1E, 0x01, 0x01, 0x11, 0x0E],
+  '6': [0x06, 0x08, 0x10, 0x1E, 0x11, 0x11, 0x0E],
+  '7': [0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08],
+  '8': [0x0E, 0x11, 0x11, 0x0E, 0x11, 0x11, 0x0E],
+  '9': [0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C],
+  A: [0x0E, 0x11, 0x11, 0x11, 0x1F, 0x11, 0x11],
+  B: [0x1E, 0x11, 0x11, 0x1E, 0x11, 0x11, 0x1E],
+  C: [0x0E, 0x11, 0x10, 0x10, 0x10, 0x11, 0x0E],
+  D: [0x1C, 0x12, 0x11, 0x11, 0x11, 0x12, 0x1C],
+  E: [0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x1F],
+  F: [0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x10],
+  G: [0x0E, 0x11, 0x10, 0x17, 0x11, 0x11, 0x0F],
+  H: [0x11, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11],
+  I: [0x0E, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0E],
+  J: [0x07, 0x02, 0x02, 0x02, 0x02, 0x12, 0x0C],
+  K: [0x11, 0x12, 0x14, 0x18, 0x14, 0x12, 0x11],
+  L: [0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x1F],
+  M: [0x11, 0x1B, 0x15, 0x15, 0x11, 0x11, 0x11],
+  N: [0x11, 0x11, 0x19, 0x15, 0x13, 0x11, 0x11],
+  O: [0x0E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E],
+  P: [0x1E, 0x11, 0x11, 0x1E, 0x10, 0x10, 0x10],
+  Q: [0x0E, 0x11, 0x11, 0x11, 0x15, 0x12, 0x0D],
+  R: [0x1E, 0x11, 0x11, 0x1E, 0x14, 0x12, 0x11],
+  S: [0x0F, 0x10, 0x10, 0x0E, 0x01, 0x01, 0x1E],
+  T: [0x1F, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04],
+  U: [0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E],
+  V: [0x11, 0x11, 0x11, 0x11, 0x11, 0x0A, 0x04],
+  W: [0x11, 0x11, 0x11, 0x15, 0x15, 0x15, 0x0A],
+  X: [0x11, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x11],
+  Y: [0x11, 0x11, 0x11, 0x0A, 0x04, 0x04, 0x04],
+  Z: [0x1F, 0x01, 0x02, 0x04, 0x08, 0x10, 0x1F],
+  h: [0x10, 0x10, 0x16, 0x19, 0x11, 0x11, 0x11],
+  k: [0x10, 0x10, 0x12, 0x14, 0x18, 0x14, 0x12],
+  m: [0x00, 0x00, 0x1A, 0x15, 0x15, 0x11, 0x11],
+  ':': [0x00, 0x0C, 0x0C, 0x00, 0x0C, 0x0C, 0x00],
+  '.': [0x00, 0x00, 0x00, 0x00, 0x00, 0x0C, 0x0C],
+  ',': [0x00, 0x00, 0x00, 0x00, 0x0C, 0x04, 0x08],
+  '-': [0x00, 0x00, 0x00, 0x1F, 0x00, 0x00, 0x00],
+  '_': [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F],
+  '/': [0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x00],
+  '!': [0x04, 0x04, 0x04, 0x04, 0x00, 0x00, 0x04],
+  '¡': [0x04, 0x00, 0x00, 0x04, 0x04, 0x04, 0x04],
+  '?': [0x0E, 0x11, 0x01, 0x02, 0x04, 0x00, 0x04],
+  '¿': [0x04, 0x00, 0x04, 0x08, 0x10, 0x11, 0x0E],
+  '+': [0x00, 0x04, 0x04, 0x1F, 0x04, 0x04, 0x00],
+  '(': [0x02, 0x04, 0x08, 0x08, 0x08, 0x04, 0x02],
+  ')': [0x08, 0x04, 0x02, 0x02, 0x02, 0x04, 0x08],
+  '>': [0x08, 0x04, 0x02, 0x01, 0x02, 0x04, 0x08],
+  '<': [0x02, 0x04, 0x08, 0x10, 0x08, 0x04, 0x02],
+  '=': [0x00, 0x00, 0x1F, 0x00, 0x1F, 0x00, 0x00],
+  '·': [0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00],
+  '▲': [0x00, 0x04, 0x0E, 0x1F, 0x00, 0x00, 0x00],
+  '▼': [0x00, 0x00, 0x00, 0x1F, 0x0E, 0x04, 0x00],
+  '◀': [0x02, 0x06, 0x0E, 0x1E, 0x0E, 0x06, 0x02],
+  '▶': [0x08, 0x0C, 0x0E, 0x0F, 0x0E, 0x0C, 0x08],
+}
+// Fila superior reservada para tildes y virgulilla.
+const ACCENTS = { 'Á': ['A', 0x02], 'É': ['E', 0x02], 'Í': ['I', 0x02], 'Ó': ['O', 0x02], 'Ú': ['U', 0x02], 'Ñ': ['N', 0x0D] }
+
+export const ICONS = {
+  drive: ['..###..', '.#...#.', '#.....#', '#######', '#..#..#', '.#.#.#.', '..###..'],
+  work: ['###.###', '.#...#.', '..#.#..', '...#...', '..#.#..', '.#...#.', '#.....#'],
+  avail: ['#######', '##....#', '#.#...#', '#..#..#', '#...#.#', '#....##', '#######'],
+  rest: ['.......', '#......', '#.##...', '#.##...', '#######', '#######', '#.....#'],
+  card: ['.......', '#######', '#.....#', '#.##..#', '#.##..#', '#.....#', '#######'],
+  warn: ['...#...', '..#.#..', '..#.#..', '.#.#.#.', '.#...#.', '#..#..#', '#######'],
+  pause: ['#######', '.#...#.', '..#.#..', '...#...', '..#.#..', '.#####.', '#######'],
+  ok: ['.......', '......#', '.....#.', '#...#..', '.#.#...', '..#....', '.......'],
+  print: ['..####.', '..#..#.', '#######', '#.....#', '#######', '.#...#.', '.#####.'],
+  eject: ['...#...', '..###..', '.#####.', '#######', '.......', '#######', '.......'],
+  clock: ['..###..', '.#.#.#.', '#..#..#', '#..##.#', '#.....#', '.#...#.', '..###..'],
+  flag: ['#......', '######.', '######.', '######.', '#......', '#......', '#......'],
+}
+
+export class DotMatrix {
+  constructor(width = 122, height = 21) {
+    this.w = width
+    this.h = height
+    this.dots = new Uint8Array(width * height)
+  }
+  clear() { this.dots.fill(0) }
+  set(x, y, on = 1) {
+    if (x >= 0 && y >= 0 && x < this.w && y < this.h) this.dots[y * this.w + x] = on
+  }
+  tokens(text) {
+    const out = []
+    for (const match of String(text).matchAll(/\{(\w+)\}|([\s\S])/gu)) out.push(match[1] ? { icon: match[1] } : { ch: match[2] })
+    return out
+  }
+  advance(token) { return token.icon ? 8 : 6 }
+  width(text) { return this.tokens(text).reduce((sum, token) => sum + this.advance(token), 0) - 1 }
+  glyph(token, x, y) {
+    if (token.icon) {
+      const rows = ICONS[token.icon] || []
+      rows.forEach((row, r) => { for (let c = 0; c < 7; c++) if (row[c] === '#') this.set(x + c, y + 1 + r) })
+      return 8
+    }
+    let ch = token.ch, accent = 0
+    if (!FONT[ch] && !ACCENTS[ch]) ch = ch.toUpperCase()
+    if (ACCENTS[ch]) [ch, accent] = ACCENTS[ch]
+    const rows = FONT[ch] || FONT[' ']
+    for (let c = 0; c < 5; c++) if (accent & (16 >> c)) this.set(x + c, y)
+    rows.forEach((bits, r) => { for (let c = 0; c < 5; c++) if (bits & (16 >> c)) this.set(x + c, y + 1 + r) })
+    return 6
+  }
+  text(text, x, y) {
+    for (const token of this.tokens(text)) x += this.glyph(token, x, y)
+    return x
+  }
+  right(text, right, y) { return this.text(text, right - this.width(text), y) }
+  center(text, y) { return this.text(text, Math.round((this.w - this.width(text)) / 2), y) }
+  rect(x, y, width, height, fill = false) {
+    for (let i = 0; i < width; i++) for (let j = 0; j < height; j++) {
+      if (fill || i === 0 || j === 0 || i === width - 1 || j === height - 1) this.set(x + i, y + j)
+    }
+  }
+  bar(x, y, width, height, progress) {
+    this.rect(x, y, width, height)
+    const filled = Math.round((width - 4) * Math.min(1, Math.max(0, progress)))
+    this.rect(x + 2, y + 2, filled, height - 4, true)
+  }
+  signature() { return this.dots.join('') }
+}
+
+// Retroiluminación, puntos apagados y sombra del cristal líquido se pintan una sola vez.
+export function createLcdPainter(canvas, matrix) {
+  const ctx = canvas.getContext('2d')
+  const { width: W, height: H } = canvas
+  const pitch = Math.min(W / (matrix.w + 6), H / (matrix.h + 4))
+  const size = pitch * .82
+  const ox = (W - matrix.w * pitch) / 2 + (pitch - size) / 2
+  const oy = (H - matrix.h * pitch) / 2 + (pitch - size) / 2
+  const base = document.createElement('canvas')
+  base.width = W; base.height = H
+  const b = base.getContext('2d')
+  const glow = b.createRadialGradient(W * .5, H * .42, H * .2, W * .5, H * .5, W * .6)
+  glow.addColorStop(0, '#e4f1c8'); glow.addColorStop(.6, '#cfe2a8'); glow.addColorStop(1, '#a9c181')
+  b.fillStyle = glow; b.fillRect(0, 0, W, H)
+  b.fillStyle = 'rgba(64, 92, 52, .075)'
+  for (let y = 0; y < matrix.h; y++) for (let x = 0; x < matrix.w; x++) b.fillRect(ox + x * pitch, oy + y * pitch, size, size)
+  // Sombra interior del marco: da profundidad al panel.
+  const edge = (x0, y0, x1, y1) => {
+    const g = b.createLinearGradient(x0, y0, x1, y1)
+    g.addColorStop(0, 'rgba(30, 44, 26, .35)'); g.addColorStop(1, 'rgba(30, 44, 26, 0)')
+    return g
+  }
+  b.fillStyle = edge(0, 0, 0, H * .22); b.fillRect(0, 0, W, H * .22)
+  b.fillStyle = edge(0, 0, W * .05, 0); b.fillRect(0, 0, W * .05, H)
+  b.fillStyle = edge(W, 0, W * .95, 0); b.fillRect(W * .95, 0, W * .05, H)
+  return function paint(dim = 0) {
+    ctx.globalAlpha = 1
+    ctx.drawImage(base, 0, 0)
+    const { dots, w, h } = matrix
+    ctx.fillStyle = 'rgba(38, 58, 34, .2)'
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (dots[y * w + x]) ctx.fillRect(ox + x * pitch + pitch * .2, oy + y * pitch + pitch * .2, size, size)
+    ctx.fillStyle = '#1c2a1b'
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (dots[y * w + x]) ctx.fillRect(ox + x * pitch, oy + y * pitch, size, size)
+    if (dim > 0) { ctx.fillStyle = `rgba(40, 52, 36, ${dim})`; ctx.fillRect(0, 0, W, H) }
+  }
+}

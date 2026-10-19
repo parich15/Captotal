@@ -1,16 +1,11 @@
 <template>
-    <section class="container mx-auto w-full bg-gray-50 lg:py-8">
+    <section :id="Scene === 'truck' ? 'formacion-3d' : Scene === 'tachograph' ? 'tacografo-3d' : undefined" class="container mx-auto w-full bg-gray-50 lg:py-8 scroll-mt-20">
         <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <!-- Imagen -->
-            <div  class="relative  overflow-hidden rounded-lg h-80 lg:h-full shadow-2xl ">
-                <img
-                height="575"
-                width="400"
-                :alt="props.Alt"
-                :src="`https://admin.captotal.com/assets/${Imagen}`"
-                class="absolute inset-0 h-full w-full object-cover object-left"
-                />
+            <div  class="relative  overflow-hidden rounded-3xl h-80 lg:h-full shadow-xl ">
+                <Scene3D v-if="Scene" :kind="Scene" :label="Scene === 'truck' ? 'Camión naranja CAP Total circulando por una carretera en Barcelona, junto al litoral' : 'Tacógrafo digital con tarjeta de conductor'" :fallback-image="`https://admin.captotal.com/assets/${Imagen}`" />
+                <img v-else height="575" width="400" :alt="props.Alt" :src="`https://admin.captotal.com/assets/${Imagen}`" class="absolute inset-0 h-full w-full object-cover object-left" />
             </div>
 
             <!-- Texto -->
@@ -40,12 +35,14 @@
 </template>
 
 <script setup>
+import Scene3D from './Scene3D.vue';
 const props = defineProps({
     Titulo: {
         type: String || undefined,
         default: "Cursos Bonificados"
     },
     Alt: String,
+    Scene: { type: String, default: '' },
     Subtitulo:{
         type: String,
         default: ''

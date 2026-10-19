@@ -10,6 +10,7 @@
         </SelectorCursos>
         
         <Bonificados
+            Scene="truck"
             :Titulo="secciones[1].Content[0].item.Titulo"
             :Subtitulo="secciones[1].Content[1].item.Titulo"
             :Descripcion="secciones[1].Content[2].item.Texto"
@@ -18,6 +19,7 @@
             :Alt="'Cursos Subvencionados en Cap Total'">
         </Bonificados>
         <Bonificados
+            Scene="tachograph"
             :Titulo="secciones[4].Content[0].item.Titulo"
             :Subtitulo="secciones[4].Content[1].item.Titulo"
             :Descripcion="secciones[4].Content[2].item.Texto"
