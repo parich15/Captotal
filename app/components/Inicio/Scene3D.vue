@@ -1,6 +1,8 @@
 <template>
   <div ref="host" class="scene-3d" :aria-label="label" role="group">
-    <img v-if="!ready && fallbackImage" :src="fallbackImage" :alt="label" class="scene-fallback" />
+    <!-- La imagen solo sustituye a la escena si WebGL no está disponible; mientras carga se ve un fondo neutro. -->
+    <img v-if="unavailable && fallbackImage" :src="fallbackImage" :alt="label" class="scene-fallback" />
+    <div v-else-if="!ready" class="scene-loading" aria-hidden="true" />
     <canvas
       ref="canvas"
       class="scene-canvas"
@@ -61,6 +63,7 @@ const animationSubject = computed(() => ({ truck: 'del camión', tachograph: 'de
 const host = ref(null);
 const canvas = ref(null);
 const ready = ref(false);
+const unavailable = ref(false);
 const paused = ref(false);
 const cursor = ref('');
 const touchAction = ref('pan-y');
@@ -102,7 +105,7 @@ function teardown() {
 }
 function stop() { cancelAnimationFrame(frame); frame = 0; previousTime = 0; }
 function fail(error) {
-  stop(); failed = true; ready.value = false;
+  stop(); failed = true; ready.value = false; unavailable.value = true;
   console.warn(`[Scene3D:${props.kind}] No se pudo mostrar la escena.`, error);
   teardown();
 }
@@ -201,8 +204,11 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.scene-3d { position: relative; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: #c9e3ed; }
-.scene-canvas, .scene-fallback { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.scene-3d { position: relative; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: linear-gradient(180deg, #c9e3ed 0%, #e8f0f0 100%); }
+.scene-canvas, .scene-fallback, .scene-loading { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.scene-loading { background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / .45) 50%, transparent 65%) no-repeat; background-size: 250% 100%; animation: scene-shimmer 1.6s ease-in-out infinite; }
+@keyframes scene-shimmer { from { background-position: 130% 0; } to { background-position: -30% 0; } }
+@media (prefers-reduced-motion: reduce) { .scene-loading { animation: none; } }
 .scene-fallback { object-fit: cover; object-position: left; }
 .scene-canvas { opacity: 0; transition: opacity .4s ease; }
 .scene-canvas.is-ready { opacity: 1; }
