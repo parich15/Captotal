@@ -31,12 +31,14 @@
             </p>
           </div>
 
-          <form class="mt-6 font-titulo" @submit="enviarForm">
+          <form class="mt-6 font-titulo" @submit.prevent="enviarForm">
             <div class="relative mx-auto max-w-lg lg:mx-0">
               <label class="sr-only" for="email"> Email </label>
 
               <input
                 v-model="Email"
+                @focus="prepararCaptcha"
+                required maxlength="254" autocomplete="email"
                 class="w-full rounded-md border-none bg-gray-800 py-4 pl-3 pr-16 text-sm text-white"
                 id="email"
                 type="email"
@@ -44,10 +46,10 @@
               />
 
               <button
-                aria-label="Boton Subscripcion sNewsletter"
+                aria-label="Suscribirme a la newsletter"
                 class="absolute top-1/2 right-1.5 -translate-y-1/2 rounded bg-orange-400 p-3 text-white transition enabled:hover:bg-orange-500 enabled:hover:scale-105"
                 type="submit"
-                :disabled="comprobarCampo"
+                :disabled="enviando || !Email || !captchaToken"
               >
                 <svg
                   class="h-4 w-4"
@@ -65,8 +67,15 @@
                 </svg>
               </button>
             </div>
-            <p v-if="Enviado" class="text-white font-texto text-sm ml-1 mt-2">Añadido a nuestra newsletter!</p>
-            <p v-if="Error" class="text-red-500 font-texto text-sm ml-1 mt-2">Email ya en uso</p>
+            <div class="absolute -left-[10000px]" aria-hidden="true">
+              <label for="newsletter-website">Web</label>
+              <input id="newsletter-website" v-model="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div ref="captchaContenedor" class="mt-3"></div>
+            <p v-if="cargandoCaptcha" class="text-white text-sm mt-2" role="status">Cargando verificación…</p>
+            <button v-if="errorMensaje && !captchaToken && !cargandoCaptcha" type="button" class="text-white text-sm underline mt-2" @click="prepararCaptcha">Volver a cargar la verificación</button>
+            <p v-if="Enviado" class="text-white font-texto text-sm ml-1 mt-2">Tu suscripción a la newsletter está activa.</p>
+            <p v-if="errorMensaje" class="text-red-500 font-texto text-sm ml-1 mt-2" role="alert">{{ errorMensaje }}</p>
 
           </form>
           <div class="flex ml-1">
@@ -120,6 +129,7 @@
           <p class="mt-4 text-center lg:text-left">
             &copy; {{new Date().getFullYear()}} Cap Total S.L , Todos los derechos reservados.
           </p>
+          <button type="button" class="block mx-auto lg:mx-0 mt-4 underline hover:text-orange-400 font-texto" @click="abrirCookies">Configurar cookies</button>
           <p class="text-xs text-center lg:text-left text-gray-800 mt-5 opacity-80 font-titulo">Made with &lt3 by Paric.io </p>
         </div>
       </div>
@@ -132,40 +142,106 @@
 <script setup>
 import { useMenu } from '~/composables/useMenu';
 
-const {data, getMenu} = useMenu();
-const { createItems } = useDirectusItems();
-const Email = ref(null);
-const Error = ref(false);
+const { data, getMenu } = useMenu();
+const { enviar } = useDataLayer();
+const config = useRuntimeConfig();
+const Email = ref('');
+const errorMensaje = ref('');
 const Enviado = ref(false);
+const enviando = ref(false);
+const website = ref('');
+const captchaToken = ref('');
+const captchaContenedor = ref(null);
+const cargandoCaptcha = ref(false);
+let captchaId;
+let cargaCaptcha;
+let desmontado = false;
 
-const enviarForm = async (e) => {
-  e.preventDefault();
+const abrirCookies = () => window.dispatchEvent(new Event('captotal:configurar-cookies'));
+
+// La API y el widget sólo se cargan al interactuar con el formulario.
+const prepararCaptcha = async () => {
+  if (desmontado || cargandoCaptcha.value) return;
+  if (captchaId !== undefined) {
+    errorMensaje.value = '';
+    reiniciarCaptcha();
+    return;
+  }
+  errorMensaje.value = '';
+  if (!config.public.recaptchaSiteKey) {
+    errorMensaje.value = 'La suscripción no está disponible. Inténtalo más tarde.';
+    return;
+  }
+  cargandoCaptcha.value = true;
   try {
-    Error.value = false;
-    let items = {
-      Email: Email.value
+    if (!window.grecaptcha?.render) {
+      cargaCaptcha ||= new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        const timeout = setTimeout(() => {
+          script.remove();
+          delete window.captotalCaptchaReady;
+          reject(new Error('timeout'));
+        }, 12000);
+        window.captotalCaptchaReady = () => {
+          clearTimeout(timeout);
+          delete window.captotalCaptchaReady;
+          resolve();
+        };
+        script.src = 'https://www.google.com/recaptcha/api.js?onload=captotalCaptchaReady&render=explicit&hl=es';
+        script.async = true;
+        script.onerror = () => {
+          clearTimeout(timeout);
+          script.remove();
+          delete window.captotalCaptchaReady;
+          reject(new Error('captcha'));
+        };
+        document.head.appendChild(script);
+      });
+      await cargaCaptcha;
     }
-    await createItems({collection:'Newsletter', items});
+    if (desmontado) return;
+    captchaId = window.grecaptcha.render(captchaContenedor.value, {
+      sitekey: config.public.recaptchaSiteKey,
+      size: 'compact',
+      callback: token => { captchaToken.value = token; errorMensaje.value = ''; },
+      'expired-callback': () => { captchaToken.value = ''; },
+      'error-callback': () => { captchaToken.value = ''; errorMensaje.value = 'No se pudo verificar. Inténtalo de nuevo.'; },
+    });
+  } catch {
+    cargaCaptcha = undefined;
+    errorMensaje.value = 'No se pudo cargar la verificación. Comprueba tu conexión y vuelve a intentarlo.';
+  } finally {
+    cargandoCaptcha.value = false;
+  }
+};
+
+const reiniciarCaptcha = () => {
+  captchaToken.value = '';
+  if (captchaId !== undefined) window.grecaptcha?.reset(captchaId);
+};
+
+const enviarForm = async () => {
+  if (enviando.value) return;
+  if (!captchaToken.value) { await prepararCaptcha(); return; }
+  enviando.value = true;
+  errorMensaje.value = '';
+  Enviado.value = false;
+  try {
+    const respuesta = await $fetch('/api/newsletter', {
+      method: 'POST',
+      body: { Email: Email.value, recaptchaToken: captchaToken.value, website: website.value },
+    });
+    if (respuesta.created) enviar({ event: 'sign_up', method: 'newsletter' });
     Enviado.value = true;
-    setTimeout(() => {
-      Enviado.value = false,
-      Email.value = null
-    }, 3000);
+    Email.value = '';
   } catch (error) {
-    Error.value = true;
-    setTimeout(() => {
-      Error.value = false;
-    }, 3000);
+    errorMensaje.value = error?.data?.statusMessage || 'No se pudo guardar la suscripción. Vuelve a intentarlo.';
+  } finally {
+    enviando.value = false;
+    reiniciarCaptcha();
   }
-}
+};
 
-const comprobarCampo = computed(()=> {
-  if(Email.value != null){
-    return false
-  }else{
-    return true
-  }
-})
-
+onBeforeUnmount(() => { desmontado = true; });
 await getMenu(2);
 </script>

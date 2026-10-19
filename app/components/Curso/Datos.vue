@@ -21,7 +21,7 @@
                     </div>
                     <div v-if="fecha">
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Fecha Inicio</p>
-                        <span class="font-texto font-bold text-orange-500 lg:text-xl">{{new Date(fecha).toLocaleDateString()}}</span>
+                        <time :datetime="fechaISO(fecha)" class="font-texto font-bold text-orange-500 lg:text-xl">{{ mostrarFecha(fecha) }}</time>
                     </div>
                     <div v-else>
                         <p class="font-titulo font-semibold text-gray-600 lg:text-2xl">Fecha Curso</p>
@@ -48,6 +48,7 @@
 </template>
 
 <script setup>
+import { fechaISO, mostrarFecha } from '~/utils/fecha'
 import Card from '~/components/Generales/Card.vue'
 defineProps({
     duracion: String, 

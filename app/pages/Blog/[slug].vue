@@ -67,6 +67,9 @@ const ruta = useRoute();
 const { post, posts, getPostData, getAllPosts } = useBlogData();
 
 await getPostData(ruta.params.slug);
+if (!post.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Artículo no encontrado' });
+}
 await getAllPosts();
 
 // Get related posts (excluding current post)

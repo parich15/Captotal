@@ -5,7 +5,10 @@ const FONTS_URL = 'https://fonts.googleapis.com/css2?family=League+Spartan:wght@
 // Google Tag Manager condicionado al banner de cookies: solo se carga si el usuario ya ha aceptado
 // (localStorage 'cookiesAceptadas'). Al aceptar, el banner llama a window.cargarGTM() sin recargar.
 // Sin noscript a propósito: sin JS no se puede aceptar el banner, así que nunca habría consentimiento.
-const GTM_SCRIPT = `(function(w,d){var cargado=false;w.cargarGTM=function(){if(cargado)return;cargado=true;
+const GTM_SCRIPT = `(function(w,d){w.dataLayer=w.dataLayer||[];w.gtag=w.gtag||function(){w.dataLayer.push(arguments);};
+var aceptadas=false;try{aceptadas=w.localStorage.getItem('cookiesAceptadas')==='true';}catch(e){}
+w.gtag('consent','default',{analytics_storage:aceptadas?'granted':'denied',ad_storage:aceptadas?'granted':'denied',ad_user_data:aceptadas?'granted':'denied',ad_personalization:aceptadas?'granted':'denied'});
+var cargado=false;w.cargarGTM=function(){if(cargado)return;cargado=true;
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -77,19 +80,24 @@ export default defineNuxtConfig({
     // Api y Env. Lo que está fuera de `public` solo existe en el servidor (se puede sobrescribir con NUXT_*, p.ej. NUXT_DIRECTUS_TOKEN)
     runtimeConfig:{
         directusUrl: 'https://admin.captotal.com',
-        directusToken: process.env.NOTIFICATION_TOKEN,
+        directusToken: '',
         redsys: {
-            secreto: 'TIVfhTviJ1b5sNRU/qMorrf+w56fpu5V',
+            secreto: '',
             comercio: '358281368',
             terminal: '1',
         },
-        // 'flexible': si Redsys no manda respuesta firmada, el alumno se da de alta al llegar a la confirmación (como antes).
-        // 'estricta': solo con la notificación online o la respuesta firmada en la URLOK.
-        pagoVerificacion: 'flexible',
         pagosDir: '.data/pagos',
+        recaptchaSecret: '',
+        recaptchaHostnames: 'captotal.com,www.captotal.com',
+        trustedProxyIps: '',
         public:{
             siteUrl: process.env.BASE_URL || 'https://captotal.com',
+            recaptchaSiteKey: '',
         }
+    },
+    routeRules: {
+        '/Cap-online': { redirect: { to: '/Online', statusCode: 301 } },
+        '/cap-online': { redirect: { to: '/Online', statusCode: 301 } },
     },
     //Server
     nitro: {

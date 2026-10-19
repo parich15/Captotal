@@ -60,12 +60,14 @@ await getPageData(5)
 await getPageSections(5);
 
 
-useHead({
-    title: datos.value.Titulo,
+const tituloSeo = computed(() => datos.value.Meta_Titulo?.trim() || datos.value.Titulo);
+
+useHead(() => ({
+    title: tituloSeo.value,
     meta:[
         {
             name: 'title',
-            content: datos.value.Meta_Titulo
+            content: tituloSeo.value
         },
         {
             name: 'description',
@@ -73,13 +75,13 @@ useHead({
         },
         {
             property: 'og:title',
-            content: datos.value.Titulo
+            content: tituloSeo.value
         },
         {
             property: 'og:description',
             content: datos.value.Meta_Descripcion,
          },
     ]
-})
+}))
 </script>
 

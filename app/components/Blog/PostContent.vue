@@ -8,7 +8,7 @@
         </div>
         <div class="ml-3">
           <p class="text-gray-700 font-semibold font-texto">{{ Autor }}</p>
-          <p class="text-gray-500 text-sm font-texto">{{ formatDate(date_created) }}</p>
+          <time :datetime="fechaISO(date_created)" class="text-gray-500 text-sm font-texto">{{ mostrarFecha(date_created) }}</time>
         </div>
       </div>
 
@@ -19,6 +19,7 @@
 </template>
 
 <script setup>
+import { fechaISO, mostrarFecha } from '~/utils/fecha';
 const props = defineProps({
   Autor: {
     type: String,
@@ -43,14 +44,6 @@ const authorInitials = computed(() => {
     .substring(0, 2);
 });
 
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-};
 </script>
 
 <style scoped>

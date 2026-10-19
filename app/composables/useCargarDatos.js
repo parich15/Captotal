@@ -4,7 +4,7 @@
 export const useCargarDatos = async (key, handler) => {
     const { data, error } = await useAsyncData(key, async () => (await handler()) ?? null);
     if (error.value) {
-        console.log(error.value);
+        throw error.value;
     }
     return data.value ?? null;
 }

@@ -35,7 +35,7 @@
           </div>
           <div class="ml-3 flex-grow">
             <p class="text-sm font-semibold text-gray-700">{{ Autor }}</p>
-            <p class="text-xs text-gray-500">{{ formatDate(date_created) }}</p>
+            <time :datetime="fechaISO(date_created)" class="text-xs text-gray-500">{{ mostrarFecha(date_created) }}</time>
           </div>
           <!-- Arrow Icon -->
           <svg class="w-6 h-6 text-orange-500 transform transition-transform duration-300 group-hover:translate-x-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+import { fechaISO, mostrarFecha } from '~/utils/fecha';
 const props = defineProps({
   Titulo: {
     type: String,
@@ -85,12 +86,4 @@ const authorInitials = computed(() => {
     .substring(0, 2);
 });
 
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-};
 </script>

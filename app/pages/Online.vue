@@ -39,12 +39,14 @@ await getPageData(8);
 await getPageSections(8);
 
 //Titulo y SEO
-useHead({
-    title: 'CAP Online | Cap Total',
+const tituloSeo = computed(() => datos.value.Meta_Titulo?.trim() || 'CAP Online | Cap Total');
+
+useHead(() => ({
+    title: tituloSeo.value,
     meta:[
         {
             name: 'title',
-            content: datos.value.Meta_Titulo
+            content: tituloSeo.value
         },
         {
             name: 'description',
@@ -52,12 +54,12 @@ useHead({
         },
         {
             property: 'og:title',
-            content: datos.value.Titulo
+            content: tituloSeo.value
         },
         {
             property: 'og:description',
             content: datos.value.Meta_Descripcion,
          },
     ]
-})
+}))
 </script>

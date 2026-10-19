@@ -30,12 +30,14 @@ await getPageData(6);
 await getPageSections(6);
 const params = {filter: {Tipo: "Curso"}, fields:'id,Activo,Titulo,Precio,Portada,Descripcion,Bonificado,Slug'};
 
-useHead({
-    title: datos.value.Titulo,
+const tituloSeo = computed(() => datos.value.Meta_Titulo?.trim() || datos.value.Titulo);
+
+useHead(() => ({
+    title: tituloSeo.value,
     meta:[
         {
             name: 'title',
-            content: datos.value.Meta_Titulo
+            content: tituloSeo.value
         },
         {
             name: 'description',
@@ -43,12 +45,12 @@ useHead({
         },
         {
             property: 'og:title',
-            content: datos.value.Titulo
+            content: tituloSeo.value
         },
         {
             property: 'og:description',
             content: datos.value.Meta_Descripcion,
          },
     ]
-})
+}))
 </script>

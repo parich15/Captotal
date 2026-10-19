@@ -28,7 +28,11 @@ module.exports = {
         cwd: __dirname,
         script: './.output/server/index.mjs',
         env: {
-          ...(dotenv.NOTIFICATION_TOKEN && { NUXT_DIRECTUS_TOKEN: dotenv.NOTIFICATION_TOKEN })
+          HOST: '127.0.0.1',
+          PORT: 3000,
+          ...Object.fromEntries(Object.entries(dotenv).filter(([key]) => key.startsWith('NUXT_'))),
+          ...(!dotenv.NUXT_DIRECTUS_TOKEN && dotenv.NOTIFICATION_TOKEN
+            ? { NUXT_DIRECTUS_TOKEN: dotenv.NOTIFICATION_TOKEN } : {})
         }
       }
     ]

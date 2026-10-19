@@ -29,18 +29,16 @@ Previsualizar la build en local:
 npm run preview
 ```
 
-## Pagos (Redsys)
+## Revisión de octubre y despliegue
 
-La firma de Redsys se hace en el servidor (`server/api/pago/`); el precio sale siempre de Directus.
+Los pagos se firman en servidor con precio y disponibilidad de Directus. El alta del alumno requiere una respuesta bancaria verificada; el retorno del navegador no acredita el cobro. Los pedidos se conservan en `.data/pagos`, separados de la build.
 
-1. `POST /api/pago/firmar`: crea el pedido pendiente en `.data/pagos/` (se borra a los 7 días) y devuelve la firma.
-2. Redsys notifica el pago a `POST /api/pago/notificacion` y devuelve al usuario a `/Pago/Completo?status=ok&order=…`.
-3. El alumno se da de alta en Directus una sola vez por pedido, con lo primero que llegue de los dos.
+Variables y operación: [.env.example](.env.example) y [revisión de octubre](docs/revision-octubre.md). El VPS carga NUXT_* desde `.env` al arrancar PM2. No guardar secretos en Git.
 
-Variables de entorno opcionales (solo servidor):
+```bash
+npm test
+./desplegar.sh SHA --solo-preparar
+./desplegar.sh --activar SHA
+```
 
-- `NUXT_PAGO_VERIFICACION`: `flexible` (por defecto, da de alta aunque Redsys no mande respuesta firmada) o `estricta` (solo con respuesta firmada de Redsys).
-- `NUXT_DIRECTUS_TOKEN`: token de Directus (por defecto `NOTIFICATION_TOKEN` del `.env` en el build).
-- `NUXT_REDSYS_SECRETO`: clave del comercio en Redsys.
-
-En los logs (`pm2 logs`) las líneas `[pagos]` indican si llegan las notificaciones y la respuesta firmada en la URL.
+El despliegue exige una revisión exacta, prueba la build en el puerto 3001 y conserva recuperación compatible. Directus requiere preparar los campos y el rol privado antes de activar, y cerrar permisos públicos después de comprobar las APIs.

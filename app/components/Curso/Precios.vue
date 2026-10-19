@@ -32,7 +32,7 @@
           <button v-else class="flex items-center md:mt-auto my-2 text-white bg-gray-400 border-0 py-2 px-4 w-full disabled font-texto rounded cursor-default"> Sin plazas
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-auto w-4 h-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 011.743-1.342 48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664L19.5 19.5" />
-            </svg>  
+            </svg>
           </button>
           <button v-if="carga == false" class="flex items-center md:mt-auto my-2 text-white rounded border-0 py-2 px-4 w-full focus:outline-none bg-gray-500 group-hover:bg-orange-400 transition font-titulo font-semibold" @click="toggleFormulario">
             Solicita información
@@ -40,7 +40,6 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
             </svg> -->
           </button>
-          <p class="text-xs text-gray-500 mt-3 ml-1">{{Frase}}</p>
 
           <!-- Form Contacto  -->
           <div class="border-t mt-3 block relative" >
@@ -53,21 +52,26 @@
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                     </svg>
                 </a>
-              
+
                 <div class="pt-5 sm:pt-1 px-2">
-                  <p class="font-titulo font-bold text-gray-500 text-2xl tracking-wide leading-6">  
+                  <p class="font-titulo font-bold text-gray-500 text-2xl tracking-wide leading-6">
                     Déjanos tus datos y nos pondremos en contacto!
                   </p>
-                  <form class="mt-3 flex flex-wrap" @submit="enviarForm">
+                  <form class="mt-3 flex flex-wrap" @submit.prevent="enviarForm">
                     <label class="font-titulo text-sm font-semibold text-gray-400 " for="Nombre">Dinos tu nombre</label>
-                      <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" name="Nombre" v-model="userData.Nombre"> 
-                    <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Tu teléfono</label>
-                      <input pattern="tel" required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="number" v-model="userData.Telefono">
-                    <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="">Y tu email</label>
-                      <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="text" v-model="userData.Email">
-                    <span class="text-xs mt-1 mb-2 text-gray-500">Los datos serán usados únicamente para contactar contigo y no se utilizarán para finalidades comerciales.</span>
+                      <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" id="Nombre" maxlength="200" autocomplete="name" type="text" name="Nombre" v-model="userData.Nombre">
+                    <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="Telefono">Tu teléfono</label>
+                      <input id="Telefono" autocomplete="tel" maxlength="30" required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" type="tel" pattern="[+0-9 .\(\)\-]{9,30}" v-model="userData.Telefono">
+                    <label class="font-titulo text-sm font-semibold text-gray-400 mt-2" for="EmailCurso">Y tu email</label>
+                      <input required class="pt-1 w-full bg-gray-300 border-b-2 mb-1 border-gray-300 text-orange-400 focus:border-orange-400 focus:outline-none focus:bg-gray-200 font-titulo font-semibold  px-1" id="EmailCurso" maxlength="254" autocomplete="email" type="email" v-model="userData.Email">
+                    <span class="text-xs mt-1 mb-2 text-gray-500">Usaremos tus datos para responder a tu solicitud. Puedes elegir si quieres recibir comunicaciones comerciales.</span>
+                    <label class="flex gap-2 items-start text-xs text-gray-600 my-2" v-if="textoCheckboxFormulario">
+                      <input type="checkbox" class="mt-0.5 shrink-0" v-model="userData.consentimiento_comercial">
+                      <span>{{ textoCheckboxFormulario }}</span>
+                    </label>
+                    <p v-if="errorFormulario" role="alert" class="w-full text-sm text-red-700">{{ errorFormulario }}</p>
                     <button v-if="!enviando" class="flex px-4 py-2 font-titulo text-white bg-orange-400 rounded font-semibold mt-2 disabled:bg-gray-500" :disabled="!formCompleto" type="submit">Enviar</button>
-                    <button v-else class="flex px-4 py-2 font-titulo text-white bg-orange-400 rounded font-semibold mt-2">Enviando</button>
+                    <button v-else class="flex px-4 py-2 font-titulo text-white bg-orange-400 rounded font-semibold mt-2" disabled type="button">Enviando</button>
                   </form>
                   <Transition name="appear">
                   <div v-show="mensajeEnviado" class="font-titulo text-xl text-green-400 mt-3 -mb-2 text-center">
@@ -77,7 +81,7 @@
                 </div>
               </div>
               </div>
-              
+
             </Transition>
             </div>
           <!-- End Form -->
@@ -102,16 +106,16 @@ const props = defineProps({
     default: 'Titulo Curso'
   },
   Precio:{
-    type: String || Number, 
+    type: [String, Number],
     default: "0"
   },
   Contenidos: {
     type: Array,
-    default: []
+    default: () => []
   },
-  Frase:{
-    type: String, 
-    default: "El mejor precio garantizado"
+  textoCheckboxFormulario: {
+    type: String,
+    default: ''
   }
 })
 
@@ -126,7 +130,7 @@ const initCheckout = async () => {
     stock.value = false;
     return;
   }
-  useRouter().push({ 
+  useRouter().push({
     path: "/Checkout",
     query: {
       curso: ruta.params.slug
@@ -140,15 +144,17 @@ const mostrarFormulario = ref(false);
 const toggleFormulario = () => mostrarFormulario.value = !mostrarFormulario.value;
 const enviando = ref(false);
 const mensajeEnviado = ref(false);
+const errorFormulario = ref('');
 const userData = reactive({
   Nombre: null,
   Email: null,
-  Telefono: null
+  Telefono: null,
+  consentimiento_comercial: false
 });
 
 const formCompleto = computed(()=>{
   if(
-    userData.Nombre != null && userData.Nombre != "" && 
+    userData.Nombre != null && userData.Nombre != "" &&
     userData.Email != null  && userData.Email != "" &&
     userData.Telefono != null && userData.Telefono != ""){
     return true;
@@ -157,9 +163,10 @@ const formCompleto = computed(()=>{
   }
 })
 
-const enviarForm = async (e) =>{
-  e.preventDefault();
+const enviarForm = async () => {
+  if (enviando.value) return;
   enviando.value = true;
+  errorFormulario.value = '';
   try {
     // El servidor guarda el interesado y avisa en Directus (el token no sale del servidor)
     await $fetch('/api/interesados', {
@@ -169,16 +176,18 @@ const enviarForm = async (e) =>{
         Email: userData.Email,
         Telefono: userData.Telefono,
         Curso: props.id,
-        Titulo: props.Titulo
+        consentimiento_comercial: userData.consentimiento_comercial
       }
     });
     enviar({ event: 'generate_lead', formulario: 'interesado_curso', curso: props.Titulo });
 
-    enviando.value = false;
     userData.Nombre = '', userData.Email = '', userData.Telefono = '';
+    userData.consentimiento_comercial = false;
     mostrarMensaje();
   } catch (error) {
-    console.log(error)
+    errorFormulario.value = error?.data?.statusMessage || 'No se pudo enviar. Revisa tus datos e inténtalo de nuevo.';
+  } finally {
+    enviando.value = false;
   }
 }
 

@@ -1,12 +1,17 @@
 import type { H3Event } from 'h3'
 
 // Peticiones a Directus desde el servidor. Con `token: true` se usa el token privado (nunca llega al navegador).
-export const directus = <T = any>(event: H3Event | undefined, path: string, opciones: { method?: 'GET' | 'POST', query?: Record<string, any>, body?: any, token?: boolean } = {}) => {
+export const directus = <T = any>(event: H3Event | undefined, path: string, opciones: { method?: 'GET' | 'POST' | 'PATCH', query?: Record<string, any>, body?: any, token?: boolean } = {}) => {
     const config = useRuntimeConfig(event)
-    const { token, ...resto } = opciones
+    const { token = !!opciones.method && opciones.method !== 'GET', ...resto } = opciones
+    if (token && !config.directusToken) {
+        throw createError({ statusCode: 503, statusMessage: 'Servicio no configurado' })
+    }
     return $fetch<T>(path, {
         baseURL: config.directusUrl,
         ...resto,
+        timeout: 10000,
+        retry: 0,
         headers: token && config.directusToken ? { Authorization: `Bearer ${config.directusToken}` } : undefined,
     })
 }
@@ -16,7 +21,8 @@ export const escaparHtml = (valor: unknown) => String(valor ?? '').replace(/[&<>
 
 // Campo de texto obligatorio de un formulario: recorta y limita la longitud
 export const campoTexto = (valor: unknown, max = 200) => {
-    const texto = String(valor ?? '').trim()
+    if (typeof valor !== 'string') return null
+    const texto = valor.trim()
     return texto && texto.length <= max ? texto : null
 }
 
@@ -38,4 +44,4 @@ export const ultimoId = async (event: H3Event, coleccion: string) => {
 
 // El teléfono llega como número desde <input type="number">: se conserva el tipo para Directus
 export const campoTelefono = (valor: unknown) =>
-    typeof valor === 'number' && Number.isFinite(valor) ? valor : campoTexto(valor, 30)
+    typeof valor === 'number' && Number.isSafeInteger(valor) && valor > 0 ? valor : campoTexto(valor, 30)

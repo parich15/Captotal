@@ -38,12 +38,14 @@ const {datos, secciones, getPageData, getPageSections} = usePageData();
 await getPageData(9);
 await getPageSections(9);
 
-useHead({
-    title: 'Sobre Nosotros | Cap Total',
+const tituloSeo = computed(() => datos.value.Meta_Titulo?.trim() || 'Sobre Nosotros | Cap Total');
+
+useHead(() => ({
+    title: tituloSeo.value,
     meta:[
         {
             name: 'title',
-            content: datos.value.Meta_Titulo
+            content: tituloSeo.value
         },
         {
             name: 'description',
@@ -51,12 +53,12 @@ useHead({
         },
         {
             property: 'og:title',
-            content: datos.value.Titulo
+            content: tituloSeo.value
         },
         {
             property: 'og:description',
             content: datos.value.Meta_Descripcion,
          },
     ]
-})
+}))
 </script>

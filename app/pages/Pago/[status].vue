@@ -1,122 +1,86 @@
 <template>
-    <div class="container mx-auto w-full h-screen flex justify-center">
-             <div class="flex flex-col justify-center items-center py-20" v-if="ruta.query.status == 'ok'">
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-52 h-52 text-orange-500 animate-pulse transition">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                </svg>
+    <div class="container mx-auto min-h-[70vh] px-5 py-16 flex justify-center">
+        <section class="w-full max-w-2xl min-w-0" aria-live="polite">
+            <h1 class="font-titulo font-semibold text-3xl text-orange-500 mb-5">{{ titulo }}</h1>
+            <p v-if="error" role="alert" class="text-gray-600 mb-5">{{ error }}</p>
+            <template v-if="datos">
+                <p v-if="datos.estado === 'pendiente'" class="mb-5 text-gray-600">Estamos esperando la confirmación del banco. Puedes actualizar el estado en unos instantes. Si el cargo ya aparece en tu cuenta, contacta con nosotros antes de volver a pagar.</p>
+                <p v-if="datos.estado === 'denegado'" class="mb-5 text-gray-600">El banco ha rechazado la operación. Puedes contactar con nosotros para revisar tu inscripción.</p>
+                <p v-if="datos.estado === 'autorizado' && datos.sincronizacion !== 'completa'" class="mb-5 text-gray-600">El pago está confirmado y estamos completando tu inscripción. Conserva el número de pedido; no necesitas volver a pagar.</p>
+                <dl class="border rounded p-4 grid grid-cols-1 sm:grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-3 font-titulo font-semibold">
+                    <dt class="text-gray-500">Número de pedido</dt><dd class="text-orange-500 break-words">{{ datos.Order.numOrder }}</dd>
+                    <dt class="text-gray-500">Nombre</dt><dd class="text-orange-500 break-words">{{ datos.Nombre }}</dd>
+                    <dt class="text-gray-500">Email</dt><dd class="text-orange-500 break-words">{{ datos.Email }}</dd>
+                    <dt class="text-gray-500">Curso</dt><dd class="text-orange-500 break-words">{{ datos.NombreCurso }}</dd>
+                    <dt class="text-gray-500">Precio</dt><dd class="text-orange-500">{{ datos.Order.precio }} €</dd>
+                </dl>
+            </template>
+            <div class="flex flex-wrap gap-3 mt-6">
+                <button v-if="!datos || datos.estado === 'pendiente' || datos.sincronizacion === 'error'" :disabled="cargando" class="p-3 border border-orange-500 text-orange-600 rounded-md font-titulo font-semibold disabled:opacity-50" @click="consultar(false)">{{ cargando ? 'Consultando…' : 'Actualizar estado' }}</button>
+                <NuxtLink to="/" class="p-3 bg-orange-500 rounded-md text-white font-titulo font-semibold">Volver a inicio</NuxtLink>
             </div>
-        <Suspense>
-
-            <div class="mt-20" v-if="datos">
-                <h1 class="font-titulo font-semibold text-3xl text-orange-500 py-1">Pago realizado con éxito</h1>
-                <h3 class="font-titulo font-semibold text-gray-500 text-lg mb-4">Detalles de la compra</h3>
-                <p class="text-xs font-texto font-semibold text-gray-300 p-1">
-                    Número de pedido: 
-                    <span>
-                        {{datos.Order.numOrder}}
-                    </span>
-                </p>
-               <div class="border rounded p-2 grid grid-cols-3">
-                <ul class="mt-2 ml-2 font-titulo font-semibold text-lg  text-gray-500 grid-col-1 ">
-                    <li class="my-2">
-                        Nombre:
-                    </li>
-                    <li class="my-2">
-                        Email:
-                    </li>
-                    <li class="my-2">
-                        Curso: 
-                    </li>
-                    <li class="my-2">
-                        Precio:
-                    </li>
-                </ul>
-                <ul class="mt-2 font-titulo font-semibold text-lg  text-orange-500 grid-col-2 ">
-                    <li class="my-2">
-                       {{ datos.Nombre }}
-                    </li>
-                    <li class="my-2">
-                        {{ datos.Email }}
-                    </li>
-                    <li class="my-2">
-                        {{ datos.NombreCurso }}
-                    </li>
-                    <li class="my-2">
-                        {{ datos.Order.precio }} €
-                    </li>
-                </ul>
-               </div>
-               
-            </div>
-        </Suspense>
-            <p class="text-xs font-texto font-semibold text-gray-300 p-1 mx-10">
-             Se ha enviado un correo con la información de la compra al email facilitado. Para cualquier información no dude en contactar con nosotros.
-            </p>
-            <button @click="$router.push('/')" class="p-3 font-titulo bg-orange-500 rounded-md mt-5 text-xl text-white font-semibold">
-                Confirmar
-            </button>
-            </div>
-            <div v-else>
-                Lo sentimos, no se ha podido completar el pago.
-                <button @click="$router.push('/')" class="p-3 font-titulo bg-orange-500 rounded-md mt-5 text-xl text-white font-semibold">
-                Volver a Inicio
-                </button>
-            </div>
+        </section>
     </div>
 </template>
 
 <script setup>
 const ruta = useRoute();
-const { enviar, enviarEcommerce, itemCurso } = useDataLayer();
+const { enviarEcommerce, itemCurso } = useDataLayer();
 const datos = ref(null);
+const error = ref('');
+const cargando = ref(false);
+let temporizador;
+let intentos = 0;
+const titulo = computed(() => {
+    if (!datos.value) return cargando.value ? 'Consultando el pago…' : 'Estado del pago';
+    return { autorizado: 'Pago realizado con éxito', pendiente: 'Pago pendiente de confirmación', denegado: 'No se ha podido completar el pago' }[datos.value.estado];
+});
 
-// Compra para GTM (GA4 y conversión de Google Ads): transaction_id evita contarla dos veces
+// La marca se guarda únicamente cuando se puede emitir una compra autorizada con consentimiento.
 const track = () => {
-    enviarEcommerce('purchase', {
-        transaction_id: datos.value.Order.numOrder,
-        value: Number(datos.value.Order.precio),
-        items: [itemCurso({
-            id: datos.value.Curso,
-            Titulo: datos.value.NombreCurso,
-            Tipo: datos.value.TipoCurso,
-            Precio: datos.value.Order.precio
-        })]
-    })
-}
-
-useHead({
-    title: 'Pasarela de Pago'
-})
-
-// El servidor da de alta al alumno (una sola vez por pedido) y devuelve los datos de la compra.
-// Si Redsys añade su respuesta firmada a la URL (Ds_*), se envía para verificar el pago.
-onMounted(async ()=>{
-    if(ruta.query.status == "ok" && ruta.query.order){
-        try {
-            datos.value = await $fetch('/api/pago/confirmar', {
-                method: 'POST',
-                body: {
-                    order: ruta.query.order,
+    if (datos.value?.estado !== 'autorizado') return;
+    const clave = `captotal_purchase_${datos.value.Order.numOrder}`;
+    try {
+        if (localStorage.getItem('cookiesAceptadas') !== 'true' || localStorage.getItem(clave)) return;
+        const enviado = enviarEcommerce('purchase', {
+            transaction_id: datos.value.Order.numOrder, value: Number(datos.value.Order.precio),
+            items: [itemCurso({ id: datos.value.Curso, Titulo: datos.value.NombreCurso, Tipo: datos.value.TipoCurso, Precio: datos.value.Order.precio })],
+        });
+        if (enviado === true) localStorage.setItem(clave, '1');
+    } catch { /* Sin almacenamiento disponible no se emite una compra sin deduplicación. */ }
+};
+const consultar = async (conFirma = false) => {
+    if (cargando.value) return;
+    clearTimeout(temporizador);
+    cargando.value = true;
+    error.value = '';
+    try {
+        datos.value = await $fetch('/api/pago/confirmar', {
+            method: 'POST', body: {
+                order: ruta.query.order,
+                ...(conFirma && ruta.query.Ds_MerchantParameters ? {
                     Ds_SignatureVersion: ruta.query.Ds_SignatureVersion,
                     Ds_MerchantParameters: ruta.query.Ds_MerchantParameters,
                     Ds_Signature: ruta.query.Ds_Signature,
-                }
-            });
-            if (datos.value.primeraVista) {
-                track();
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    } else if (ruta.query.status == "ko") {
-        // Pago fallido o cancelado en Redsys (una vez por pedido, aunque se recargue la página)
-        const clave = `pago_ko_${ruta.query.order || ''}`;
-        try {
-            if (sessionStorage.getItem(clave)) return;
-            sessionStorage.setItem(clave, '1');
-        } catch (e) {}
-        enviar({ event: 'payment_failed', transaction_id: ruta.query.order || null });
-    }
-})
+                } : {}),
+            },
+        });
+        track();
+        if (datos.value.estado === 'pendiente' && intentos++ < 6) temporizador = setTimeout(() => consultar(false), 5000);
+    } catch {
+        error.value = 'No podemos consultar este pedido. Usa el navegador con el que iniciaste el pago o contacta con nosotros con tu número de pedido.';
+    } finally { cargando.value = false; }
+};
+useHead({ title: 'Estado del pago' });
+onMounted(() => {
+    consultar(true);
+    // Permite registrar la compra si el consentimiento se concede después de consultar un pago pendiente.
+    window.addEventListener('storage', track);
+    window.addEventListener('captotal:consentimiento', track);
+});
+onBeforeUnmount(() => {
+    clearTimeout(temporizador);
+    window.removeEventListener('storage', track);
+    window.removeEventListener('captotal:consentimiento', track);
+});
 </script>

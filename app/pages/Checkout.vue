@@ -1,175 +1,98 @@
 <template>
     <div>
         <section>
-            <div class="bg-gray-50 h-28 flex shadow">
-                <div class="p-7 w-1/2 border-r-[1px]">
+            <div class="bg-gray-50 min-h-28 flex flex-col sm:flex-row shadow">
+                <div class="p-7 sm:w-1/2 min-w-0 border-b sm:border-b-0 sm:border-r">
                     <span class="block text-xs text-gray-500 pb-1 font-texto font-semibold">Inscripción Online</span>
-                    <h2 class="font-titulo font-semibold text-2xl md:text-3xl text-orange-500 ">
-                        {{ curso.Titulo }}
-                    </h2>
+                    <h2 class="font-titulo font-semibold text-2xl md:text-3xl text-orange-500 break-words">{{ curso.Titulo }}</h2>
                 </div>
-                <div class="w-1/2">
-                    <ul class="flex flex-col h-full justify-around items-end mr-7">
-                        <li>
-                            <p class="font-texto font-semibold text-sm text-gray-400">
-                                Status:
-                                <span class="text-orange-400 font-titulo">
-                                    {{ curso.Activo ? 'Disponible' : 'No disponible' }}
-                                </span>
-                            </p>
-                        </li>
-                        <li>
-                            <p class="font-texto font-semibold text-sm text-gray-400">
-                                Duración:
-                                <span class="text-orange-400 font-titulo">
-                                    {{ curso.Duracion }}
-                                </span>
-                            </p>
-                        </li>
-                        <li>
-                            <p class="font-texto font-semibold text-sm text-gray-400">
-                                Precio:
-                                <span class="text-orange-400 font-titulo">
-                                    {{ curso.Precio }}€
-                                </span>
-                            </p>
-                        </li>
-                        <li v-if="curso.Bonificado">
-                            <p>Curso Bonificado</p>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="sm:w-1/2 p-7 space-y-2 text-right font-texto font-semibold text-sm text-gray-400">
+                    <li>Estado: <span class="text-orange-400">{{ disponible ? 'Disponible' : 'No disponible' }}</span></li>
+                    <li>Duración: <span class="text-orange-400">{{ curso.Duracion }}</span></li>
+                    <li>Precio: <span class="text-orange-400">{{ curso.Precio }}€</span></li>
+                    <li v-if="curso.Bonificado">Curso Bonificado</li>
+                </ul>
             </div>
-
             <div class="container mt-10 mx-auto min-h-[60vh]">
-                <div class="pl-5">
-                    <button class="flex text-gray-200 items-center" @click="$router.back()">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-auto h-5 mr-2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                        </svg>
-                        <span class="font-texto font-semibold">
-                            Volver
-                        </span>
-                    </button>
-                </div>
-
+                <button class="ml-5 text-gray-500 font-texto font-semibold" @click="$router.back()">← Volver</button>
                 <h3 class="p-5 font-titulo font-semibold text-4xl text-orange-500 md:w-11/12 md:mx-auto md:px-2">Datos del alumno</h3>
-                <div class="w-11/12 mx-auto p-2 bg-gray-50 border rounded mb-10">
+                <form class="w-11/12 mx-auto p-2 bg-gray-50 border rounded mb-10" @submit.prevent="validarFormulario" @invalid.capture="validarCampos">
                     <h5 class="pl-3 font-titulo font-semibold text-lg text-orange-400 mt-2">Datos personales</h5>
-                    <div class="flex flex-col p-3">
-                        <label class="mb-2 font-titulo font-semibold text-gray-500" for="Nombre" >Dinos tu nombre</label>
-                        <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="Nombre" id="" placeholder="Tu nombre..." v-model="datos.Nombre">
+                    <div v-for="campo in campos" :key="campo.nombre" class="flex flex-col p-3">
+                        <label class="mb-2 font-titulo font-semibold text-gray-500" :for="campo.nombre">{{ campo.etiqueta }}</label>
+                        <input :id="campo.nombre" v-model="datos[campo.nombre]" :name="campo.nombre" :type="campo.tipo" :maxlength="campo.max" :autocomplete="campo.autocomplete" :placeholder="campo.placeholder" required :aria-invalid="!!errores[campo.nombre]" :aria-describedby="errores[campo.nombre] ? `${campo.nombre}-error` : undefined" class="font-texto font-semibold text-gray-600 h-10 px-2 focus:outline-none focus:ring-1 focus:ring-orange-300 rounded min-w-0">
+                        <p v-if="errores[campo.nombre]" :id="`${campo.nombre}-error`" class="mt-1 text-sm text-red-700">{{ errores[campo.nombre] }}</p>
                     </div>
-                    <div class="flex flex-col p-3">
-                        <label class="mb-2 font-titulo font-semibold text-gray-500" for="Apellidos">Y tus apellidos</label>
-                        <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="Apellidos" id="" placeholder="Tus apellidos..." v-model="datos.Apellidos">
+                    <p v-if="errorPago" role="alert" class="px-3 pb-3 text-red-700">{{ errorPago }}</p>
+                    <p v-if="!disponible" class="px-3 pb-3 text-gray-600">Este curso no está disponible para inscripciones.</p>
+                    <div class="flex justify-center p-3">
+                        <button type="submit" :disabled="pagando || !disponible" class="disabled:bg-gray-400 bg-orange-500 px-5 py-3 rounded font-titulo font-semibold text-white text-xl">{{ pagando ? 'Preparando el pago…' : 'Inscribirme en el curso' }}</button>
                     </div>
-                    <div class="flex flex-col p-3">
-                        <label class="mb-2 font-titulo font-semibold text-gray-500" for="Telefono">Un teléfono para contactar contigo</label>
-                        <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="number" name="Telefono" id="" placeholder="Ej: 93123456" v-model="datos.Telefono">
-                    </div>
-                    <div class="flex flex-col p-3">
-                        <label class="mb-2 font-titulo font-semibold text-gray-500" for="Email">Tu correo para registrarte como alumno</label>
-                        <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded" required type="text" name="Email" id="" placeholder="Tu Email" v-model="datos.Email">
-                    </div>
-                    <div class="flex flex-col p-3">
-                        <label class="mb-2 font-titulo font-semibold text-gray-500" for="NieNif">Finalmente tu DNI (o NIE)</label>
-                        <input class="focus:placeholder:text-transparent font-texto font-semibold text-gray-600 h-10 pl-2 focus:outline-none focus:ring-1 focus:ring-orange-300 focus:scale-105 lg:focus:scale-100 transition rounded mb-3" required  type="text" name="NieNif" placeholder="DNI o NIE" v-model="datos.NieNif">
-                    </div>
-                    <hr class="p-3">
-                    <ClientOnly>
-                        <form ref="redsys_form" name="pasarelaPago" action="https://sis.redsys.es/sis/realizarPago" method="POST">
-                            <input type="hidden" name="Ds_SignatureVersion" :value="Ds_SignatureVersion"/>
-                            <input type="hidden" name="Ds_MerchantParameters" :value="Ds_MerchantParameters"/>
-                            <input type="hidden" name="Ds_Signature" :value="Ds_Signature"/>
-                            <div class="flex justify-center mb-3">
-                                <button @click.prevent="validarFormulario" :disabled="pagando" class="disabled:bg-gray-400 bg-orange-500 w-2/3 h-10 rounded font-titulo font-semibold text-white text-xl focus:outline-none focus:scale-105 lg:focus:scale-100 transition">Inscribirme en el curso</button>
-                            </div>
-                        </form>
-                    </ClientOnly>
-                </div>
+                </form>
+                <form ref="redsysForm" name="pasarelaPago" action="https://sis.redsys.es/sis/realizarPago" method="POST" hidden>
+                    <input type="hidden" name="Ds_SignatureVersion" :value="firma.Ds_SignatureVersion">
+                    <input type="hidden" name="Ds_MerchantParameters" :value="firma.Ds_MerchantParameters">
+                    <input type="hidden" name="Ds_Signature" :value="firma.Ds_Signature">
+                </form>
             </div>
         </section>
     </div>
 </template>
 
 <script setup>
-import { useCursoData } from '~/composables/useCursoData';
-import { useCheckout } from '~/composables/useCheckout';
+import { validarDatosAlumno } from '~~/shared/utils/datosAlumno';
 
 const ruta = useRoute();
-const {stock, datos, getStock} = useCheckout();
-const {curso, getCursoData} = useCursoData();
+const { stock, datos, getStock } = useCheckout();
+const { curso, getCursoData } = useCursoData();
 const { enviarEcommerce, itemCurso } = useDataLayer();
-const redsys_form = ref(null);
-
-//Obtenemos Datos
-await getCursoData(ruta.query.curso);
-await getStock(ruta.query.curso);
-
-// Logica de Pago: el servidor fija el precio y firma la petición (la clave de Redsys no llega al navegador)
-const Ds_MerchantParameters = ref(null);
-const Ds_Signature = ref(null);
-const Ds_SignatureVersion = ref(null);
+const redsysForm = ref(null);
+const firma = ref({});
 const pagando = ref(false);
+const errores = ref({});
+const errorPago = ref('');
+const campos = [
+    { nombre: 'Nombre', etiqueta: 'Dinos tu nombre', tipo: 'text', max: 100, autocomplete: 'given-name', placeholder: 'Tu nombre…' },
+    { nombre: 'Apellidos', etiqueta: 'Y tus apellidos', tipo: 'text', max: 150, autocomplete: 'family-name', placeholder: 'Tus apellidos…' },
+    { nombre: 'Telefono', etiqueta: 'Un teléfono para contactar contigo', tipo: 'tel', max: 30, autocomplete: 'tel', placeholder: 'Ej: 931234567' },
+    { nombre: 'Email', etiqueta: 'Tu correo para registrarte como alumno', tipo: 'email', max: 254, autocomplete: 'email', placeholder: 'Tu email' },
+    { nombre: 'NieNif', etiqueta: 'Finalmente tu DNI (o NIE)', tipo: 'text', max: 9, autocomplete: 'off', placeholder: 'DNI o NIE' },
+];
+if (typeof ruta.query.curso !== 'string') throw createError({ statusCode: 404, statusMessage: 'Curso no encontrado' });
+await getCursoData(ruta.query.curso);
+if (!curso.value?.id) throw createError({ statusCode: 404, statusMessage: 'Curso no encontrado' });
+await getStock(ruta.query.curso);
+const disponible = computed(() => curso.value?.Activo === true && Number(stock.value) >= 1 && Number(curso.value?.Precio) > 0);
 
-const comenzarPago = async () =>{
+const validarCampos = () => {
+    const resultado = validarDatosAlumno(datos);
+    errores.value = resultado.errores;
+    return resultado;
+};
+const validarFormulario = async () => {
+    if (pagando.value || !disponible.value) return;
+    const resultado = validarCampos();
+    if (!resultado.valido) return;
     pagando.value = true;
+    errorPago.value = '';
     try {
-        const firma = await $fetch('/api/pago/firmar', {
-            method: 'POST',
-            body: {
-                curso: ruta.query.curso,
-                origen: window.location.origin,
-                alumno: {
-                    Nombre: datos.Nombre,
-                    Apellidos: datos.Apellidos,
-                    Email: datos.Email,
-                    Telefono: datos.Telefono,
-                    NieNif: datos.NieNif,
-                }
-            }
+        firma.value = await $fetch('/api/pago/firmar', {
+            method: 'POST', body: { curso: ruta.query.curso, origen: window.location.origin, alumno: resultado.datos },
         });
-        Ds_SignatureVersion.value = firma.Ds_SignatureVersion;
-        Ds_MerchantParameters.value = firma.Ds_MerchantParameters;
-        Ds_Signature.value = firma.Ds_Signature;
         await nextTick();
-        // Conversión del checkout: se envía al salir hacia Redsys, acabe el pago bien o mal
         enviarEcommerce('add_payment_info', {
-            transaction_id: firma.pedido,
-            value: Number(curso.value.Precio),
-            payment_type: 'Tarjeta (Redsys)',
-            items: [itemCurso(curso.value)]
-        }, () => redsys_form.value.submit());
-    } catch (e) {
-        console.log(e);
+            transaction_id: firma.value.pedido, value: Number(firma.value.precio),
+            payment_type: 'Tarjeta (Redsys)', items: [itemCurso({ ...curso.value, Precio: firma.value.precio })],
+        }, () => redsysForm.value.submit());
+    } catch (error) {
+        errores.value = error.data?.data?.campos || {};
+        errorPago.value = error.data?.statusMessage || 'No se ha podido iniciar el pago. Inténtalo de nuevo o contacta con nosotros.';
         pagando.value = false;
-        alert('No se ha podido iniciar el pago. Inténtalo de nuevo o contacta con nosotros.');
     }
-}
-
-// Logica Marketing: Captamos Checkout Event
-const track = ()=> {
-    enviarEcommerce('begin_checkout', {
-        value: Number(curso.value.Precio),
-        items: [itemCurso(curso.value)]
-    })
-}
-
-//Mecanismo anti acceso por Url
-onMounted(async ()=>{
-    if(stock.value < 1){
-        useRouter().push('/');
-    }
-    track();
-})
-
-const validarFormulario = () => {
-    if (!datos.Nombre || !datos.Apellidos || !datos.Telefono || !datos.Email || !datos.NieNif) {
-        alert('Por favor, complete todos los campos.');
-        return false;
-    }
-    // Si todo es correcto, continúa con el pago
-    comenzarPago();
-}
+};
+onMounted(() => {
+    if (disponible.value) enviarEcommerce('begin_checkout', {
+        value: Number(curso.value.Precio), items: [itemCurso(curso.value)],
+    });
+});
 </script>

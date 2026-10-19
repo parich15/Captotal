@@ -49,12 +49,13 @@
                     :Titulo="curso.Titulo"
                     :Precio="curso.Precio"
                     :Contenidos="curso.Contenidos"
+                    :texto-checkbox-formulario="curso.texto_checkbox_formulario"
                     @init-checkout="checkout = true"></Precios>
                 
                 <div class="max-w-xl mx-auto bg-white/50 mt-10 p-3.5 rounded-md shadow-md">
                     <ul v-if="curso.Desplegable" id="Desplegables" class="list-none lg:pt-2">
                         <li class="my-5 lg:my-6"
-                        v-for="desplegable in curso.Desplegable" >
+                        v-for="desplegable in curso.Desplegable" :key="desplegable.id || desplegable.Titulo" >
                             <Desplegable :titulo="desplegable.Titulo" :contenido="desplegable.Texto"></Desplegable>
                         </li>
                     </ul>
@@ -106,14 +107,19 @@ const { enviarEcommerce, itemCurso } = useDataLayer();
 const checkout = ref(false);
 
 await getCursoData(ruta.params.slug);
+if (!curso.value) {
+    throw createError({ statusCode: 404, statusMessage: 'Curso no encontrado' });
+}
 await getCursoContenido(ruta.params.slug);
 
-useHead({
-    title: curso.value.Titulo + " | Cap Total",
+const tituloSeo = computed(() => curso.value.Meta_Titulo?.trim() || curso.value.Titulo + " | Cap Total");
+
+useHead(() => ({
+    title: tituloSeo.value,
     meta:[
         {
             name: 'title',
-            content:curso.value.Meta_Titulo
+            content: tituloSeo.value
         },
         {
             name: 'description',
@@ -121,14 +127,14 @@ useHead({
         },
         {
             property: 'og:title',
-            content:curso.value.Titulo
+            content: tituloSeo.value
         },
         {
             property: 'og:description',
             content:curso.value.Meta_Descripcion,
          },
     ]
-})
+}))
 
 const track = () =>{
     enviarEcommerce('view_item', {

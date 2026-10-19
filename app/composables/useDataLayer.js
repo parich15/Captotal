@@ -13,9 +13,9 @@ export const useDataLayer = () => {
     // sus etiquetas para que la navegación no corte el envío; si GTM no responde, sigue igualmente a los 1,5 s.
     const enviar = (datos, alTerminar) => {
         if (import.meta.server) return;
-        if (!hayConsentimiento()) return alTerminar?.();
+        if (!hayConsentimiento()) { alTerminar?.(); return false; }
         window.dataLayer = window.dataLayer || [];
-        if (!alTerminar) return window.dataLayer.push(datos);
+        if (!alTerminar) { window.dataLayer.push(datos); return true; }
         let hecho = false;
         const terminar = () => {
             if (hecho) return;
@@ -24,12 +24,13 @@ export const useDataLayer = () => {
         };
         setTimeout(terminar, 1500);
         window.dataLayer.push({ ...datos, eventCallback: terminar, eventTimeout: 1500 });
+        return true;
     }
 
     // Comercio electrónico de GA4: se vacía el objeto ecommerce anterior antes de cada evento (recomendación de Google)
     const enviarEcommerce = (event, ecommerce, alTerminar) => {
         enviar({ ecommerce: null });
-        enviar({ event, ecommerce: { currency: 'EUR', ...ecommerce } }, alTerminar);
+        return enviar({ event, ecommerce: { currency: 'EUR', ...ecommerce } }, alTerminar);
     }
 
     // Página vista "virtual" (la web es una SPA): se envía cuando Nuxt ya ha pintado la página y cambiado el título
