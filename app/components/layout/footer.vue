@@ -169,13 +169,16 @@ const cargarCaptcha = () => {
   if (!config.public.recaptchaSiteKey) return Promise.reject(new Error('La suscripción no está disponible. Inténtalo más tarde.'));
   let script;
   cargaCaptcha = conTimeoutCaptcha(new Promise((resolve, reject) => {
-    const preparar = () => window.grecaptcha.ready(resolve);
-    if (window.grecaptcha?.execute && window.grecaptcha?.ready) return preparar();
+    const preparar = () => window.grecaptcha.ready(() => {
+      if (typeof window.grecaptcha.execute === 'function') resolve();
+      else reject(new Error('No se pudo cargar la verificación. Vuelve a intentarlo.'));
+    });
+    if (window.grecaptcha?.ready) return preparar();
     script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(config.public.recaptchaSiteKey)}&hl=es`;
     script.async = true;
     script.onload = () => {
-      if (window.grecaptcha?.execute && window.grecaptcha?.ready) preparar();
+      if (window.grecaptcha?.ready) preparar();
       else reject(new Error('No se pudo cargar la verificación. Vuelve a intentarlo.'));
     };
     script.onerror = () => reject(new Error('No se pudo cargar la verificación. Comprueba tu conexión y vuelve a intentarlo.'));

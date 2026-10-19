@@ -7,7 +7,7 @@
 | 1 Banners | Diseño existente con botones a #Precios y llamada; teléfono desde Directus | — |
 | 2 Garantía | Eliminada propiedad sin consumidores | — |
 | 3 Consentimiento | Voluntario y desmarcado; etiqueta por curso; decisión, fecha y copia del texto en Interesados | — |
-| 4 Newsletter | API privada, reCAPTCHA v3, acción newsletter, puntuación mínima 0,5, honeypot, deduplicación y límite 5 intentos/10 minutos/IP | Monitorizar puntuación con tráfico real en la consola Google |
+| 4 Newsletter | API privada, reCAPTCHA v3, acción newsletter, puntuación mínima 0,5, honeypot, deduplicación y límite 5 intentos/10 minutos/IP | Verificado con Google: success, action newsletter, hostname captotal.com y score 0,9; monitorizar tráfico real |
 | 5 Metatítulos | Meta_Titulo en title/meta/og:title, respaldo actual; Posts sin campo SEO conserva título; retirado script Clickrank que sobrescribía el title tras hidratar | — |
 | 6 Título pago | Layout adaptable; comprobado 360/768/1440 sin overflow | — |
 | 7 Redsys | Secretos servidor, firma/correspondencia verificada, revisión parcial de logs | Export del TPV y prueba en entorno bancario de pruebas |
