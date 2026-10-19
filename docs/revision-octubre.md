@@ -8,7 +8,7 @@
 | 2 Garantía | Eliminada propiedad sin consumidores | — |
 | 3 Consentimiento | Voluntario y desmarcado; etiqueta por curso; decisión, fecha y copia del texto en Interesados | — |
 | 4 Newsletter | API privada, reCAPTCHA v2, honeypot, deduplicación y límite 5 intentos/10 minutos/IP | Resolución humana del CAPTCHA para alta real |
-| 5 Metatítulos | Meta_Titulo en title/meta/og:title, respaldo actual; Posts sin campo SEO conserva título | — |
+| 5 Metatítulos | Meta_Titulo en title/meta/og:title, respaldo actual; Posts sin campo SEO conserva título; retirado script Clickrank que sobrescribía el title tras hidratar | — |
 | 6 Título pago | Layout adaptable; comprobado 360/768/1440 sin overflow | — |
 | 7 Redsys | Secretos servidor, firma/correspondencia verificada, revisión parcial de logs | Export del TPV y prueba en entorno bancario de pruebas |
 | 8 Datos pago | Validación compartida, estado persistido, alta idempotente y Total decimal | — |

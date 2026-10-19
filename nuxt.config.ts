@@ -39,10 +39,6 @@ export default defineNuxtConfig({
             script: [
                 // Google Tag Manager lo más arriba posible del <head>: prioridad 15 = justo tras charset, viewport y title
                 { key: 'gtm', textContent: GTM_SCRIPT, tagPriority: 15 },
-                {
-                    src: `https://js.clickrank.ai/seo/850e6014-7556-4ad9-84af-491e3d95295b/script?${new Date().getTime()}`,
-                    async: true,
-                }
             ],
             //Link
             link: [
