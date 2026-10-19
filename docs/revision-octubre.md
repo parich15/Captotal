@@ -4,7 +4,7 @@
 
 | Punto | Implementación y evidencia | Pendiente externo |
 | --- | --- | --- |
-| 1 Banners | Segunda entrega; no se modifica diseño | Maquetas desktop/mobile |
+| 1 Banners | Diseño existente con botones a #Precios y llamada; teléfono desde Directus | — |
 | 2 Garantía | Eliminada propiedad sin consumidores | — |
 | 3 Consentimiento | Voluntario y desmarcado; etiqueta por curso; decisión, fecha y copia del texto en Interesados | — |
 | 4 Newsletter | API privada, reCAPTCHA v2, honeypot, deduplicación y límite 5 intentos/10 minutos/IP | Resolución humana del CAPTCHA para alta real |

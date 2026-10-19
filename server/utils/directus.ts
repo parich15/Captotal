@@ -32,16 +32,3 @@ export const notificarDirectus = (event: H3Event, subject: string, message: stri
         method: 'POST',
         body: { status: 'inbox', recipient: 'e64ad966-00f8-4a65-8461-f2debdde73e4', subject, message, collection, item },
     })
-
-// Id del último registro de una colección (el rol público puede crear pero no leer, por eso hace falta el token)
-export const ultimoId = async (event: H3Event, coleccion: string) => {
-    const res = await directus<{ data: { id: number }[] }>(event, `/items/${coleccion}`, {
-        query: { fields: 'id', sort: '-id', limit: 1 },
-        token: true,
-    })
-    return res.data[0]?.id
-}
-
-// El teléfono llega como número desde <input type="number">: se conserva el tipo para Directus
-export const campoTelefono = (valor: unknown) =>
-    typeof valor === 'number' && Number.isSafeInteger(valor) && valor > 0 ? valor : campoTexto(valor, 30)

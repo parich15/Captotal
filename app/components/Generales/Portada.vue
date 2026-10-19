@@ -11,6 +11,7 @@
 </h1>
 
       <div :class="Landing ? 'justify-center mx-auto' : ''" class="mt-4 max-w-lg sm:text-xl sm:leading-relaxed md:text-lg lg:text-xl xl:text-2xl lg:max-w-2xl font-titulo font-semibold text-gray-600 hidden md:flex" v-html="Texto"></div>
+      <slot name="acciones" />
     </div>
   </div>
 </section>

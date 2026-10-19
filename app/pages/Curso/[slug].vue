@@ -8,7 +8,14 @@
             :Subtitulo="curso.Subtitulo"
             :Texto="curso.Descripcion"
             :Landing="true"
-            ></Portada>
+            >
+                <template #acciones>
+                    <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+                        <a href="#Precios" class="rounded bg-orange-600 px-6 py-3 font-titulo font-bold text-white hover:bg-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-600">Ver precio y reservar</a>
+                        <a v-if="telefonoCurso" :href="`tel:${telefonoCurso}`" class="rounded border border-gray-400 bg-white/90 px-6 py-3 font-titulo font-bold text-gray-700 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-600">Llamar al {{ contacto.Telefono }}</a>
+                    </div>
+                </template>
+            </Portada>
         </suspense>
 
         <Datos
@@ -103,6 +110,9 @@ import Informacion from '~/components/Curso/Informacion.vue';
 import Desplegable from '~/components/Curso/Desplegable.vue';
 const ruta = useRoute();
 const {curso, secciones,  getCursoData, getCursoContenido} = useCursoData();
+const { data: contacto, getContactoBasico } = useContactoData();
+await getContactoBasico(1);
+const telefonoCurso = computed(() => String(contacto.value?.Telefono || '').replace(/[^\d+]/g, ''));
 const { enviarEcommerce, itemCurso } = useDataLayer();
 const checkout = ref(false);
 
