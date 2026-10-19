@@ -43,8 +43,11 @@ export const crearLimitador = ({ max = 5, ventana = 600_000, capacidad = 10_000 
     }
 }
 
-export const captchaValido = (respuesta, dominios) => {
+export const captchaValido = (respuesta, dominios, minimo = 0.5) => {
     if (respuesta?.success !== true || typeof respuesta.hostname !== 'string') return false
+    if (respuesta.action !== 'newsletter' || typeof respuesta.score !== 'number' || !Number.isFinite(respuesta.score)) return false
+    if (typeof minimo !== 'number' || !Number.isFinite(minimo) || minimo < 0 || minimo > 1) return false
+    if (respuesta.score < minimo || respuesta.score > 1) return false
     const permitidos = String(dominios).split(',').map(host => host.trim().toLowerCase()).filter(Boolean)
     // siteverify comprueba caducidad y uso único; challenge_ts es la carga del desafío.
     return permitidos.includes(respuesta.hostname.toLowerCase())

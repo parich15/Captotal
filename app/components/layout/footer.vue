@@ -49,7 +49,7 @@
                 aria-label="Suscribirme a la newsletter"
                 class="absolute top-1/2 right-1.5 -translate-y-1/2 rounded bg-orange-400 p-3 text-white transition enabled:hover:bg-orange-500 enabled:hover:scale-105"
                 type="submit"
-                :disabled="enviando || !Email || !captchaToken"
+                :disabled="enviando || !Email"
               >
                 <svg
                   class="h-4 w-4"
@@ -71,9 +71,11 @@
               <label for="newsletter-website">Web</label>
               <input id="newsletter-website" v-model="website" type="text" tabindex="-1" autocomplete="off">
             </div>
-            <div ref="captchaContenedor" class="mt-3"></div>
-            <p v-if="cargandoCaptcha" class="text-white text-sm mt-2" role="status">Cargando verificación…</p>
-            <button v-if="errorMensaje && !captchaToken && !cargandoCaptcha" type="button" class="text-white text-sm underline mt-2" @click="prepararCaptcha">Volver a cargar la verificación</button>
+            <p v-if="cargandoCaptcha || enviando" class="text-white text-sm mt-2" role="status">Verificando formulario…</p>
+            <button v-if="errorMensaje && !cargandoCaptcha && !enviando" type="button" class="text-white text-sm underline mt-2" @click="prepararCaptcha">Volver a cargar la verificación</button>
+            <p class="text-gray-400 text-xs mt-3">
+              Protegido por reCAPTCHA. Se aplican la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="underline">Política de Privacidad</a> y los <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" class="underline">Términos de Google</a>.
+            </p>
             <p v-if="Enviado" class="text-white font-texto text-sm ml-1 mt-2">Tu suscripción a la newsletter está activa.</p>
             <p v-if="errorMensaje" class="text-red-500 font-texto text-sm ml-1 mt-2" role="alert">{{ errorMensaje }}</p>
 
@@ -150,95 +152,79 @@ const errorMensaje = ref('');
 const Enviado = ref(false);
 const enviando = ref(false);
 const website = ref('');
-const captchaToken = ref('');
-const captchaContenedor = ref(null);
 const cargandoCaptcha = ref(false);
-let captchaId;
 let cargaCaptcha;
 let desmontado = false;
 
 const abrirCookies = () => window.dispatchEvent(new Event('captotal:configurar-cookies'));
 
-// La API y el widget sólo se cargan al interactuar con el formulario.
-const prepararCaptcha = async () => {
-  if (desmontado || cargandoCaptcha.value) return;
-  if (captchaId !== undefined) {
-    errorMensaje.value = '';
-    reiniciarCaptcha();
-    return;
-  }
-  errorMensaje.value = '';
-  if (!config.public.recaptchaSiteKey) {
-    errorMensaje.value = 'La suscripción no está disponible. Inténtalo más tarde.';
-    return;
-  }
-  cargandoCaptcha.value = true;
-  try {
-    if (!window.grecaptcha?.render) {
-      cargaCaptcha ||= new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        const timeout = setTimeout(() => {
-          script.remove();
-          delete window.captotalCaptchaReady;
-          reject(new Error('timeout'));
-        }, 12000);
-        window.captotalCaptchaReady = () => {
-          clearTimeout(timeout);
-          delete window.captotalCaptchaReady;
-          resolve();
-        };
-        script.src = 'https://www.google.com/recaptcha/api.js?onload=captotalCaptchaReady&render=explicit&hl=es';
-        script.async = true;
-        script.onerror = () => {
-          clearTimeout(timeout);
-          script.remove();
-          delete window.captotalCaptchaReady;
-          reject(new Error('captcha'));
-        };
-        document.head.appendChild(script);
-      });
-      await cargaCaptcha;
-    }
-    if (desmontado) return;
-    captchaId = window.grecaptcha.render(captchaContenedor.value, {
-      sitekey: config.public.recaptchaSiteKey,
-      size: 'compact',
-      callback: token => { captchaToken.value = token; errorMensaje.value = ''; },
-      'expired-callback': () => { captchaToken.value = ''; },
-      'error-callback': () => { captchaToken.value = ''; errorMensaje.value = 'No se pudo verificar. Inténtalo de nuevo.'; },
-    });
-  } catch {
+const conTimeoutCaptcha = (promesa) => new Promise((resolve, reject) => {
+  const timeout = setTimeout(() => reject(new Error('No se pudo completar la verificación. Vuelve a intentarlo.')), 12000);
+  Promise.resolve(promesa).then(resolve, reject).finally(() => clearTimeout(timeout));
+});
+
+// Cargar la API al interactuar no crea tokens ni envía el formulario.
+const cargarCaptcha = () => {
+  if (cargaCaptcha) return cargaCaptcha;
+  if (!config.public.recaptchaSiteKey) return Promise.reject(new Error('La suscripción no está disponible. Inténtalo más tarde.'));
+  let script;
+  cargaCaptcha = conTimeoutCaptcha(new Promise((resolve, reject) => {
+    const preparar = () => window.grecaptcha.ready(resolve);
+    if (window.grecaptcha?.execute && window.grecaptcha?.ready) return preparar();
+    script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(config.public.recaptchaSiteKey)}&hl=es`;
+    script.async = true;
+    script.onload = () => {
+      if (window.grecaptcha?.execute && window.grecaptcha?.ready) preparar();
+      else reject(new Error('No se pudo cargar la verificación. Vuelve a intentarlo.'));
+    };
+    script.onerror = () => reject(new Error('No se pudo cargar la verificación. Comprueba tu conexión y vuelve a intentarlo.'));
+    document.head.appendChild(script);
+  })).catch(error => {
+    script?.remove();
     cargaCaptcha = undefined;
-    errorMensaje.value = 'No se pudo cargar la verificación. Comprueba tu conexión y vuelve a intentarlo.';
+    throw error;
+  });
+  return cargaCaptcha;
+};
+
+const prepararCaptcha = async () => {
+  if (desmontado || cargandoCaptcha.value || enviando.value) return;
+  cargandoCaptcha.value = true;
+  errorMensaje.value = '';
+  try {
+    await cargarCaptcha();
+  } catch (error) {
+    errorMensaje.value = error.message;
   } finally {
     cargandoCaptcha.value = false;
   }
 };
 
-const reiniciarCaptcha = () => {
-  captchaToken.value = '';
-  if (captchaId !== undefined) window.grecaptcha?.reset(captchaId);
-};
-
 const enviarForm = async () => {
   if (enviando.value) return;
-  if (!captchaToken.value) { await prepararCaptcha(); return; }
   enviando.value = true;
   errorMensaje.value = '';
   Enviado.value = false;
   try {
+    // Un token nuevo en cada envío: nunca reutilizar el obtenido en un intento anterior.
+    const recaptchaToken = await conTimeoutCaptcha((async () => {
+      await cargarCaptcha();
+      return window.grecaptcha.execute(config.public.recaptchaSiteKey, { action: 'newsletter' });
+    })());
+    if (desmontado) return;
+    if (typeof recaptchaToken !== 'string' || !recaptchaToken) throw new Error('No se pudo verificar el formulario. Vuelve a intentarlo.');
     const respuesta = await $fetch('/api/newsletter', {
       method: 'POST',
-      body: { Email: Email.value, recaptchaToken: captchaToken.value, website: website.value },
+      body: { Email: Email.value, recaptchaToken, website: website.value },
     });
     if (respuesta.created) enviar({ event: 'sign_up', method: 'newsletter' });
     Enviado.value = true;
     Email.value = '';
   } catch (error) {
-    errorMensaje.value = error?.data?.statusMessage || 'No se pudo guardar la suscripción. Vuelve a intentarlo.';
+    errorMensaje.value = error?.data?.statusMessage || error?.message || 'No se pudo guardar la suscripción. Vuelve a intentarlo.';
   } finally {
     enviando.value = false;
-    reiniciarCaptcha();
   }
 };
 

@@ -84,6 +84,7 @@ export default defineNuxtConfig({
         },
         pagosDir: '.data/pagos',
         recaptchaSecret: '',
+        recaptchaMinScore: 0.5,
         recaptchaHostnames: 'captotal.com,www.captotal.com',
         trustedProxyIps: '',
         public:{

@@ -27,11 +27,14 @@ test('sólo los proxies configurados pueden aportar X-Real-IP', () => {
     assert.equal(ipFormulario('127.0.0.1', 'inventada', '127.0.0.1'), '127.0.0.1')
 })
 
-test('captcha exige éxito y dominio; siteverify controla caducidad y reutilización', () => {
-    const respuesta = { success: true, hostname: 'captotal.com', challenge_ts: '2026-10-19T08:00:00Z' }
+test('captcha v3 exige éxito, dominio, acción newsletter y puntuación numérica suficiente', () => {
+    const respuesta = { success: true, hostname: 'captotal.com', action: 'newsletter', score: 0.9, challenge_ts: '2026-10-19T08:00:00Z' }
     assert.equal(captchaValido(respuesta, 'captotal.com,www.captotal.com'), true)
-    for (const cambios of [{ success: false }, { hostname: 'atacante.com' }, { hostname: null }]) {
+    assert.equal(captchaValido({ ...respuesta, score: 0.5 }, 'captotal.com'), true)
+    assert.equal(captchaValido({ ...respuesta, score: 0.3 }, 'captotal.com', 0.3), true)
+    for (const cambios of [{ success: false }, { hostname: 'atacante.com' }, { hostname: null }, { action: undefined }, { action: 'contacto' }, { action: 'Newsletter' }, { score: undefined }, { score: null }, { score: '0.9' }, { score: NaN }, { score: Infinity }, { score: -1 }, { score: 0.49 }, { score: 1.01 }]) {
         assert.equal(captchaValido({ ...respuesta, ...cambios }, 'captotal.com'), false)
     }
     assert.equal(captchaValido(respuesta, ''), false)
+    for (const minimo of [NaN, Infinity, -0.1, 1.1, '0.5']) assert.equal(captchaValido(respuesta, 'captotal.com', minimo), false)
 })

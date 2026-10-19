@@ -31,8 +31,8 @@ export default defineEventHandler(async (event) => {
     } catch {
         throw createError({ statusCode: 503, statusMessage: 'No se pudo verificar el formulario. Vuelve a intentarlo.' })
     }
-    if (!captchaValido(verificacion, config.recaptchaHostnames)) {
-        throw createError({ statusCode: 400, statusMessage: 'La verificación ha caducado o no es válida. Complétala de nuevo.' })
+    if (!captchaValido(verificacion, config.recaptchaHostnames, Number(config.recaptchaMinScore ?? 0.5))) {
+        throw createError({ statusCode: 400, statusMessage: 'No se pudo verificar el formulario. Vuelve a intentarlo.' })
     }
 
     const existente = altas.get(email)

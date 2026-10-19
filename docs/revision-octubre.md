@@ -7,7 +7,7 @@
 | 1 Banners | Diseño existente con botones a #Precios y llamada; teléfono desde Directus | — |
 | 2 Garantía | Eliminada propiedad sin consumidores | — |
 | 3 Consentimiento | Voluntario y desmarcado; etiqueta por curso; decisión, fecha y copia del texto en Interesados | — |
-| 4 Newsletter | API privada, reCAPTCHA v2, honeypot, deduplicación y límite 5 intentos/10 minutos/IP | Resolución humana del CAPTCHA para alta real |
+| 4 Newsletter | API privada, reCAPTCHA v3, acción newsletter, puntuación mínima 0,5, honeypot, deduplicación y límite 5 intentos/10 minutos/IP | Monitorizar puntuación con tráfico real en la consola Google |
 | 5 Metatítulos | Meta_Titulo en title/meta/og:title, respaldo actual; Posts sin campo SEO conserva título; retirado script Clickrank que sobrescribía el title tras hidratar | — |
 | 6 Título pago | Layout adaptable; comprobado 360/768/1440 sin overflow | — |
 | 7 Redsys | Secretos servidor, firma/correspondencia verificada, revisión parcial de logs | Export del TPV y prueba en entorno bancario de pruebas |
@@ -31,12 +31,12 @@ Los últimos 2 MB de cada log accesible de frontend contenían dos respuestas 99
 | add_payment_info | Firma obtenida, antes de enviar a Redsys; mide salida a pasarela |
 | purchase | Pedido autorizado y consentimiento; transaction_id y deduplicación local |
 
-Se conserva GTM como salida única. Sin consentimiento no se envían eventos. Añadir en GTM disparadores de evento personalizado con estos nombres y etiquetas GA4/ecommerce; verificar en Preview antes de publicar el contenedor. No enviar nombre, email, teléfono o documento a Analytics.
+GTM-KXG3CPPH es el único cargador de etiquetas. Revisado que no existe vue-gtag en package.json, lockfile ni código, ni carga directa de gtag.js. Las órdenes de Consent Mode usan el mismo dataLayer y no instalan otro tracker. Sin consentimiento no se envían eventos. Añadir en GTM disparadores de evento personalizado con estos nombres y etiquetas GA4/ecommerce; verificar en Preview antes de publicar el contenedor. No enviar nombre, email, teléfono o documento a Analytics.
 `add_payment_info` no observa la introducción de tarjeta, que sucede en Redsys.
 
 ## Operación y recuperación
 
-Node 22.19 o posterior. Copiar `.env.example` a `.env` y completar solo en el servidor. PM2 carga NUXT_* al arrancar; no se embeben secretos en el cliente. El token de servidor es de un usuario sin acceso administrativo al CMS. `NUXT_PUBLIC_RECAPTCHA_SITE_KEY` es pública, `NUXT_RECAPTCHA_SECRET` es privada.
+Node 22.19 o posterior. Copiar `.env.example` a `.env` y completar solo en el servidor. PM2 carga NUXT_* al arrancar; no se embeben secretos en el cliente. El token de servidor es de un usuario sin acceso administrativo al CMS. `NUXT_PUBLIC_RECAPTCHA_SITE_KEY` es pública, `NUXT_RECAPTCHA_SECRET` es privada. V3 ejecuta la acción newsletter al enviar; el servidor exige success, hostname, action y score >= NUXT_RECAPTCHA_MIN_SCORE (0,5 por defecto), además del límite por IP. No usa casilla v2. Google valida caducidad y uso único del token.
 
 Preparación Directus: `DIRECTUS_ADMIN_TOKEN=... node scripts/directus-octubre.mjs --prepare` desde el checkout del VPS, con token en entorno privado. Crea campos, convierte Total a decimal(12,2), añade Pedido_Verificado único nullable y prepara usuario/rol Web Captotal. Guarda copia de campos y permisos en `.data/migraciones` o DIRECTUS_MIGRATION_BACKUP. La etiqueta se inicializa solo si estaba vacía. La preparación rota únicamente el token del usuario de servicio propio: reiniciar PM2 si se repite tras activar la web.
 
