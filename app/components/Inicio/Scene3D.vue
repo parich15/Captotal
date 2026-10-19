@@ -1,8 +1,47 @@
 <template>
   <div ref="host" class="scene-3d" :aria-label="label" role="group">
-    <!-- La imagen solo sustituye a la escena si WebGL no está disponible; mientras carga se ve un fondo neutro. -->
+    <!-- La imagen solo sustituye a la escena si WebGL no está disponible; mientras carga se ve un skeleton por escena. -->
     <img v-if="unavailable && fallbackImage" :src="fallbackImage" :alt="label" class="scene-fallback" />
-    <div v-else-if="!ready" class="scene-loading" aria-hidden="true" />
+    <div v-else-if="!ready" class="scene-skeleton" aria-hidden="true">
+      <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" focusable="false">
+        <g v-if="kind === 'truck'">
+          <rect x="-1000" y="150" width="2600" height="60" fill="#fff" opacity=".35" />
+          <rect x="-1000" y="150" width="2600" height="8" fill="#fff" opacity=".4" />
+          <path d="M-1000 400 L-1000 250 Q300 205 1600 250 L1600 400 Z" fill="#8fa3b3" opacity=".3" />
+          <path d="M-60 400 L190 235 L470 235 L720 400 Z" fill="#fff" opacity=".28" />
+          <rect x="296" y="245" width="8" height="26" rx="4" fill="#fff" opacity=".5" />
+          <rect x="140" y="170" width="230" height="78" rx="14" fill="#fff" opacity=".5" />
+          <rect x="378" y="190" width="96" height="58" rx="14" fill="#fff" opacity=".6" />
+          <rect x="396" y="198" width="44" height="22" rx="8" fill="#8fa3b3" opacity=".35" />
+          <circle cx="188" cy="256" r="17" fill="#8fa3b3" opacity=".45" />
+          <circle cx="252" cy="256" r="17" fill="#8fa3b3" opacity=".45" />
+          <circle cx="422" cy="256" r="17" fill="#8fa3b3" opacity=".45" />
+        </g>
+        <g v-else-if="kind === 'tachograph'">
+          <rect x="130" y="110" width="340" height="190" rx="22" fill="#fff" opacity=".5" />
+          <rect x="152" y="132" width="170" height="86" rx="12" fill="#8fa3b3" opacity=".4" />
+          <rect x="166" y="148" width="92" height="9" rx="4.5" fill="#fff" opacity=".6" />
+          <rect x="166" y="168" width="64" height="9" rx="4.5" fill="#fff" opacity=".45" />
+          <rect x="344" y="136" width="104" height="14" rx="7" fill="#8fa3b3" opacity=".35" />
+          <rect x="344" y="166" width="104" height="48" rx="12" fill="#8fa3b3" opacity=".28" />
+          <rect v-for="i in 5" :key="i" :x="152 + (i - 1) * 66" y="238" width="52" height="34" rx="10" fill="#8fa3b3" opacity=".35" />
+          <rect x="152" y="284" width="296" height="6" rx="3" fill="#fff" opacity=".6" />
+        </g>
+        <g v-else-if="kind === 'professionals'">
+          <ellipse cx="300" cy="288" rx="270" ry="82" fill="#8fa3b3" opacity=".3" />
+          <ellipse cx="300" cy="288" rx="224" ry="62" fill="#fff" opacity=".4" />
+          <g v-for="i in 4" :key="i" fill="#fff" opacity=".7">
+            <circle :cx="150 + (i - 1) * 100" cy="144" r="21" />
+            <path :d="`M${150 + (i - 1) * 100 - 32} 290 V204 a32 32 0 0 1 64 0 V290 Z`" />
+          </g>
+        </g>
+        <g v-else>
+          <rect x="-1000" y="250" width="2600" height="150" fill="#8fa3b3" opacity=".25" />
+          <rect x="190" y="120" width="220" height="140" rx="28" fill="#fff" opacity=".5" />
+          <circle cx="300" cy="190" r="26" fill="#8fa3b3" opacity=".35" />
+        </g>
+      </svg>
+    </div>
     <canvas
       ref="canvas"
       class="scene-canvas"
@@ -205,10 +244,13 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .scene-3d { position: relative; width: 100%; height: 100%; min-height: 20rem; overflow: hidden; background: linear-gradient(180deg, #c9e3ed 0%, #e8f0f0 100%); }
-.scene-canvas, .scene-fallback, .scene-loading { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.scene-loading { background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / .45) 50%, transparent 65%) no-repeat; background-size: 250% 100%; animation: scene-shimmer 1.6s ease-in-out infinite; }
+.scene-canvas, .scene-fallback, .scene-skeleton { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.scene-skeleton { animation: scene-appear .5s ease both; }
+.scene-skeleton svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.scene-skeleton::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / .55) 50%, transparent 65%) no-repeat; background-size: 250% 100%; animation: scene-shimmer 1.8s ease-in-out infinite; }
+@keyframes scene-appear { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scene-shimmer { from { background-position: 130% 0; } to { background-position: -30% 0; } }
-@media (prefers-reduced-motion: reduce) { .scene-loading { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .scene-skeleton, .scene-skeleton::after { animation: none; } }
 .scene-fallback { object-fit: cover; object-position: left; }
 .scene-canvas { opacity: 0; transition: opacity .4s ease; }
 .scene-canvas.is-ready { opacity: 1; }
